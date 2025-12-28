@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import BaseButton from '../components/BaseButton'
+import TransparentButton from '../components/TransparentButton.tsx'
 import prewin from '../assets/prewinSaludando.png'
 
 function WelcomePage() {
@@ -19,6 +20,9 @@ function WelcomePage() {
     overflow-hidden
   "
     >
+      <div className="absolute top-0 right-0 z-20">
+        <TransparentButton>Ingresar</TransparentButton>
+      </div>
       {/* CAPA 1: contenido centrado real */}
       <div
         className="
@@ -32,22 +36,24 @@ function WelcomePage() {
       >
         <h1
           className="
-      text-center
-      font-bold
-      text-blue-900"
+          text-center
+          font-bold
+          md:text-xl
+          text-blue-900"
         >
-          ¡Bienvenido(a) a PreuIng!
+          (FALTA EL LOGO!!!) ¡Bienvenido(a) a PreuIng!
         </h1>
 
         <div
           className="
-      flex flex-col
-      md:flex-row
-      gap-4
-      md:gap-24
-      justify-center
-      w-full
-      "
+          flex flex-col
+          md:flex-row
+          gap-4
+          md:gap-24
+          justify-center
+          w-full
+          items-center
+          "
         >
           <BaseButton>Postula al Equipo</BaseButton>
           <BaseButton>Postula como Estudiante</BaseButton>
