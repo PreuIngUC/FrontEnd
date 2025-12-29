@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-sky-50
+}
+/* ----------------------------------
+/* Mini CSS Reset             */
+/* ---------------------------------- */
+
+/* 1. Resetea los márgenes del body y elementos comunes */
+/* body,
+h1,
+p {
+  margin: 0;
+} */
+
+/* 2. Aplica el 'box-sizing' a todo (más fácil para los tamaños) */
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+} */
+
+/* 2. Define tus fuentes base */
+/* body {
+  /* Lato será la fuente por defecto para todo */
+  /* font-family: 'Lato', system-ui, sans-serif;
+  line-height: 1.5;
+} */
+
+/* 3. Define la fuente para títulos y botones */
+/* h1,
+h2,
+h3,
+button {
+  font-family: 'Montserrat', sans-serif;
+} */
