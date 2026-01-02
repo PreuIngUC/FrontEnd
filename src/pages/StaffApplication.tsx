@@ -21,7 +21,7 @@ function mapFormToBody(values: FormType): BodyType {
     user,
   }
 }
-
+//TODO: modularizar comportamiento comun entre student y staff
 function StaffApplication() {
   const api = BackendApi.getInstance()
   const navigate = useNavigate()
