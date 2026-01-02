@@ -6,6 +6,7 @@ import type { StaffApplicationDtoType } from '../schemas/UserApplications.ts'
 import SubmitApplicationButton from '../components/buttons/SubmitApplicationButton.tsx'
 import TextField from '../components/form/TextField.tsx'
 import BackendApi from '../api/BackendApi.ts'
+import { useNavigate } from 'react-router-dom'
 
 type BodyType =
   paths['/api/public/staff/application']['post']['requestBody']['content']['application/json']
@@ -23,6 +24,7 @@ function mapFormToBody(values: FormType): BodyType {
 
 function StaffApplication() {
   const api = BackendApi.getInstance()
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -41,9 +43,14 @@ function StaffApplication() {
     },
   })
   const onSubmit = async (values: FormType) => {
-    const bodyForm = mapFormToBody(values)
-    await api.sendApplication(bodyForm)
-    console.log('Subido:', bodyForm)
+    try {
+      const bodyForm = mapFormToBody(values)
+      await api.sendApplication(bodyForm)
+      // console.log('Subido:', bodyForm)
+      navigate('/application/submitted')
+    } catch {
+      navigate('/application/failed')
+    }
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

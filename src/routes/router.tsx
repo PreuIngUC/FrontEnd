@@ -3,6 +3,8 @@ import App from '../App'
 import WelcomePage from '../pages/welcome'
 import StudentApplication from '../pages/StudentApplication.tsx'
 import StaffApplication from '../pages/StaffApplication.tsx'
+import ApplicationFailed from '../pages/ApplicationFailed.tsx'
+import ApplicationSubmitted from '../pages/ApplicationSubmitted.tsx'
 
 const router = createBrowserRouter([
   {
@@ -21,6 +23,14 @@ const router = createBrowserRouter([
       {
         path: '/staff/application',
         element: <StaffApplication />,
+      },
+      {
+        path: '/application/failed',
+        element: <ApplicationFailed />,
+      },
+      {
+        path: '/application/submitted',
+        element: <ApplicationSubmitted />,
       },
     ],
   },
