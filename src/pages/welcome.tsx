@@ -1,6 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import BaseButton from '../components/buttons/BaseButton.tsx'
-import TransparentButton from '../components/buttons/TransparentButton.tsx'
+import SignInButton from '../components/buttons/SignInButton.tsx'
 import prewin from '../assets/prewinSaludando.png'
 // import router from '../routes/router.tsx'
 
@@ -22,7 +22,7 @@ function WelcomePage() {
   "
     >
       <div className="absolute top-0 right-0 z-20">
-        <TransparentButton>Ingresar</TransparentButton>
+        <SignInButton />
       </div>
       {/* CAPA 1: contenido centrado real */}
       <div

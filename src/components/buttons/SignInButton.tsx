@@ -1,12 +1,9 @@
-import React from 'react'
-
-interface TransparentButtonProps {
-  children: React.ReactNode
-}
-
-function TransparentButton({ children }: TransparentButtonProps) {
+import { useAuth0 } from '@auth0/auth0-react'
+function SignInButton() {
+  const { loginWithRedirect } = useAuth0()
   return (
     <button
+      onClick={() => loginWithRedirect()}
       className="
       bg-sky-300/0
       text-blue-900
@@ -18,9 +15,9 @@ function TransparentButton({ children }: TransparentButtonProps) {
       md:text-xl
     "
     >
-      {children}
+      Ingresar
     </button>
   )
 }
 
-export default TransparentButton
+export default SignInButton
