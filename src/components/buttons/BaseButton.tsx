@@ -1,10 +1,16 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 interface BaseButtonProps {
   children: React.ReactNode
+  redirectTo: string
 }
 
-function BaseButton({ children }: BaseButtonProps) {
+function BaseButton({ children, redirectTo }: BaseButtonProps) {
+  const navigate = useNavigate()
+  const clickHandler = () => {
+    navigate(redirectTo)
+  }
   return (
     <button
       className="
@@ -26,6 +32,7 @@ function BaseButton({ children }: BaseButtonProps) {
             active:text-sky-300
             md:text-xl
             "
+      onClick={clickHandler}
     >
       {children}
     </button>

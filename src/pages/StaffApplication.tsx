@@ -20,7 +20,7 @@ function mapFormToBody(values: FormType): BodyType {
   }
 }
 
-function StudentApplication() {
+function StaffApplication() {
   const {
     register,
     handleSubmit,
@@ -89,4 +89,4 @@ function StudentApplication() {
   )
 }
 
-export default StudentApplication
+export default StaffApplication

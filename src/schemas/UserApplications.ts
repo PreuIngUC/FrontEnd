@@ -8,9 +8,20 @@ const UserInput = UserSchema.omit({
   id: true,
   auth0Id: true,
   createdAt: true,
-}).extend({
-  rut: z.string().refine(rutVerify, 'RUT inválido'),
 })
+  .extend({
+    rut: z.string().refine(rutVerify, 'RUT inválido'),
+    confirmEmail: z.email('Correo inválido'),
+  })
+  .superRefine((data, ctx) => {
+    if (data.email !== data.confirmEmail) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['confirmEmail'],
+        message: 'Los correos no coinciden',
+      })
+    }
+  })
 
 const StaffInput = StaffProfileSchema.omit({
   id: true,

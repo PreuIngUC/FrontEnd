@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import BaseButton from '../components/BaseButton'
-import TransparentButton from '../components/TransparentButton.tsx'
+import BaseButton from '../components/buttons/BaseButton.tsx'
+import TransparentButton from '../components/buttons/TransparentButton.tsx'
 import prewin from '../assets/prewinSaludando.png'
+// import router from '../routes/router.tsx'
 
 function WelcomePage() {
   const { isAuthenticated, isLoading } = useAuth0()
@@ -55,8 +56,8 @@ function WelcomePage() {
           items-center
           "
         >
-          <BaseButton>Postula al Equipo</BaseButton>
-          <BaseButton>Postula como Estudiante</BaseButton>
+          <BaseButton redirectTo="/staff/application">Postula al Equipo</BaseButton>
+          <BaseButton redirectTo="/student/application">Postula como Estudiante</BaseButton>
         </div>
       </div>
 
