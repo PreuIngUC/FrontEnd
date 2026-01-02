@@ -5,9 +5,10 @@ import { StudentApplicationDto } from '../schemas/UserApplications.ts'
 import type { StudentApplicationDtoType } from '../schemas/UserApplications.ts'
 import SubmitApplicationButton from '../components/buttons/SubmitApplicationButton.tsx'
 import TextField from '../components/form/TextField.tsx'
+import BackendApi from '../api/BackendApi.ts'
 
 type BodyType =
-  paths['/api/student/application']['post']['requestBody']['content']['application/json']
+  paths['/api/public/student/application']['post']['requestBody']['content']['application/json']
 
 type FormType = StudentApplicationDtoType
 
@@ -21,6 +22,7 @@ function mapFormToBody(values: FormType): BodyType {
 }
 
 function StudentApplication() {
+  const api = BackendApi.getInstance()
   const {
     register,
     handleSubmit,
@@ -41,6 +43,7 @@ function StudentApplication() {
   const onSubmit = async (values: FormType) => {
     //En esta parte va el comportamiento al mandar los datos listos
     const bodyForm = mapFormToBody(values)
+    await api.sendApplication(bodyForm)
     console.log('Subido:', bodyForm)
   }
   return (

@@ -1,15 +1,16 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { paths } from '../api/types.ts'
-import { StudentApplicationDto } from '../schemas/UserApplications.ts'
-import type { StudentApplicationDtoType } from '../schemas/UserApplications.ts'
+import { StaffApplicationDto } from '../schemas/UserApplications.ts'
+import type { StaffApplicationDtoType } from '../schemas/UserApplications.ts'
 import SubmitApplicationButton from '../components/buttons/SubmitApplicationButton.tsx'
 import TextField from '../components/form/TextField.tsx'
+import BackendApi from '../api/BackendApi.ts'
 
 type BodyType =
-  paths['/api/student/application']['post']['requestBody']['content']['application/json']
+  paths['/api/public/staff/application']['post']['requestBody']['content']['application/json']
 
-type FormType = StudentApplicationDtoType
+type FormType = StaffApplicationDtoType
 
 function mapFormToBody(values: FormType): BodyType {
   const { confirmEmail, ...user } = values.user
@@ -21,12 +22,13 @@ function mapFormToBody(values: FormType): BodyType {
 }
 
 function StaffApplication() {
+  const api = BackendApi.getInstance()
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<FormType>({
-    resolver: zodResolver(StudentApplicationDto),
+    resolver: zodResolver(StaffApplicationDto),
     defaultValues: {
       user: {
         rut: '',
@@ -35,12 +37,12 @@ function StaffApplication() {
         lastName0: '',
         lastName1: '',
       },
-      student: {},
+      staff: {},
     },
   })
   const onSubmit = async (values: FormType) => {
-    //En esta parte va el comportamiento al mandar los datos listos
     const bodyForm = mapFormToBody(values)
+    await api.sendApplication(bodyForm)
     console.log('Subido:', bodyForm)
   }
   return (
