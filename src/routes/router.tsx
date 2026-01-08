@@ -1,10 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
-import WelcomePage from '../pages/welcome'
+import WelcomePage from '../pages/WelcomePage.tsx'
 import StudentApplication from '../pages/StudentApplication.tsx'
 import StaffApplication from '../pages/StaffApplication.tsx'
 import ApplicationFailed from '../pages/ApplicationFailed.tsx'
 import ApplicationSubmitted from '../pages/ApplicationSubmitted.tsx'
+import HomePage from '../pages/HomePage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/application/submitted',
         element: <ApplicationSubmitted />,
+      },
+      {
+        path: '/home',
+        element: <HomePage />,
       },
     ],
   },

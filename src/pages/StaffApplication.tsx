@@ -5,7 +5,7 @@ import { StaffApplicationDto } from '../schemas/UserApplications.ts'
 import type { StaffApplicationDtoType } from '../schemas/UserApplications.ts'
 import SubmitApplicationButton from '../components/buttons/SubmitApplicationButton.tsx'
 import TextField from '../components/form/TextField.tsx'
-import BackendApi from '../api/BackendApi.ts'
+import { useApi } from '../wrappers/ApiProvider.tsx'
 import { useNavigate } from 'react-router-dom'
 
 type BodyType =
@@ -23,7 +23,7 @@ function mapFormToBody(values: FormType): BodyType {
 }
 //TODO: modularizar comportamiento comun entre student y staff
 function StaffApplication() {
-  const api = BackendApi.getInstance()
+  const api = useApi()
   const navigate = useNavigate()
   const {
     register,
