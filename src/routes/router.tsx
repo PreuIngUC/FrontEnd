@@ -6,6 +6,7 @@ import StaffApplication from '../pages/StaffApplication.tsx'
 import ApplicationFailed from '../pages/ApplicationFailed.tsx'
 import ApplicationSubmitted from '../pages/ApplicationSubmitted.tsx'
 import HomePage from '../pages/HomePage.tsx'
+import ProtectedRoute from '../wrappers/ProtectedRoute.tsx'
 
 const router = createBrowserRouter([
   {
@@ -35,7 +36,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/home',
-        element: <HomePage />,
+        element: (
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
