@@ -46,9 +46,10 @@ function StaffApplication() {
     try {
       const bodyForm = mapFormToBody(values)
       await api.sendApplication(bodyForm)
-      // console.log('Subido:', bodyForm)
+      console.log('Subido:', bodyForm)
       navigate('/application/submitted')
-    } catch {
+    } catch (err) {
+      console.error(err)
       navigate('/application/failed')
     }
   }

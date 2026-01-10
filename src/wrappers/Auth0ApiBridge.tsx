@@ -8,9 +8,12 @@ function Auth0ApiBridge({ children }: PropsWithChildren) {
   useEffect(() => {
     const api = BackendApi.getInstance()
 
-    api.setTokenGetter(async (opts?: { force?: boolean }) => {
-      if (!isAuthenticated) throw new Error('Not authenticated')
+    if (!isAuthenticated) {
+      api.setTokenGetter(null)
+      return
+    }
 
+    api.setTokenGetter(async (opts?: { force?: boolean }) => {
       return getAccessTokenSilently({
         authorizationParams: { audience: import.meta.env.VITE_AUTH0_AUDIENCE },
         cacheMode: opts?.force ? 'off' : 'on',

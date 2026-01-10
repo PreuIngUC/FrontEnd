@@ -2,17 +2,16 @@ import { useAuth0 } from '@auth0/auth0-react'
 import BaseButton from '../components/buttons/BaseButton.tsx'
 import SignInButton from '../components/buttons/SignInButton.tsx'
 import prewin from '../assets/prewinSaludando.png'
-import { useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 // import router from '../routes/router.tsx'
 
 function WelcomePage() {
   const { isAuthenticated, isLoading } = useAuth0()
-  const navigate = useNavigate()
   if (isLoading) {
     return <div>{'Cargando ...'}</div>
   }
   if (isAuthenticated) {
-    navigate('/home')
+    return <Navigate to="/home" replace />
   }
   return (
     <div

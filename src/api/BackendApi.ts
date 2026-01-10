@@ -43,7 +43,7 @@ class BackendApi {
     if (!BackendApi.instance) BackendApi.instance = new BackendApi()
     return BackendApi.instance
   }
-  setTokenGetter(getter: TokenGetter) {
+  setTokenGetter(getter: TokenGetter | null) {
     this.tokenGetter = getter
   }
   private async getTokenCached() {
@@ -56,7 +56,7 @@ class BackendApi {
     return token
   }
   private get<T>(url: string, params?: unknown) {
-    return this.api.post<T>(url, { params })
+    return this.api.get<T>(url, { params })
   }
   private post<TRes, TBody = unknown>(url: string, body?: TBody) {
     return this.api.post<TRes>(url, body)
@@ -76,6 +76,32 @@ class BackendApi {
       ? '/api/public/staff/application'
       : '/api/public/student/application'
     return this.post(path, body)
+  }
+  async getApplications(type: 'staff' | 'students') {
+    return this.get(`/api/private/${type}/applications`)
+  }
+  async changeApplicationState(
+    type: 'staff' | 'student',
+    params:
+      | paths['/api/private/staff/appstate/:applicationState/:id']['patch']['parameters']['path']
+      | paths['/api/private/student/appstate/:applicationState/:id']['patch']['parameters']['path'],
+  ) {
+    const { id, applicationState } = params
+    const path =
+      type === 'staff'
+        ? `/api/private/staff/appstate/${applicationState}/${id}`
+        : `/api/private/student/appstate/${applicationState}/${id}`
+    return this.patch(path)
+  }
+  async getApplication(
+    type: 'staff' | 'student',
+    params:
+      | paths['/api/private/student/application/:id']['get']['parameters']['path']
+      | paths['/api/private/staff/application/:id']['get']['parameters']['path'],
+  ) {
+    const { id } = params
+    const path = `/api/private/${type}/application/${id}`
+    return this.get(path)
   }
 }
 
