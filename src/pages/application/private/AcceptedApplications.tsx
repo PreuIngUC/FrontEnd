@@ -16,7 +16,7 @@ export default function AcceptedApplications<T extends PluralKind>({ of }: { of:
     setCreating(true)
     const { jobId } = (await api.createJob({ of })).data
     const sleep = (ms: number) => new Promise(r => setTimeout(r, ms))
-    while ((await api.jobStep({ of: 'staff', params: { jobId } })).data.stepsAvailable) {
+    while ((await api.jobStep({ of, params: { jobId } })).data.stepsAvailable) {
       await sleep(150)
       await refetch()
       await sleep(150)
