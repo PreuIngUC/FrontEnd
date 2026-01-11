@@ -10,16 +10,23 @@
     "preview": "vite preview",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check"
+    "format:check": "prettier --check",
+    "gen:api": "openapi-typescript http://localhost:3000/openapi.json -o src/api/types.ts"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.8.0",
+    "@hookform/resolvers": "^5.2.2",
     "@tailwindcss/vite": "^4.1.18",
+    "axios": "^1.13.2",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "jwt-decode": "^4.0.0",
+    "lucide-react": "^0.562.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-hook-form": "^7.69.0",
     "react-router-dom": "^7.9.5",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
     "@eslint/css": "^0.14.0",
@@ -35,6 +42,7 @@
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",
+    "openapi-typescript": "^7.10.1",
     "prettier": "^3.6.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.2",

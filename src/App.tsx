@@ -3,12 +3,18 @@
 // import LogoutButton from './components/LogoutButton'
 // import Profile from './components/Profile'
 import { Outlet } from 'react-router-dom'
+import Auth0ApiBridge from './wrappers/Auth0ApiBridge.tsx'
+import { ApiProvider } from './wrappers/ApiProvider.tsx'
 
 function App() {
   return (
-    <main>
-      <Outlet />
-    </main>
+    <Auth0ApiBridge>
+      <ApiProvider>
+        <main>
+          <Outlet />
+        </main>
+      </ApiProvider>
+    </Auth0ApiBridge>
   )
 }
 
