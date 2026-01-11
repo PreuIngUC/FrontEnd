@@ -18,5 +18,5 @@ export default function StudentApplications() {
     }
   })
 
-  return <ApplicationsRender of="staff" users={formated} loading={loading} error={error} />
+  return <ApplicationsRender of="student" users={formated} loading={loading} error={error} />
 }
