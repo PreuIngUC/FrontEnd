@@ -12,6 +12,8 @@ import Permissions from '../constants/permissions.ts'
 import StudentApplications from '../pages/StudentApplications.tsx'
 import AcceptedStaff from '../pages/AcceptedStaff.tsx'
 import AcceptedStudents from '../pages/AcceptedStudents.tsx'
+import StaffApplicationDetail from '../pages/StaffApplicationDetail.tsx'
+import VerifyThenPassword from '../pages/VerifyThenPassword.tsx'
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,19 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/staff/application/:id',
+        element: (
+          <ProtectedRoute
+            permissionsRequired={[
+              Permissions.AcceptStaffApplications,
+              Permissions.ReadStaffApplications,
+            ]}
+          >
+            <StaffApplicationDetail />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: '/staff/accepted',
         element: (
           <ProtectedRoute permissionsRequired={[Permissions.CreateStaffUsers]}>
@@ -88,6 +103,10 @@ const router = createBrowserRouter([
             <AcceptedStudents />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: '/verify',
+        element: <VerifyThenPassword />,
       },
     ],
   },

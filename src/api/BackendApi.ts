@@ -3,6 +3,10 @@ import type { paths } from './types.ts'
 
 type TokenGetter = (opts?: { force?: boolean }) => Promise<string>
 
+export type PluralKind = 'staff' | 'students'
+
+export type SingularKind = 'staff' | 'student'
+
 class BackendApi {
   private api: AxiosInstance
   private static instance: BackendApi
@@ -77,31 +81,79 @@ class BackendApi {
       : '/api/public/student/application'
     return this.post(path, body)
   }
-  async getApplications(type: 'staff' | 'students') {
-    return this.get(`/api/private/${type}/applications`)
+  async getApplications<R extends PluralKind>({ of }: { of: R }) {
+    return this.get<
+      R extends 'staff'
+        ? paths['/api/private/staff/applications']['get']['responses']['200']['content']['application/json']
+        : paths['/api/private/students/applications']['get']['responses']['200']['content']['application/json']
+    >(`/api/private/${of}/applications`)
   }
-  async changeApplicationState(
-    type: 'staff' | 'student',
-    params:
-      | paths['/api/private/staff/appstate/:applicationState/:id']['patch']['parameters']['path']
-      | paths['/api/private/student/appstate/:applicationState/:id']['patch']['parameters']['path'],
-  ) {
+  async changeApplicationState<R extends SingularKind>({
+    of,
+    params,
+  }: {
+    of: R
+    params: R extends 'staff'
+      ? paths['/api/private/staff/appstate/:applicationState/:id']['patch']['parameters']['path']
+      : paths['/api/private/student/appstate/:applicationState/:id']['patch']['parameters']['path']
+  }) {
     const { id, applicationState } = params
     const path =
-      type === 'staff'
+      of === 'staff'
         ? `/api/private/staff/appstate/${applicationState}/${id}`
         : `/api/private/student/appstate/${applicationState}/${id}`
     return this.patch(path)
   }
-  async getApplication(
-    type: 'staff' | 'student',
-    params:
-      | paths['/api/private/student/application/:id']['get']['parameters']['path']
-      | paths['/api/private/staff/application/:id']['get']['parameters']['path'],
-  ) {
+  async getApplication<R extends SingularKind>({
+    of,
+    params,
+  }: {
+    of: R
+    params: R extends 'staff'
+      ? paths['/api/private/staff/application/:id']['get']['parameters']['path']
+      : paths['/api/private/student/application/:id']['get']['parameters']['path']
+  }) {
     const { id } = params
-    const path = `/api/private/${type}/application/${id}`
-    return this.get(path)
+    const path = `/api/private/${of}/application/${id}`
+    return this.get<
+      R extends 'staff'
+        ? paths['/api/private/staff/application/:id']['get']['responses']['200']['content']['application/json']
+        : paths['/api/private/student/application/:id']['get']['responses']['200']['content']['application/json']
+    >(path)
+  }
+  async getAcceptedApplications<R extends PluralKind>({ of }: { of: R }) {
+    return this.get<
+      R extends 'staff'
+        ? paths['/api/private/staff/accepted']['get']['responses']['200']['content']['application/json']
+        : paths['/api/private/students/accepted']['get']['responses']['200']['content']['application/json']
+    >(`/api/private/${of}/accepted`)
+  }
+  async createJob<R extends PluralKind>({ of }: { of: R }) {
+    return this.post<
+      R extends 'staff'
+        ? paths['/api/private/job/staff/create']['post']['responses']['201']['content']['application/json']
+        : paths['/api/private/job/students/create']['post']['responses']['201']['content']['application/json']
+    >(`/api/private/job/${of}/create`)
+  }
+  async jobStep<R extends PluralKind>({
+    of,
+    params,
+  }: {
+    of: R
+    params: R extends 'staff'
+      ? paths['/api/private/job/staff/step/:jobId']['post']['parameters']['path']
+      : paths['/api/private/job/students/step/:jobId']['post']['parameters']['path']
+  }) {
+    return this.post<
+      R extends 'staff'
+        ? paths['/api/private/job/staff/step/:jobId']['post']['responses']['201']['content']['application/json']
+        : paths['/api/private/job/students/step/:jobId']['post']['responses']['201']['content']['application/json']
+    >(`/api/private/job/${of}/step/${params.jobId}`)
+  }
+  async verifyThenChangePassword(
+    body: paths['/api/public/users/verify-then-password']['patch']['requestBody']['content']['application/json'],
+  ) {
+    return this.patch('/api/public/users/verify-then-password', body)
   }
 }
 

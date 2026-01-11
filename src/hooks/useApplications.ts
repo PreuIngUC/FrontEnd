@@ -1,44 +1,28 @@
 import { useEffect, useState } from 'react'
 import { useApi } from '../wrappers/ApiProvider.tsx'
+import BackendApi, { type PluralKind } from '../api/BackendApi.ts'
 
-interface UseApplicationsProps {
-  type: 'staff' | 'students'
-}
-export interface User {
-  id: string
-  names: string
-  lastName0: string
-  lastName1: string
-  staffProfile?: {
-    applicationState: 'PENDING_AS_STAFF' | 'ACCEPTED_AS_STAFF'
-  }
-  studentProfile?: {
-    applicationState: 'PENDING_AS_STUDENT' | 'ACCEPTED_AS_STUDENT'
-  }
-}
-interface UseApplicationsReturn {
-  users: User[]
-  loading: boolean
-  error?: string
-}
-export default function useApplications({ type }: UseApplicationsProps): UseApplicationsReturn {
-  const [users, setUsers] = useState<User[]>([])
+export default function useApplications<R extends PluralKind>({ of }: { of: R }) {
+  const [users, setUsers] = useState<
+    Awaited<ReturnType<typeof BackendApi.prototype.getApplications<R>>>['data']['users']
+  >([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | undefined>(undefined)
   const api = useApi()
   useEffect(() => {
     if (!api) return
+    if (!of) return
+    setLoading(true)
     void (async () => {
       try {
-        const data = (await api.getApplications(type)).data as { users: User[] }
+        const data = (await api.getApplications<R>({ of })).data
         setUsers(data.users)
-        // console.log(data)
       } catch {
         setError('Error obteniendo usuarios.')
       } finally {
         setLoading(false)
       }
     })()
-  }, [api])
+  }, [api, of])
   return { users, loading, error }
 }

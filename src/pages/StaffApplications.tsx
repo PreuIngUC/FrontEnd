@@ -3,12 +3,13 @@ import useApplications from '../hooks/useApplications.ts'
 import { useMemo, useState } from 'react'
 
 export default function StaffApplications() {
-  const { users } = useApplications({ type: 'staff' })
-  const [tab, setTab] = useState<'PENDING_AS_STAFF' | 'ACCEPTED_AS_STAFF'>('PENDING_AS_STAFF')
+  const { users, loading, error } = useApplications({ of: 'staff' })
+  const [tab, setTab] =
+    useState<(typeof users)[number]['staffProfile']['applicationState']>('PENDING_AS_STAFF')
   const navigate = useNavigate()
 
   const filtered = useMemo(() => {
-    return users.filter(u => u.staffProfile?.applicationState === tab)
+    return users.filter(u => u.staffProfile.applicationState === tab)
   }, [users, tab])
 
   return (
@@ -33,6 +34,15 @@ export default function StaffApplications() {
           onClick={() => setTab('ACCEPTED_AS_STAFF')}
         >
           Aceptadas
+        </button>
+
+        <button
+          className={`px-4 py-2 border ${
+            tab === 'REJECTED_AS_STAFF' ? 'font-semibold border-black' : 'border-gray-300'
+          }`}
+          onClick={() => setTab('REJECTED_AS_STAFF')}
+        >
+          Rechazadas
         </button>
       </div>
 
@@ -60,8 +70,21 @@ export default function StaffApplications() {
               </td>
             </tr>
           ))}
-
-          {filtered.length === 0 && (
+          {loading && (
+            <tr>
+              <td colSpan={2} className="py-4 text-gray-500">
+                Cargando...
+              </td>
+            </tr>
+          )}
+          {error && (
+            <tr>
+              <td colSpan={2} className="py-4 text-gray-500">
+                Ocurrió un Error
+              </td>
+            </tr>
+          )}
+          {!loading && !error && filtered.length === 0 && (
             <tr>
               <td colSpan={2} className="py-4 text-gray-500">
                 No hay postulaciones en esta pestaña.
