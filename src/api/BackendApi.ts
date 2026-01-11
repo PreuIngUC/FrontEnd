@@ -68,9 +68,9 @@ class BackendApi {
   private patch<TRes, TBody = unknown>(url: string, body?: TBody) {
     return this.api.patch<TRes>(url, body)
   }
-  private delete<T>(url: string) {
-    return this.api.delete<T>(url)
-  }
+  // private delete<T>(url: string) {
+  //   return this.api.delete<T>(url)
+  // }
   async sendApplication(
     body:
       | paths['/api/public/staff/application']['post']['requestBody']['content']['application/json']
