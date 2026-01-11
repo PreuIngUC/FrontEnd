@@ -1,10 +1,11 @@
 import { useNavigate } from 'react-router-dom'
-import useAcceptedApplications from '../hooks/useAcceptedApplications.ts'
-import { useApi } from '../wrappers/ApiProvider.tsx'
+import useAcceptedApplications from '../../../hooks/useAcceptedApplications.ts'
+import { useApi } from '../../../wrappers/ApiProvider.tsx'
 import { useState } from 'react'
+import type { PluralKind } from '../../../api/BackendApi.ts'
 
-export default function AcceptedStaff() {
-  const { users, loading, error, refetch } = useAcceptedApplications({ of: 'staff' })
+export default function AcceptedApplications<T extends PluralKind>({ of }: { of: T }) {
+  const { users, loading, error, refetch } = useAcceptedApplications({ of })
   const api = useApi()
   const [creating, setCreating] = useState<boolean>(false)
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ export default function AcceptedStaff() {
     if (!api) return
     if (creating) return
     setCreating(true)
-    const { jobId } = (await api.createJob({ of: 'staff' })).data
+    const { jobId } = (await api.createJob({ of })).data
     const sleep = (ms: number) => new Promise(r => setTimeout(r, ms))
     while ((await api.jobStep({ of: 'staff', params: { jobId } })).data.stepsAvailable) {
       await sleep(150)
@@ -53,7 +54,9 @@ export default function AcceptedStaff() {
               <td className="py-2">
                 <button
                   className="underline"
-                  onClick={() => navigate(`/staff/application/${u.id}`)}
+                  onClick={() =>
+                    navigate(`/${of === 'staff' ? of : 'student'}/read-application/${u.id}`)
+                  }
                 >
                   Revisar
                 </button>

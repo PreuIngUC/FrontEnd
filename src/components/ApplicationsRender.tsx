@@ -1,15 +1,29 @@
+import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
-import useApplications from '../hooks/useApplications.ts'
-import { useMemo, useState } from 'react'
 
-export default function StaffApplications() {
-  const { users, loading, error } = useApplications({ of: 'staff' })
-  const [tab, setTab] =
-    useState<(typeof users)[number]['staffProfile']['applicationState']>('PENDING_AS_STAFF')
+interface User {
+  id: string
+  names: string
+  lastName0: string
+  lastName1: string
+  applicationState: 'PENDING' | 'ACCEPTED' | 'REJECTED'
+}
+
+export default function ApplicationsRender({
+  of,
+  users,
+  loading,
+  error,
+}: {
+  of: 'staff' | 'student'
+  users: User[]
+  loading: boolean
+  error: string | undefined
+}) {
+  const [tab, setTab] = useState<User['applicationState']>('PENDING')
   const navigate = useNavigate()
-
   const filtered = useMemo(() => {
-    return users.filter(u => u.staffProfile.applicationState === tab)
+    return users.filter(u => u.applicationState === tab)
   }, [users, tab])
 
   return (
@@ -20,27 +34,27 @@ export default function StaffApplications() {
       <div className="flex gap-2 mb-6">
         <button
           className={`px-4 py-2 border ${
-            tab === 'PENDING_AS_STAFF' ? 'font-semibold border-black' : 'border-gray-300'
+            tab === 'PENDING' ? 'font-semibold border-black' : 'border-gray-300'
           }`}
-          onClick={() => setTab('PENDING_AS_STAFF')}
+          onClick={() => setTab('PENDING')}
         >
           Pendientes
         </button>
 
         <button
           className={`px-4 py-2 border ${
-            tab === 'ACCEPTED_AS_STAFF' ? 'font-semibold border-black' : 'border-gray-300'
+            tab === 'ACCEPTED' ? 'font-semibold border-black' : 'border-gray-300'
           }`}
-          onClick={() => setTab('ACCEPTED_AS_STAFF')}
+          onClick={() => setTab('ACCEPTED')}
         >
           Aceptadas
         </button>
 
         <button
           className={`px-4 py-2 border ${
-            tab === 'REJECTED_AS_STAFF' ? 'font-semibold border-black' : 'border-gray-300'
+            tab === 'REJECTED' ? 'font-semibold border-black' : 'border-gray-300'
           }`}
-          onClick={() => setTab('REJECTED_AS_STAFF')}
+          onClick={() => setTab('REJECTED')}
         >
           Rechazadas
         </button>
@@ -63,7 +77,7 @@ export default function StaffApplications() {
               <td className="py-2">
                 <button
                   className="underline"
-                  onClick={() => navigate(`/staff/application/${u.id}`)}
+                  onClick={() => navigate(`/${of}/application/${u.id}`)}
                 >
                   Revisar
                 </button>

@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { paths } from '../api/types.ts'
-import { StudentApplicationDto } from '../schemas/UserApplications.ts'
-import type { StudentApplicationDtoType } from '../schemas/UserApplications.ts'
-import SubmitApplicationButton from '../components/buttons/SubmitApplicationButton.tsx'
-import TextField from '../components/form/TextField.tsx'
-import { useApi } from '../wrappers/ApiProvider.tsx'
+import type { paths } from '../../../api/types.ts'
+import { StudentApplicationDto } from '../../../schemas/UserApplications.ts'
+import type { StudentApplicationDtoType } from '../../../schemas/UserApplications.ts'
+import SubmitApplicationButton from '../../../components/buttons/SubmitApplicationButton.tsx'
+import TextField from '../../../components/form/TextField.tsx'
+import { useApi } from '../../../wrappers/ApiProvider.tsx'
 import { useNavigate } from 'react-router-dom'
 
 type BodyType =

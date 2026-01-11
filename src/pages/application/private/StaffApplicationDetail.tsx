@@ -1,8 +1,8 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import useApplication from '../hooks/useApplication.ts'
-import { useApi } from '../wrappers/ApiProvider.tsx'
+import useApplication from '../../../hooks/useApplication.ts'
+import { useApi } from '../../../wrappers/ApiProvider.tsx'
 
-export default function StaffApplicationDetail() {
+export default function StaffApplicationDetail({ justRead }: { justRead: boolean }) {
   const { id } = useParams<{ id: string }>()
   const { user, loading, error, mutating, refetch } = useApplication({ of: 'staff', id })
   const api = useApi()
@@ -17,9 +17,8 @@ export default function StaffApplicationDetail() {
   const isAccepted = user.staffProfile.applicationState === 'ACCEPTED_AS_STAFF'
   const isRejected = user.staffProfile.applicationState === 'REJECTED_AS_STAFF'
 
-  // TODO: conecta a tus endpoints
   const onAccept = async () => {
-    if (mutating) return
+    if (mutating || justRead) return
     await api.changeApplicationState({
       of: 'staff',
       params: { id, applicationState: 'ACCEPTED_AS_STAFF' },
@@ -29,7 +28,7 @@ export default function StaffApplicationDetail() {
   }
 
   const onReject = async () => {
-    if (mutating) return
+    if (mutating || justRead) return
     await api.changeApplicationState({
       of: 'staff',
       params: { id, applicationState: 'REJECTED_AS_STAFF' },
@@ -39,7 +38,7 @@ export default function StaffApplicationDetail() {
   }
 
   const onUndoAccept = async () => {
-    if (mutating) return
+    if (mutating || justRead) return
     await api.changeApplicationState({
       of: 'staff',
       params: { id, applicationState: 'PENDING_AS_STAFF' },
@@ -49,7 +48,7 @@ export default function StaffApplicationDetail() {
   }
 
   const onUndoReject = async () => {
-    if (mutating) return
+    if (mutating || justRead) return
     await api.changeApplicationState({
       of: 'staff',
       params: { id, applicationState: 'PENDING_AS_STAFF' },
@@ -100,48 +99,50 @@ export default function StaffApplicationDetail() {
       </div>
 
       {/* Barra fija inferior */}
-      <div className="fixed bottom-0 left-0 right-0 border-t bg-white">
-        <div className="p-4 flex items-center justify-end gap-3">
-          {isPending && (
-            <>
-              <button className="px-4 py-2 border rounded" onClick={onReject} type="button">
-                Rechazar
-              </button>
+      {!justRead && (
+        <div className="fixed bottom-0 left-0 right-0 border-t bg-white">
+          <div className="p-4 flex items-center justify-end gap-3">
+            {isPending && (
+              <>
+                <button className="px-4 py-2 border rounded" onClick={onReject} type="button">
+                  Rechazar
+                </button>
 
-              <button
-                className="px-4 py-2 border rounded font-semibold"
-                onClick={onAccept}
-                type="button"
-              >
-                Aceptar
-              </button>
-            </>
-          )}
+                <button
+                  className="px-4 py-2 border rounded font-semibold"
+                  onClick={onAccept}
+                  type="button"
+                >
+                  Aceptar
+                </button>
+              </>
+            )}
 
-          {isAccepted && (
-            <>
-              <button
-                className="px-4 py-2 border rounded font-semibold"
-                onClick={onUndoAccept}
-                type="button"
-              >
-                Deshacer aprobación
-              </button>
-            </>
-          )}
-          {isRejected && (
-            <>
-              <button
-                className="px-4 py-2 border rounded font-semibold"
-                onClick={onUndoReject}
-                type="button"
-              >
-                Deshacer rechazo
-              </button>
-            </>
-          )}
+            {isAccepted && (
+              <>
+                <button
+                  className="px-4 py-2 border rounded font-semibold"
+                  onClick={onUndoAccept}
+                  type="button"
+                >
+                  Deshacer aprobación
+                </button>
+              </>
+            )}
+            {isRejected && (
+              <>
+                <button
+                  className="px-4 py-2 border rounded font-semibold"
+                  onClick={onUndoReject}
+                  type="button"
+                >
+                  Deshacer rechazo
+                </button>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </main>
   )
 }

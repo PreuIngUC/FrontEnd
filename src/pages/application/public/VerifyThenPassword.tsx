@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useApi } from '../wrappers/ApiProvider.tsx'
+import { useApi } from '../../../wrappers/ApiProvider.tsx'
 
 export default function VerifyThenPassword() {
   const [rut, setRut] = useState<string>('')

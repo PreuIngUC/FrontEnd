@@ -1,19 +1,19 @@
 import { createBrowserRouter } from 'react-router-dom'
 import App from '../App'
 import WelcomePage from '../pages/WelcomePage.tsx'
-import StudentApplication from '../pages/StudentApplication.tsx'
-import StaffApplication from '../pages/StaffApplication.tsx'
-import ApplicationFailed from '../pages/ApplicationFailed.tsx'
-import ApplicationSubmitted from '../pages/ApplicationSubmitted.tsx'
+import StudentApplication from '../pages/application/public/StudentApplication.tsx'
+import StaffApplication from '../pages/application/public/StaffApplication.tsx'
+import ApplicationFailed from '../pages/application/public/ApplicationFailed.tsx'
+import ApplicationSubmitted from '../pages/application/public/ApplicationSubmitted.tsx'
 import HomePage from '../pages/HomePage.tsx'
 import ProtectedRoute from '../wrappers/ProtectedRoute.tsx'
-import StaffApplications from '../pages/StaffApplications.tsx'
+import StaffApplications from '../pages/application/private/StaffApplications.tsx'
 import Permissions from '../constants/permissions.ts'
-import StudentApplications from '../pages/StudentApplications.tsx'
-import AcceptedStaff from '../pages/AcceptedStaff.tsx'
-import AcceptedStudents from '../pages/AcceptedStudents.tsx'
-import StaffApplicationDetail from '../pages/StaffApplicationDetail.tsx'
-import VerifyThenPassword from '../pages/VerifyThenPassword.tsx'
+import StudentApplications from '../pages/application/private/StudentApplications.tsx'
+import StaffApplicationDetail from '../pages/application/private/StaffApplicationDetail.tsx'
+import VerifyThenPassword from '../pages/application/public/VerifyThenPassword.tsx'
+import AcceptedApplications from '../pages/application/private/AcceptedApplications.tsx'
+import StudentApplicationDetail from '../pages/application/private/StudentApplicationDetial.tsx'
 
 const router = createBrowserRouter([
   {
@@ -76,6 +76,19 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: '/student/application/:id',
+        element: (
+          <ProtectedRoute
+            permissionsRequired={[
+              Permissions.AcceptStudentApplications,
+              Permissions.ReadStudentApplications,
+            ]}
+          >
+            <StudentApplicationDetail justRead={false} />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: '/staff/application/:id',
         element: (
           <ProtectedRoute
@@ -84,7 +97,23 @@ const router = createBrowserRouter([
               Permissions.ReadStaffApplications,
             ]}
           >
-            <StaffApplicationDetail />
+            <StaffApplicationDetail justRead={false} />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/staff/read-application/:id',
+        element: (
+          <ProtectedRoute permissionsRequired={[Permissions.ReadStaffApplications]}>
+            <StaffApplicationDetail justRead={true} />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/student/read-application/:id',
+        element: (
+          <ProtectedRoute permissionsRequired={[Permissions.ReadStudentApplications]}>
+            <StudentApplicationDetail justRead={true} />
           </ProtectedRoute>
         ),
       },
@@ -92,7 +121,7 @@ const router = createBrowserRouter([
         path: '/staff/accepted',
         element: (
           <ProtectedRoute permissionsRequired={[Permissions.CreateStaffUsers]}>
-            <AcceptedStaff />
+            <AcceptedApplications of="staff" />
           </ProtectedRoute>
         ),
       },
@@ -100,7 +129,7 @@ const router = createBrowserRouter([
         path: '/students/accepted',
         element: (
           <ProtectedRoute permissionsRequired={[Permissions.CreateStudentUsers]}>
-            <AcceptedStudents />
+            <AcceptedApplications of="students" />
           </ProtectedRoute>
         ),
       },
