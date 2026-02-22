@@ -1,4 +1,4 @@
-import type { UseFormRegister, FieldValues, Path, FieldError } from 'react-hook-form'
+import type { UseFormRegister, FieldValues, Path } from 'react-hook-form'
 
 interface Option {
   value: string | number
@@ -8,7 +8,7 @@ interface Option {
 interface SelectFieldProps<T extends FieldValues> {
   label: string
   register: UseFormRegister<T>
-  error: FieldError | undefined
+  errorMessage?: string
   prop: Path<T>
   options: Option[]
 }
@@ -16,7 +16,7 @@ interface SelectFieldProps<T extends FieldValues> {
 function SelectField<T extends FieldValues>({
   label,
   register,
-  error,
+  errorMessage,
   prop,
   options,
 }: SelectFieldProps<T>) {
@@ -33,7 +33,7 @@ function SelectField<T extends FieldValues>({
           </option>
         ))}
       </select>
-      {error && <p className="">*Debes seleccionar una opción válida</p>}
+      {errorMessage && <p className="">*Debes seleccionar una opción válida</p>}
     </div>
   )
 }

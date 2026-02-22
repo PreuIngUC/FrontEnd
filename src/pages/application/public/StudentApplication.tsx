@@ -5,6 +5,7 @@ import { StudentApplicationDto } from '../../../schemas/UserApplications.ts'
 import SubmitApplicationButton from '../../../components/buttons/SubmitApplicationButton.tsx'
 import TextField from '../../../components/form/TextField.tsx'
 import SelectField from '../../../components/form/SelectField.tsx'
+import NumberField from '../../../components/form/NumberField.tsx'
 import { useApi } from '../../../wrappers/ApiProvider.tsx'
 import { useNavigate } from 'react-router-dom'
 import type z from 'zod'
@@ -45,7 +46,7 @@ function StudentApplication() {
         lastName0: '',
         lastName1: '',
         pronouns: undefined,
-        birthDate: '',
+        birthDate: undefined,
         phoneNumber: '',
       },
       student: {
@@ -94,25 +95,25 @@ function StudentApplication() {
       <TextField
         label="Nombres"
         register={register}
-        error={errors?.user?.names}
+        errorMessage={errors?.user?.names?.message}
         prop="user.names"
       />
       <TextField
         label="Apellido Paterno"
         register={register}
-        error={errors?.user?.lastName0}
+        errorMessage={errors?.user?.lastName0?.message}
         prop="user.lastName0"
       />
       <TextField
         label="Apellido Materno"
         register={register}
-        error={errors?.user?.lastName1}
+        errorMessage={errors?.user?.lastName1?.message}
         prop="user.lastName1"
       />
       <SelectField
         label="Pronombres"
         register={register}
-        error={errors?.user?.pronouns}
+        errorMessage={errors?.user?.pronouns?.message}
         prop="user.pronouns"
         options={selectFieldsOptions.pronounsOpts}
       />
@@ -120,35 +121,42 @@ function StudentApplication() {
         label="RUT (sin puntos y con guión)"
         placeholder="XXXXXXXX-X"
         register={register}
-        error={errors?.user?.rut}
+        errorMessage={errors?.user?.rut?.message}
         prop="user.rut"
       />
-      {/* TODO: agregar fecha de nacimiento */}
+      <TextField
+        label="Fecha de Nacimiento"
+        type="date"
+        placeholder=""
+        register={register}
+        errorMessage={errors?.user?.birthDate?.message}
+        prop="user.birthDate"
+      />
       <TextField
         label="Número de teléfono"
         placeholder="+569XXXXXXXX"
         register={register}
-        error={errors?.user?.phoneNumber}
+        errorMessage={errors?.user?.phoneNumber?.message}
         prop="user.phoneNumber"
       />
       <TextField
         label="Email"
         placeholder="Tu Email"
         register={register}
-        error={errors?.user?.email}
+        errorMessage={errors?.user?.email?.message}
         prop="user.email"
       />
       <TextField
         label="Confirma tu Email"
         placeholder="Tu Email"
         register={register}
-        error={errors?.user?.confirmEmail}
+        errorMessage={errors?.user?.confirmEmail?.message}
         prop="user.confirmEmail"
       />
       <SelectField
         label="Curso"
         register={register}
-        error={errors?.student?.educationalLevel}
+        errorMessage={errors?.student?.educationalLevel?.message}
         prop="student.educationalLevel"
         options={selectFieldsOptions.educationalLevelOpts}
       />
@@ -156,20 +164,20 @@ function StudentApplication() {
         label="Colegio"
         placeholder="Tu Colegio"
         register={register}
-        error={errors?.student?.school}
+        errorMessage={errors?.student?.school?.message}
         prop="student.school"
       />
       <SelectField
         label="¿A qué tipo de colegio asistes o asististe?"
         register={register}
-        error={errors?.student?.schoolType}
+        errorMessage={errors?.student?.schoolType?.message}
         prop="student.schoolType"
         options={selectFieldsOptions.schoolTypeOpts}
       />
       <SelectField
         label="¿Cuál es la dependencia del colegio al que asistes o asististe?"
         register={register}
-        error={errors?.student?.schoolDependency}
+        errorMessage={errors?.student?.schoolDependency?.message}
         prop="student.schoolDependency"
         options={selectFieldsOptions.schoolDependencyOpts}
       />
@@ -177,20 +185,20 @@ function StudentApplication() {
         label="¿En qué comuna resides?"
         placeholder="Tu Comuna"
         register={register}
-        error={errors?.student?.residence}
+        errorMessage={errors?.student?.residence?.message}
         prop="student.residence"
       />
       <SelectField
         label="¿Qué prueba electiva deseas rendir?"
         register={register}
-        error={errors?.student?.electiveTest}
+        errorMessage={errors?.student?.electiveTest?.message}
         prop="student.electiveTest"
         options={selectFieldsOptions.electiveTestOpts}
       />
       <SelectField
         label="¿Rendirás la prueba M2?\n(prueba necesaria para entrar a carreras científicas como ingeniería, física, matemáticas, entre otras)"
         register={register}
-        error={errors?.student?.takesM2}
+        errorMessage={errors?.student?.takesM2?.message}
         prop="student.takesM2"
         options={selectFieldsOptions.takesM2Opts}
       />
@@ -198,134 +206,138 @@ function StudentApplication() {
         label="¿A qué carrera te gustaría ingresar?"
         placeholder=""
         register={register}
-        error={errors?.student?.targetProgram}
+        errorMessage={errors?.student?.targetProgram?.message}
         prop="student.targetProgram"
       />
       <TextField
         label="¿A qué universidad te gustaría ingresar?"
         placeholder=""
         register={register}
-        error={errors?.student?.targetUniversity}
+        errorMessage={errors?.student?.targetUniversity?.message}
         prop="student.targetUniversity"
       />
       <TextField
         label="¿Cuáles son tus objetivos y planes para este año? ¿Cómo se relacionan con el preu?"
         placeholder=""
         register={register}
-        error={errors?.student?.goalsAndPlans}
+        errorMessage={errors?.student?.goalsAndPlans?.message}
         prop="student.goalsAndPlans"
       />
       <TextField
         label="¿Tienes alguna dificultad con el horario y/o modalidad de las clases?"
         placeholder=""
         register={register}
-        error={errors?.student?.scheduleDifficulties}
+        errorMessage={errors?.student?.scheduleDifficulties?.message}
         prop="student.scheduleDifficulties"
       />
-      <TextField
+      <NumberField
         label="Promedio 1° Medio"
         placeholder=""
         register={register}
-        error={errors?.student?.avg1M}
+        errorMessage={errors?.student?.avg1M?.message}
         prop="student.avg1M"
+        step="any"
       />
-      <TextField
+      <NumberField
         label="Promedio 2° Medio"
         placeholder=""
         register={register}
-        error={errors?.student?.avg2M}
+        errorMessage={errors?.student?.avg2M?.message}
         prop="student.avg2M"
+        step="any"
       />
-      <TextField
+      <NumberField
         label="Promedio 3° Medio"
         placeholder=""
         register={register}
-        error={errors?.student?.avg3M}
+        errorMessage={errors?.student?.avg3M?.message}
         prop="student.avg3M"
+        step="any"
       />
       {/* TODO: revisar si programé bien la DB para resivir 0's aparte de positivos */}
-      <TextField
+      <NumberField
         label="Promedio 4° Medio (Pon un 0 si no tienes aún)"
         placeholder=""
         register={register}
-        error={errors?.student?.avg4M}
+        errorMessage={errors?.student?.avg4M?.message}
         prop="student.avg4M"
+        step="any"
       />
       <SelectField
         label="¿En qué tramo del RSH te encuentras?"
         register={register}
-        error={errors?.student?.rshSection}
+        errorMessage={errors?.student?.rshSection?.message}
         prop="student.rshSection"
         options={selectFieldsOptions.rshSectionOpts}
       />
-      <TextField
+      <NumberField
         label="¿Cuántas personas viven en tu hogar? (incluyéndote)"
         placeholder=""
         register={register}
-        error={errors?.student?.familySize}
+        errorMessage={errors?.student?.familySize?.message}
         prop="student.familySize"
       />
-      <TextField
+      <NumberField
         label="¿Cuál es la suma total de ingresos en tu hogar?"
         placeholder=""
         register={register}
-        error={errors?.student?.totalMonthlyIncome}
+        errorMessage={errors?.student?.totalMonthlyIncome?.message}
         prop="student.totalMonthlyIncome"
       />
-      <TextField
+      <NumberField
         label="Alimentación"
         placeholder=""
         register={register}
-        error={errors?.student?.monthlyFoodExpenses}
+        errorMessage={errors?.student?.monthlyFoodExpenses?.message}
         prop="student.monthlyFoodExpenses"
       />
-      <TextField
+      <NumberField
         label="Educación"
         placeholder=""
         register={register}
-        error={errors?.student?.monthlyEducationExpenses}
+        errorMessage={errors?.student?.monthlyEducationExpenses?.message}
         prop="student.monthlyEducationExpenses"
       />
-      <TextField
+      <NumberField
         label="Agua y Luz"
         placeholder=""
         register={register}
-        error={errors?.student?.monthlyUtilitiesExpenses}
+        errorMessage={errors?.student?.monthlyUtilitiesExpenses?.message}
         prop="student.monthlyUtilitiesExpenses"
       />
-      <TextField
+      <NumberField
         label="Telefonía, Internet y Cable"
         placeholder=""
         register={register}
-        error={errors?.student?.monthlyTelecomExpenses}
+        errorMessage={errors?.student?.monthlyTelecomExpenses?.message}
         prop="student.monthlyTelecomExpenses"
       />
-      <TextField
+      <NumberField
         label="Movilización"
         placeholder=""
         register={register}
-        error={errors?.student?.monthlyTransportationExpenses}
+        errorMessage={errors?.student?.monthlyTransportationExpenses?.message}
         prop="student.monthlyTransportationExpenses"
       />
-      <TextField
+      <NumberField
         label="Vivienda"
         placeholder=""
         register={register}
-        error={errors?.student?.monthlyHousingExpenses}
+        errorMessage={errors?.student?.monthlyHousingExpenses?.message}
         prop="student.monthlyHousingExpenses"
       />
-      <TextField
+      <NumberField
         label="Salud"
         placeholder=""
         register={register}
-        error={errors?.student?.monthlyHealthcareExpenses}
+        errorMessage={errors?.student?.monthlyHealthcareExpenses?.message}
         prop="student.monthlyHealthcareExpenses"
       />
-      <TextField
+      <NumberField
         label="Otros"
         placeholder=""
         register={register}
-        error={errors?.student?.monthlyMiscExpenses}
+        errorMessage={errors?.student?.monthlyMiscExpenses?.message}
         prop="student.monthlyMiscExpenses"
       />
       <SubmitApplicationButton disabled={isSubmitting} />
