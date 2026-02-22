@@ -9,8 +9,6 @@ interface TextFieldProps<T extends FieldValues> {
   type?: 'text' | 'date'
 }
 
-//TODO: definir estilos
-//TODO: agregar el comportamiento dentro del error
 function TextField<T extends FieldValues>({
   label,
   placeholder,
@@ -19,13 +17,35 @@ function TextField<T extends FieldValues>({
   prop,
   type = 'text',
 }: TextFieldProps<T>) {
+  // Clases base consistentes con NumberField y SelectField
+  const baseInputClasses = `
+    w-full px-4 py-2 mt-1 
+    bg-white 
+    border rounded-xl shadow-sm 
+    transition-colors duration-200 
+    focus:outline-none focus:ring-2
+  `
+
+  // Clases dinámicas según el estado
+  const normalClasses = 'border-sky-200 focus:border-sky-500 focus:ring-sky-200 text-slate-700'
+  const errorClasses =
+    'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 bg-red-50/50'
+
   return (
-    <div className="">
-      <label className="">{label}</label>
-      <input type={type} {...register(prop)} placeholder={placeholder} className="" />
-      {errorMessage && (
-        <p className="">* No cumpliste con el formato de este campo o no lo llenaste</p>
-      )}
+    <div className="flex flex-col w-full">
+      <label className="text-sm font-semibold text-blue-900">{label}</label>
+
+      <input
+        type={type}
+        {...register(prop)}
+        placeholder={placeholder}
+        className={`${baseInputClasses} ${errorMessage ? errorClasses : normalClasses}`}
+      />
+
+      {/* Contenedor reservado para el mensaje de error de Zod */}
+      <div className="min-h-[20px] mt-1">
+        {errorMessage && <p className="text-xs text-red-600 font-medium">* {errorMessage}</p>}
+      </div>
     </div>
   )
 }

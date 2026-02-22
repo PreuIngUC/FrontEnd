@@ -6,7 +6,7 @@ interface NumberFieldProps<T extends FieldValues> {
   register: UseFormRegister<T>
   prop: Path<T>
   errorMessage?: string
-  step?: string | number // Exclusivo de inputs numéricos
+  step?: string | number
 }
 
 function NumberField<T extends FieldValues>({
@@ -15,20 +15,40 @@ function NumberField<T extends FieldValues>({
   register,
   prop,
   errorMessage,
-  step = '1', // Por defecto saltos de a 1 (enteros)
+  step = '1',
 }: NumberFieldProps<T>) {
+  // Separamos las clases en constantes para mantener el JSX limpio
+  // baseClasses: Lo que siempre tiene el input
+  const baseInputClasses = `
+    w-full px-4 py-2 mt-1 
+    bg-white 
+    border rounded-xl shadow-sm 
+    transition-colors duration-200 
+    focus:outline-none focus:ring-2
+  `
+
+  // dynamicClasses: Cambian dependiendo de si hay error o no
+  const normalClasses = 'border-sky-200 focus:border-sky-500 focus:ring-sky-200 text-slate-700'
+  const errorClasses =
+    'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 bg-red-50/50'
+
   return (
-    <div className="">
-      <label className="">{label}</label>
+    <div className="flex flex-col w-full">
+      <label className="text-sm font-semibold text-blue-900">{label}</label>
+
       <input
         type="number"
         step={step}
         placeholder={placeholder}
-        className=""
-        // Aquí ocurre la magia de conversión
+        // Unimos las clases base con las dinámicas usando un template string
+        className={`${baseInputClasses} ${errorMessage ? errorClasses : normalClasses}`}
         {...register(prop, { valueAsNumber: true })}
       />
-      {errorMessage && <p className="">* {errorMessage}</p>}
+
+      {/* Contenedor de altura fija (min-h) para evitar saltos en la UI cuando aparece el error */}
+      <div className="min-h-5 mt-1">
+        {errorMessage && <p className="text-xs text-red-600 font-medium">* {errorMessage}</p>}
+      </div>
     </div>
   )
 }

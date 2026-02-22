@@ -11,10 +11,23 @@ import { useNavigate } from 'react-router-dom'
 import type z from 'zod'
 import * as selectFieldsOptions from '../../../constants/applications/students/SelectFieldsOptions.ts'
 
+// --- Tipos ---
 type BodyType =
   paths['/api/public/student/application']['post']['requestBody']['content']['application/json']
 
 type FormType = z.input<typeof StudentApplicationDto>
+
+// --- Helper Components para Estilo ---
+
+// 1. Título de Sección: Para dividir visualmente el formulario largo
+const SectionTitle = ({ title, description }: { title: string; description?: string }) => (
+  <div className="mb-6 mt-8 border-b border-sky-100 pb-2">
+    <h3 className="text-xl font-bold text-blue-900">{title}</h3>
+    {description && <p className="text-sm text-slate-500 mt-1">{description}</p>}
+  </div>
+)
+
+// --- Lógica del Formulario ---
 
 function mapFormToBody(values: FormType): BodyType {
   const { confirmEmail, birthDate, ...restUser } = values.user
@@ -39,6 +52,7 @@ function StudentApplication() {
   } = useForm<FormType>({
     resolver: zodResolver(StudentApplicationDto),
     defaultValues: {
+      // (Tus default values se mantienen igual...)
       user: {
         rut: '',
         email: '',
@@ -79,269 +93,326 @@ function StudentApplication() {
       },
     },
   })
+
   const onSubmit = async (values: FormType) => {
     try {
-      //En esta parte va el comportamiento al mandar los datos listos
       const bodyForm = mapFormToBody(values)
       await api.sendApplication(bodyForm)
-      // console.log('Subido:', bodyForm)
       navigate('/application/submitted')
     } catch {
       navigate('/application/failed')
     }
   }
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
-        label="Nombres"
-        register={register}
-        errorMessage={errors?.user?.names?.message}
-        prop="user.names"
-      />
-      <TextField
-        label="Apellido Paterno"
-        register={register}
-        errorMessage={errors?.user?.lastName0?.message}
-        prop="user.lastName0"
-      />
-      <TextField
-        label="Apellido Materno"
-        register={register}
-        errorMessage={errors?.user?.lastName1?.message}
-        prop="user.lastName1"
-      />
-      <SelectField
-        label="Pronombres"
-        register={register}
-        errorMessage={errors?.user?.pronouns?.message}
-        prop="user.pronouns"
-        options={selectFieldsOptions.pronounsOpts}
-      />
-      <TextField
-        label="RUT (sin puntos y con guión)"
-        placeholder="XXXXXXXX-X"
-        register={register}
-        errorMessage={errors?.user?.rut?.message}
-        prop="user.rut"
-      />
-      <TextField
-        label="Fecha de Nacimiento"
-        type="date"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.user?.birthDate?.message}
-        prop="user.birthDate"
-      />
-      <TextField
-        label="Número de teléfono"
-        placeholder="+569XXXXXXXX"
-        register={register}
-        errorMessage={errors?.user?.phoneNumber?.message}
-        prop="user.phoneNumber"
-      />
-      <TextField
-        label="Email"
-        placeholder="Tu Email"
-        register={register}
-        errorMessage={errors?.user?.email?.message}
-        prop="user.email"
-      />
-      <TextField
-        label="Confirma tu Email"
-        placeholder="Tu Email"
-        register={register}
-        errorMessage={errors?.user?.confirmEmail?.message}
-        prop="user.confirmEmail"
-      />
-      <SelectField
-        label="Curso"
-        register={register}
-        errorMessage={errors?.student?.educationalLevel?.message}
-        prop="student.educationalLevel"
-        options={selectFieldsOptions.educationalLevelOpts}
-      />
-      <TextField
-        label="Colegio"
-        placeholder="Tu Colegio"
-        register={register}
-        errorMessage={errors?.student?.school?.message}
-        prop="student.school"
-      />
-      <SelectField
-        label="¿A qué tipo de colegio asistes o asististe?"
-        register={register}
-        errorMessage={errors?.student?.schoolType?.message}
-        prop="student.schoolType"
-        options={selectFieldsOptions.schoolTypeOpts}
-      />
-      <SelectField
-        label="¿Cuál es la dependencia del colegio al que asistes o asististe?"
-        register={register}
-        errorMessage={errors?.student?.schoolDependency?.message}
-        prop="student.schoolDependency"
-        options={selectFieldsOptions.schoolDependencyOpts}
-      />
-      <TextField
-        label="¿En qué comuna resides?"
-        placeholder="Tu Comuna"
-        register={register}
-        errorMessage={errors?.student?.residence?.message}
-        prop="student.residence"
-      />
-      <SelectField
-        label="¿Qué prueba electiva deseas rendir?"
-        register={register}
-        errorMessage={errors?.student?.electiveTest?.message}
-        prop="student.electiveTest"
-        options={selectFieldsOptions.electiveTestOpts}
-      />
-      <SelectField
-        label="¿Rendirás la prueba M2?\n(prueba necesaria para entrar a carreras científicas como ingeniería, física, matemáticas, entre otras)"
-        register={register}
-        errorMessage={errors?.student?.takesM2?.message}
-        prop="student.takesM2"
-        options={selectFieldsOptions.takesM2Opts}
-      />
-      <TextField
-        label="¿A qué carrera te gustaría ingresar?"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.targetProgram?.message}
-        prop="student.targetProgram"
-      />
-      <TextField
-        label="¿A qué universidad te gustaría ingresar?"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.targetUniversity?.message}
-        prop="student.targetUniversity"
-      />
-      <TextField
-        label="¿Cuáles son tus objetivos y planes para este año? ¿Cómo se relacionan con el preu?"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.goalsAndPlans?.message}
-        prop="student.goalsAndPlans"
-      />
-      <TextField
-        label="¿Tienes alguna dificultad con el horario y/o modalidad de las clases?"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.scheduleDifficulties?.message}
-        prop="student.scheduleDifficulties"
-      />
-      <NumberField
-        label="Promedio 1° Medio"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.avg1M?.message}
-        prop="student.avg1M"
-        step="any"
-      />
-      <NumberField
-        label="Promedio 2° Medio"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.avg2M?.message}
-        prop="student.avg2M"
-        step="any"
-      />
-      <NumberField
-        label="Promedio 3° Medio"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.avg3M?.message}
-        prop="student.avg3M"
-        step="any"
-      />
-      {/* TODO: revisar si programé bien la DB para resivir 0's aparte de positivos */}
-      <NumberField
-        label="Promedio 4° Medio (Pon un 0 si no tienes aún)"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.avg4M?.message}
-        prop="student.avg4M"
-        step="any"
-      />
-      <SelectField
-        label="¿En qué tramo del RSH te encuentras?"
-        register={register}
-        errorMessage={errors?.student?.rshSection?.message}
-        prop="student.rshSection"
-        options={selectFieldsOptions.rshSectionOpts}
-      />
-      <NumberField
-        label="¿Cuántas personas viven en tu hogar? (incluyéndote)"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.familySize?.message}
-        prop="student.familySize"
-      />
-      <NumberField
-        label="¿Cuál es la suma total de ingresos en tu hogar?"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.totalMonthlyIncome?.message}
-        prop="student.totalMonthlyIncome"
-      />
-      <NumberField
-        label="Alimentación"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.monthlyFoodExpenses?.message}
-        prop="student.monthlyFoodExpenses"
-      />
-      <NumberField
-        label="Educación"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.monthlyEducationExpenses?.message}
-        prop="student.monthlyEducationExpenses"
-      />
-      <NumberField
-        label="Agua y Luz"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.monthlyUtilitiesExpenses?.message}
-        prop="student.monthlyUtilitiesExpenses"
-      />
-      <NumberField
-        label="Telefonía, Internet y Cable"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.monthlyTelecomExpenses?.message}
-        prop="student.monthlyTelecomExpenses"
-      />
-      <NumberField
-        label="Movilización"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.monthlyTransportationExpenses?.message}
-        prop="student.monthlyTransportationExpenses"
-      />
-      <NumberField
-        label="Vivienda"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.monthlyHousingExpenses?.message}
-        prop="student.monthlyHousingExpenses"
-      />
-      <NumberField
-        label="Salud"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.monthlyHealthcareExpenses?.message}
-        prop="student.monthlyHealthcareExpenses"
-      />
-      <NumberField
-        label="Otros"
-        placeholder=""
-        register={register}
-        errorMessage={errors?.student?.monthlyMiscExpenses?.message}
-        prop="student.monthlyMiscExpenses"
-      />
-      <SubmitApplicationButton disabled={isSubmitting} />
-    </form>
+    // CONTENEDOR PRINCIPAL: Fondo suave (sky-50) para coherencia con WelcomePage
+    <div className="min-h-screen bg-sky-50 py-12 px-4 sm:px-6 lg:px-8">
+      {/* TARJETA CENTRAL: Sombra, fondo blanco, bordes redondeados */}
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-sky-100">
+        {/* ENCABEZADO DE LA TARJETA */}
+        <div className="bg-blue-900 py-6 px-8 text-center sm:px-10">
+          <h2 className="text-3xl font-extrabold text-white tracking-tight">
+            Postulación Estudiante
+          </h2>
+          <p className="mt-2 text-sky-200 text-sm">
+            Completa el formulario para ser parte de PreuIng.
+          </p>
+        </div>
+
+        {/* CUERPO DEL FORMULARIO */}
+        <div className="py-8 px-8 sm:px-10 space-y-6">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {/* --- SECCIÓN 1: DATOS PERSONALES --- */}
+            <SectionTitle title="Datos Personales" />
+
+            {/* Grid responsivo: 1 columna en móvil, 2 en tablet, 3 en desktop */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+              <TextField
+                label="Nombres"
+                register={register}
+                errorMessage={errors?.user?.names?.message}
+                prop="user.names"
+              />
+              <TextField
+                label="Apellido Paterno"
+                register={register}
+                errorMessage={errors?.user?.lastName0?.message}
+                prop="user.lastName0"
+              />
+              <TextField
+                label="Apellido Materno"
+                register={register}
+                errorMessage={errors?.user?.lastName1?.message}
+                prop="user.lastName1"
+              />
+
+              <TextField
+                label="RUT"
+                placeholder="12345678-9"
+                register={register}
+                errorMessage={errors?.user?.rut?.message}
+                prop="user.rut"
+              />
+              <SelectField
+                label="Pronombres"
+                register={register}
+                errorMessage={errors?.user?.pronouns?.message}
+                prop="user.pronouns"
+                options={selectFieldsOptions.pronounsOpts}
+              />
+              <TextField
+                label="Fecha de Nacimiento"
+                type="date"
+                register={register}
+                errorMessage={errors?.user?.birthDate?.message}
+                prop="user.birthDate"
+              />
+            </div>
+
+            {/* Grid para contacto */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <TextField
+                label="Número de teléfono"
+                placeholder="+56912345678"
+                register={register}
+                errorMessage={errors?.user?.phoneNumber?.message}
+                prop="user.phoneNumber"
+              />
+              <div className="hidden md:block"></div> {/* Espaciador */}
+              <TextField
+                label="Email"
+                placeholder="ejemplo@correo.cl"
+                register={register}
+                errorMessage={errors?.user?.email?.message}
+                prop="user.email"
+              />
+              <TextField
+                label="Confirma tu Email"
+                placeholder="ejemplo@correo.cl"
+                register={register}
+                errorMessage={errors?.user?.confirmEmail?.message}
+                prop="user.confirmEmail"
+              />
+            </div>
+
+            {/* --- SECCIÓN 2: ANTECEDENTES ACADÉMICOS --- */}
+            <SectionTitle title="Antecedentes Académicos" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <SelectField
+                label="Nivel Educacional"
+                register={register}
+                errorMessage={errors?.student?.educationalLevel?.message}
+                prop="student.educationalLevel"
+                options={selectFieldsOptions.educationalLevelOpts}
+              />
+              <TextField
+                label="Colegio de Procedencia"
+                register={register}
+                errorMessage={errors?.student?.school?.message}
+                prop="student.school"
+              />
+              <SelectField
+                label="Tipo de Establecimiento"
+                register={register}
+                errorMessage={errors?.student?.schoolType?.message}
+                prop="student.schoolType"
+                options={selectFieldsOptions.schoolTypeOpts}
+              />
+              <SelectField
+                label="Dependencia del Colegio"
+                register={register}
+                errorMessage={errors?.student?.schoolDependency?.message}
+                prop="student.schoolDependency"
+                options={selectFieldsOptions.schoolDependencyOpts}
+              />
+            </div>
+
+            <div className="mb-6">
+              <TextField
+                label="¿En qué comuna resides actualmente?"
+                placeholder="Ej: Puente Alto, Maipú, Santiago..."
+                register={register}
+                errorMessage={errors?.student?.residence?.message}
+                prop="student.residence"
+              />
+            </div>
+
+            {/* Sub-sección de Promedios */}
+            <h4 className="text-md font-semibold text-blue-900 mb-4 mt-6">Promedios de Notas</h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <NumberField
+                label="1° Medio"
+                register={register}
+                errorMessage={errors?.student?.avg1M?.message}
+                prop="student.avg1M"
+                step="any"
+              />
+              <NumberField
+                label="2° Medio"
+                register={register}
+                errorMessage={errors?.student?.avg2M?.message}
+                prop="student.avg2M"
+                step="any"
+              />
+              <NumberField
+                label="3° Medio"
+                register={register}
+                errorMessage={errors?.student?.avg3M?.message}
+                prop="student.avg3M"
+                step="any"
+              />
+              <NumberField
+                label="4° Medio (opc)"
+                register={register}
+                errorMessage={errors?.student?.avg4M?.message}
+                prop="student.avg4M"
+                step="any"
+              />
+            </div>
+
+            {/* --- SECCIÓN 3: INTERESES Y OBJETIVOS --- */}
+            <SectionTitle title="Intereses y Objetivos" />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <SelectField
+                label="Prueba Electiva a Rendir"
+                register={register}
+                errorMessage={errors?.student?.electiveTest?.message}
+                prop="student.electiveTest"
+                options={selectFieldsOptions.electiveTestOpts}
+              />
+              <SelectField
+                label="¿Rendirás la prueba M2?"
+                register={register}
+                errorMessage={errors?.student?.takesM2?.message}
+                prop="student.takesM2"
+                options={selectFieldsOptions.takesM2Opts}
+              />
+              <TextField
+                label="Carrera de Interés"
+                register={register}
+                errorMessage={errors?.student?.targetProgram?.message}
+                prop="student.targetProgram"
+              />
+              <TextField
+                label="Universidad de Interés"
+                register={register}
+                errorMessage={errors?.student?.targetUniversity?.message}
+                prop="student.targetUniversity"
+              />
+            </div>
+
+            <div className="space-y-6 mb-6">
+              <TextField
+                label="¿Cuáles son tus objetivos y planes para este año?"
+                placeholder="Cuéntanos brevemente..."
+                register={register}
+                errorMessage={errors?.student?.goalsAndPlans?.message}
+                prop="student.goalsAndPlans"
+              />
+              <TextField
+                label="¿Tienes alguna dificultad de horario?"
+                placeholder="Si/No, especifica..."
+                register={register}
+                errorMessage={errors?.student?.scheduleDifficulties?.message}
+                prop="student.scheduleDifficulties"
+              />
+            </div>
+
+            {/* --- SECCIÓN 4: ANTECEDENTES SOCIOECONÓMICOS --- */}
+            <SectionTitle
+              title="Antecedentes Socioeconómicos"
+              description="Esta información es confidencial y nos ayuda a entender tu contexto."
+            />
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <SelectField
+                label="Tramo RSH"
+                register={register}
+                errorMessage={errors?.student?.rshSection?.message}
+                prop="student.rshSection"
+                options={selectFieldsOptions.rshSectionOpts}
+              />
+              <NumberField
+                label="Integrantes del Hogar"
+                register={register}
+                errorMessage={errors?.student?.familySize?.message}
+                prop="student.familySize"
+              />
+              <NumberField
+                label="Ingreso Total Familiar"
+                register={register}
+                errorMessage={errors?.student?.totalMonthlyIncome?.message}
+                prop="student.totalMonthlyIncome"
+              />
+            </div>
+
+            <h4 className="text-md font-semibold text-blue-900 mb-4">Gastos Mensuales Estimados</h4>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
+              <NumberField
+                label="Alimentación"
+                register={register}
+                prop="student.monthlyFoodExpenses"
+                errorMessage={errors?.student?.monthlyFoodExpenses?.message}
+              />
+              <NumberField
+                label="Educación"
+                register={register}
+                prop="student.monthlyEducationExpenses"
+                errorMessage={errors?.student?.monthlyEducationExpenses?.message}
+              />
+              <NumberField
+                label="Cuentas Básicas"
+                register={register}
+                prop="student.monthlyUtilitiesExpenses"
+                errorMessage={errors?.student?.monthlyUtilitiesExpenses?.message}
+              />
+              <NumberField
+                label="Telecomunicaciones"
+                register={register}
+                prop="student.monthlyTelecomExpenses"
+                errorMessage={errors?.student?.monthlyTelecomExpenses?.message}
+              />
+              <NumberField
+                label="Transporte"
+                register={register}
+                prop="student.monthlyTransportationExpenses"
+                errorMessage={errors?.student?.monthlyTransportationExpenses?.message}
+              />
+              <NumberField
+                label="Vivienda"
+                register={register}
+                prop="student.monthlyHousingExpenses"
+                errorMessage={errors?.student?.monthlyHousingExpenses?.message}
+              />
+              <NumberField
+                label="Salud"
+                register={register}
+                prop="student.monthlyHealthcareExpenses"
+                errorMessage={errors?.student?.monthlyHealthcareExpenses?.message}
+              />
+              <NumberField
+                label="Otros"
+                register={register}
+                prop="student.monthlyMiscExpenses"
+                errorMessage={errors?.student?.monthlyMiscExpenses?.message}
+              />
+            </div>
+
+            {/* BOTÓN DE ENVÍO CENTRADO */}
+            <div className="flex justify-center pt-6 border-t border-sky-100">
+              {/* Aquí podrías envolver tu SubmitApplicationButton en un div 
+                  para darle ancho si el componente no lo maneja internamente 
+               */}
+              <div className="w-full md:w-1/2">
+                <SubmitApplicationButton disabled={isSubmitting} />
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   )
 }
 
