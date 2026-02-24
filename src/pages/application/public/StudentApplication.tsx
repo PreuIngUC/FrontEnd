@@ -19,7 +19,6 @@ type FormType = z.input<typeof StudentApplicationDto>
 
 // --- Helper Components para Estilo ---
 
-// 1. Título de Sección: Para dividir visualmente el formulario largo
 const SectionTitle = ({ title, description }: { title: string; description?: string }) => (
   <div className="mb-6 mt-8 border-b border-sky-100 pb-2">
     <h3 className="text-xl font-bold text-blue-900">{title}</h3>
@@ -52,7 +51,6 @@ function StudentApplication() {
   } = useForm<FormType>({
     resolver: zodResolver(StudentApplicationDto),
     defaultValues: {
-      // (Tus default values se mantienen igual...)
       user: {
         rut: '',
         email: '',
@@ -105,9 +103,7 @@ function StudentApplication() {
   }
 
   return (
-    // CONTENEDOR PRINCIPAL: Fondo suave (sky-50) para coherencia con WelcomePage
     <div className="min-h-screen bg-sky-50 py-12 px-4 sm:px-6 lg:px-8">
-      {/* TARJETA CENTRAL: Sombra, fondo blanco, bordes redondeados */}
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-sky-100">
         {/* ENCABEZADO DE LA TARJETA */}
         <div className="bg-blue-900 py-6 px-8 text-center sm:px-10">
@@ -115,17 +111,71 @@ function StudentApplication() {
             Postulación Estudiante
           </h2>
           <p className="mt-2 text-sky-200 text-sm">
-            Completa el formulario para ser parte de PreuIng.
+            Completa el formulario para ser parte del equipo.
           </p>
         </div>
 
-        {/* CUERPO DEL FORMULARIO */}
-        <div className="py-8 px-8 sm:px-10 space-y-6">
-          <form onSubmit={handleSubmit(onSubmit)}>
+        {/* CUERPO DEL FORMULARIO Y TEXTO INTRODUCTORIO */}
+        <div className="py-8 px-8 sm:px-10">
+          {/* --- BLOQUE DE INFORMACIÓN INICIAL --- */}
+          <div className="mb-10 bg-slate-50 border border-slate-200 rounded-xl p-6 text-slate-700 shadow-sm">
+            <p className="mb-5 text-base text-center md:text-left">
+              El siguiente formulario tiene el objetivo de permitirte <strong>POSTULAR</strong> al
+              preuniversitario social de ingeniería. Esta es una primera instancia de comunicación.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+              {/* Fechas */}
+              <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
+                <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                  📅 Fechas Clave
+                </h4>
+                <ul className="list-disc pl-5 space-y-2 text-sm">
+                  <li>
+                    <strong>Entrevistas presenciales:</strong> Entre el 16 y el 27 de marzo del
+                    2026.{' '}
+                    <span className="text-red-600 font-medium">Debe asistir con tutor legal.</span>
+                  </li>
+                  <li>
+                    <strong>Inicio de clases:</strong> Lunes 30 de marzo del 2026.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Info Preliminar */}
+              <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
+                <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                  💡 Información Preliminar
+                </h4>
+                <ul className="list-disc pl-5 space-y-2 text-sm">
+                  <li>
+                    <strong>No se cobra mensualidad.</strong> Solo se debe pagar una matrícula de
+                    $15.000 pesos semestral.
+                  </li>
+                  <li>
+                    El compromiso es fundamental: Nos reservamos el derecho de no renovar la
+                    matrícula ante reiteradas <strong>inasistencias injustificadas</strong>.
+                  </li>
+                  <li>
+                    La planificación considera ambos semestres, preparando para la PAES de verano
+                    del 2027.
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <p className="text-center text-sm bg-sky-100 text-blue-900 py-3 rounded-lg font-medium">
+              Frente a cualquier duda, escribir al correo:{' '}
+              <a href="mailto:preu.ing@gmail.com" className="font-bold hover:underline">
+                preu.ing@gmail.com
+              </a>
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* --- SECCIÓN 1: DATOS PERSONALES --- */}
             <SectionTitle title="Datos Personales" />
 
-            {/* Grid responsivo: 1 columna en móvil, 2 en tablet, 3 en desktop */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
               <TextField
                 label="Nombres"
@@ -145,7 +195,6 @@ function StudentApplication() {
                 errorMessage={errors?.user?.lastName1?.message}
                 prop="user.lastName1"
               />
-
               <TextField
                 label="RUT"
                 placeholder="12345678-9"
@@ -169,7 +218,6 @@ function StudentApplication() {
               />
             </div>
 
-            {/* Grid para contacto */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <TextField
                 label="Número de teléfono"
@@ -178,7 +226,7 @@ function StudentApplication() {
                 errorMessage={errors?.user?.phoneNumber?.message}
                 prop="user.phoneNumber"
               />
-              <div className="hidden md:block"></div> {/* Espaciador */}
+              <div className="hidden md:block"></div>
               <TextField
                 label="Email"
                 placeholder="ejemplo@correo.cl"
@@ -238,7 +286,6 @@ function StudentApplication() {
               />
             </div>
 
-            {/* Sub-sección de Promedios */}
             <h4 className="text-md font-semibold text-blue-900 mb-4 mt-6">Promedios de Notas</h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <NumberField
@@ -402,9 +449,6 @@ function StudentApplication() {
 
             {/* BOTÓN DE ENVÍO CENTRADO */}
             <div className="flex justify-center pt-6 border-t border-sky-100">
-              {/* Aquí podrías envolver tu SubmitApplicationButton en un div 
-                  para darle ancho si el componente no lo maneja internamente 
-               */}
               <div className="w-full md:w-1/2">
                 <SubmitApplicationButton disabled={isSubmitting} />
               </div>
