@@ -11,6 +11,10 @@ const UserInput = UserSchema.omit({
 })
   .extend({
     rut: z.string().refine(rutVerify, 'RUT inválido'),
+    birthDate: z.coerce
+      .date()
+      .min(new Date('1900-01-01'), 'Fecha demasiado antigua')
+      .max(new Date(), 'La fecha no puede ser futura'),
     confirmEmail: z.email('Correo inválido'),
   })
   .superRefine((data, ctx) => {
