@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom'
 import type z from 'zod'
 import * as selectFieldsOptions from '../../../constants/applications/students/SelectFieldsOptions.ts'
 
+//TODO: borrar este comentario
+
 // --- Tipos ---
 type BodyType =
   paths['/api/public/student/application']['post']['requestBody']['content']['application/json']
