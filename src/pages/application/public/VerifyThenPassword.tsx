@@ -1,3 +1,9 @@
+function VerifyThenPassword() {
+  return <div>No disponible</div>
+}
+
+export default VerifyThenPassword
+
 // import { useState } from 'react'
 // import { useApi } from '../../../wrappers/ApiProvider.tsx'
 
