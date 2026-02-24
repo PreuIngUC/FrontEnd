@@ -1,32 +1,36 @@
 import type { UseFormRegister, FieldValues, Path } from 'react-hook-form'
 
-interface TextFieldProps<T extends FieldValues> {
+interface Option {
+  value: string | number
   label: string
-  placeholder?: string
+}
+
+interface SelectFieldProps<T extends FieldValues> {
+  label: string
   register: UseFormRegister<T>
   errorMessage?: string
   prop: Path<T>
-  type?: 'text' | 'date'
+  options: Option[]
 }
 
-function TextField<T extends FieldValues>({
+function SelectField<T extends FieldValues>({
   label,
-  placeholder,
   register,
   errorMessage,
   prop,
-  type = 'text',
-}: TextFieldProps<T>) {
-  // Clases base consistentes con NumberField y SelectField
-  const baseInputClasses = `
+  options,
+}: SelectFieldProps<T>) {
+  // Clases base consistentes con el resto de los inputs
+  const baseSelectClasses = `
     w-full px-4 py-2 mt-1 
     bg-white 
     border rounded-xl shadow-sm 
     transition-colors duration-200 
     focus:outline-none focus:ring-2
+    cursor-pointer
   `
 
-  // Clases dinámicas según el estado
+  // Clases dinámicas según el estado (normal o error)
   const normalClasses = 'border-sky-200 focus:border-sky-500 focus:ring-sky-200 text-slate-700'
   const errorClasses =
     'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 bg-red-50/50'
@@ -35,14 +39,23 @@ function TextField<T extends FieldValues>({
     <div className="flex flex-col w-full">
       <label className="text-sm font-semibold text-blue-900">{label}</label>
 
-      <input
-        type={type}
+      <select
+        defaultValue=""
         {...register(prop)}
-        placeholder={placeholder}
-        className={`${baseInputClasses} ${errorMessage ? errorClasses : normalClasses}`}
-      />
+        className={`${baseSelectClasses} ${errorMessage ? errorClasses : normalClasses}`}
+      >
+        <option value="" disabled hidden>
+          Selecciona una opción...
+        </option>
 
-      {/* Contenedor reservado para el mensaje de error de Zod */}
+        {options.map(opt => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+
+      {/* Contenedor reservado para evitar que el layout salte */}
       <div className="min-h-[20px] mt-1">
         {errorMessage && <p className="text-xs text-red-600 font-medium">* {errorMessage}</p>}
       </div>
@@ -50,4 +63,4 @@ function TextField<T extends FieldValues>({
   )
 }
 
-export default TextField
+export default SelectField
