@@ -8,6 +8,8 @@ import TextField from '../../../components/form/TextField.tsx'
 import { useApi } from '../../../wrappers/ApiProvider.tsx'
 import { useNavigate } from 'react-router-dom'
 
+//TODO: borrar este comentario
+
 type BodyType =
   paths['/api/public/student/application']['post']['requestBody']['content']['application/json']
 
