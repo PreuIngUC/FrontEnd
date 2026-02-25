@@ -1,0 +1,40 @@
+/* body {
+  margin: 0;
+} */
+.welcome-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 25vh;
+  overflow: hidden;
+  position: relative;
+  /* padding: 2rem; */
+  /* box-sizing: border-box; Asegura que el padding no rompa el 100vh */
+}
+.welcome-background {
+  z-index: -2;
+  position: absolute;
+  bottom: 0;
+  height: 180vh;
+}
+.welcome-header {
+  text-align: center;
+  color: white;
+}
+.welcome-p {
+  text-align: center;
+  color: white;
+}
+
+.prewin {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: clamp(0vh, 90vw, 70vh);
+  transform: translate(-50%, 40%);
+  object-fit: cover;
+  z-index: -1;
+}
