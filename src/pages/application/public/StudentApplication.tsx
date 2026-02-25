@@ -167,7 +167,7 @@ function StudentApplication() {
             </div>
 
             <p className="text-center text-sm bg-sky-100 text-blue-900 py-3 rounded-lg font-medium">
-              Frente a cualquier duda, escribir al correo:{' '}
+              Frente a cualquier duda o problema con este formulario escríbenos al correo:{' '}
               <a href="mailto:preu.ing@gmail.com" className="font-bold hover:underline">
                 preu.ing@gmail.com
               </a>
@@ -289,6 +289,9 @@ function StudentApplication() {
             </div>
 
             <h4 className="text-md font-semibold text-blue-900 mb-4 mt-6">Promedios de Notas</h4>
+            <p className="text-sm text-slate-500 mt-1">
+              En caso de no conocer alguno todavía, ingresa 0.0
+            </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
               <NumberField
                 label="1° Medio"
@@ -296,6 +299,7 @@ function StudentApplication() {
                 errorMessage={errors?.student?.avg1M?.message}
                 prop="student.avg1M"
                 step="any"
+                placeholder="0.0"
               />
               <NumberField
                 label="2° Medio"
@@ -303,6 +307,7 @@ function StudentApplication() {
                 errorMessage={errors?.student?.avg2M?.message}
                 prop="student.avg2M"
                 step="any"
+                placeholder="0.0"
               />
               <NumberField
                 label="3° Medio"
@@ -310,6 +315,7 @@ function StudentApplication() {
                 errorMessage={errors?.student?.avg3M?.message}
                 prop="student.avg3M"
                 step="any"
+                placeholder="0.0"
               />
               <NumberField
                 label="4° Medio (opc)"
@@ -317,6 +323,7 @@ function StudentApplication() {
                 errorMessage={errors?.student?.avg4M?.message}
                 prop="student.avg4M"
                 step="any"
+                placeholder="0.0"
               />
             </div>
 
@@ -325,7 +332,7 @@ function StudentApplication() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
               <SelectField
-                label="Prueba Electiva a Rendir"
+                label="¿Cuál de los planes electivos que ofrecemos prefieres?"
                 register={register}
                 errorMessage={errors?.student?.electiveTest?.message}
                 prop="student.electiveTest"
@@ -354,14 +361,14 @@ function StudentApplication() {
 
             <div className="space-y-6 mb-6">
               <TextField
-                label="¿Cuáles son tus objetivos y planes para este año?"
+                label="¿Cuáles son tus objetivos y planes para este año? ¿Cómo se relacionan con nuestro preuniversitario?"
                 placeholder="Cuéntanos brevemente..."
                 register={register}
                 errorMessage={errors?.student?.goalsAndPlans?.message}
                 prop="student.goalsAndPlans"
               />
               <TextField
-                label="¿Tienes alguna dificultad de horario?"
+                label="Nuestro horario de clases será de lunes a jueves de 18:00 a 20:00 ¿Tienes alguna dificultad con este horario?"
                 placeholder="Si/No, especifica..."
                 register={register}
                 errorMessage={errors?.student?.scheduleDifficulties?.message}
@@ -377,14 +384,14 @@ function StudentApplication() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <SelectField
-                label="Tramo RSH"
+                label="Tramo en el Registro Social de Hogares"
                 register={register}
                 errorMessage={errors?.student?.rshSection?.message}
                 prop="student.rshSection"
                 options={selectFieldsOptions.rshSectionOpts}
               />
               <NumberField
-                label="Integrantes del Hogar"
+                label="Cantidad de integrantes en tu Hogar (incluyéndote)"
                 register={register}
                 errorMessage={errors?.student?.familySize?.message}
                 prop="student.familySize"
