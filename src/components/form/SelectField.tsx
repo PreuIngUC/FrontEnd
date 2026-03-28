@@ -11,6 +11,7 @@ interface SelectFieldProps<T extends FieldValues> {
   errorMessage?: string
   prop: Path<T>
   options: Option[]
+  readOnly?: boolean
 }
 
 function SelectField<T extends FieldValues>({
@@ -19,6 +20,7 @@ function SelectField<T extends FieldValues>({
   errorMessage,
   prop,
   options,
+  readOnly = false,
 }: SelectFieldProps<T>) {
   // Clases base consistentes con el resto de los inputs
   const baseSelectClasses = `
@@ -34,7 +36,7 @@ function SelectField<T extends FieldValues>({
   const normalClasses = 'border-sky-200 focus:border-sky-500 focus:ring-sky-200 text-slate-700'
   const errorClasses =
     'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 bg-red-50/50'
-
+  const readOnlyClasses = 'bg-transparent border-transparent shadow-none px-0 text-slate-800'
   return (
     <div className="flex flex-col w-full">
       <label className="text-sm font-semibold text-blue-900">{label}</label>
@@ -42,7 +44,8 @@ function SelectField<T extends FieldValues>({
       <select
         defaultValue=""
         {...register(prop)}
-        className={`${baseSelectClasses} ${errorMessage ? errorClasses : normalClasses}`}
+        className={`${baseSelectClasses} ${readOnly ? readOnlyClasses : errorMessage ? errorClasses : normalClasses}`}
+        disabled={readOnly}
       >
         <option value="" disabled hidden>
           Selecciona una opción...

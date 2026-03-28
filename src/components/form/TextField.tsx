@@ -7,6 +7,7 @@ interface TextFieldProps<T extends FieldValues> {
   errorMessage?: string
   prop: Path<T>
   type?: 'text' | 'date'
+  readOnly?: boolean
 }
 
 function TextField<T extends FieldValues>({
@@ -16,6 +17,7 @@ function TextField<T extends FieldValues>({
   errorMessage,
   prop,
   type = 'text',
+  readOnly = false,
 }: TextFieldProps<T>) {
   // Clases base consistentes con NumberField y SelectField
   const baseInputClasses = `
@@ -30,7 +32,7 @@ function TextField<T extends FieldValues>({
   const normalClasses = 'border-sky-200 focus:border-sky-500 focus:ring-sky-200 text-slate-700'
   const errorClasses =
     'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 bg-red-50/50'
-
+  const readOnlyClasses = 'bg-transparent border-transparent shadow-none px-0 text-slate-800'
   return (
     <div className="flex flex-col w-full">
       <label className="text-sm font-semibold text-blue-900">{label}</label>
@@ -39,7 +41,8 @@ function TextField<T extends FieldValues>({
         type={type}
         {...register(prop)}
         placeholder={placeholder}
-        className={`${baseInputClasses} ${errorMessage ? errorClasses : normalClasses}`}
+        className={`${baseInputClasses} ${readOnly ? readOnlyClasses : errorMessage ? errorClasses : normalClasses}`}
+        readOnly={readOnly}
       />
 
       {/* Contenedor reservado para el mensaje de error de Zod */}
