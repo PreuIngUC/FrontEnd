@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface User {
+  id: string
   rut: string
   names: string
   lastName0: string
@@ -27,9 +28,11 @@ export default function ApplicationsRender({
     const filter0 = users.filter(u => u.applicationState === tab)
     if (search === '') return filter0
     return filter0.filter(
-      u => [u.names, u.lastName0, u.lastName1].join(" ").toLowerCase().includes(search.toLowerCase())
-      ||
-      u.rut.includes(search)
+      u =>
+        [u.names, u.lastName0, u.lastName1]
+          .join(' ')
+          .toLowerCase()
+          .includes(search.toLowerCase()) || u.rut.includes(search),
     )
   }, [users, tab, search])
 
@@ -68,11 +71,11 @@ export default function ApplicationsRender({
       </div>
       {/* Bsucador */}
       <input
-        className='border-1'
+        className="border-1"
         type="text"
         value={search}
         onChange={event => setSearch(event.target.value)}
-        placeholder='Buscar por nombre o RUT...'
+        placeholder="Buscar por nombre o RUT..."
       />
       {/* Tabla */}
       <table className="w-full border-collapse">
@@ -89,13 +92,11 @@ export default function ApplicationsRender({
               <td className="py-2">
                 {u.names} {u.lastName0} {u.lastName1}
               </td>
-              <td className="py-2">
-                {u.rut}
-              </td>
+              <td className="py-2">{u.rut}</td>
               <td className="py-2">
                 <button
                   className="underline"
-                  onClick={() => navigate(`/${of}/application/${u.rut}`)}
+                  onClick={() => navigate(`/${of}/application/${u.id}`)}
                 >
                   Revisar
                 </button>

@@ -5,10 +5,10 @@ import type BackendApi from '../api/BackendApi.ts'
 
 export default function useApplication<R extends SingularKind>({
   of,
-  rut,
+  id,
 }: {
   of: R
-  rut: string | undefined
+  id: string | undefined
 }) {
   const [user, setUser] = useState<
     Awaited<ReturnType<typeof BackendApi.prototype.getApplication<R>>>['data']['user'] | null
@@ -19,12 +19,12 @@ export default function useApplication<R extends SingularKind>({
   const api = useApi()
   const fetch = useCallback(async () => {
     if (!api) return
-    if (!rut) return
+    if (!id) return
     if (!of) return
     setLoading(true)
     setError(undefined)
     try {
-      const data = (await api.getApplication<R>({ of, params: { rut } })).data
+      const data = (await api.getApplication<R>({ of, params: { id } })).data
       setUser(data.user)
     } catch {
       setError('Error obteniendo datos.')
@@ -32,7 +32,7 @@ export default function useApplication<R extends SingularKind>({
     } finally {
       setLoading(false)
     }
-  }, [api, of, rut])
+  }, [api, of, id])
   const refetch = useCallback(async () => {
     setMutating(true)
     try {

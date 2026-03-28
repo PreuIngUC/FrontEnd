@@ -76,7 +76,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/student/application/:rut',
+        path: '/student/application/:id',
         element: (
           <ProtectedRoute
             permissionsRequired={[
@@ -89,7 +89,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/staff/application/:rut',
+        path: '/staff/application/:id',
         element: (
           <ProtectedRoute
             permissionsRequired={[
