@@ -1,14 +1,16 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import useApplication from '../../../hooks/useApplication.ts'
 import { useApi } from '../../../wrappers/ApiProvider.tsx'
+import { useState } from 'react'
 
 export default function StudentApplicationDetail({ justRead }: { justRead: boolean }) {
-  const { id } = useParams<{ id: string }>()
-  const { user, loading, error, mutating, refetch } = useApplication({ of: 'student', id })
+  const { rut } = useParams<{ rut: string }>()
+  const { user, loading, error, mutating, refetch } = useApplication({ of: 'student', rut })
   const api = useApi()
   const navigate = useNavigate()
+  const [editing, setEditing] = useState<boolean>(false)
 
-  if (!id) return <main className="p-6">Falta userId en la URL.</main>
+  if (!rut) return <main className="p-6">Falta rut en la URL.</main>
   if (loading || !api) return <main className="p-6">Cargando...</main>
   if (error) return <main className="p-6">Error: {error}</main>
   if (!user) return <main className="p-6">No encontrado.</main>
@@ -21,40 +23,40 @@ export default function StudentApplicationDetail({ justRead }: { justRead: boole
     if (mutating || justRead) return
     await api.changeApplicationState({
       of: 'student',
-      params: { id, applicationState: 'ACCEPTED_AS_STUDENT' },
+      params: { id: user.id, applicationState: 'ACCEPTED_AS_STUDENT' },
     })
     refetch()
-    console.log('accept', id)
+    console.log('accept', rut)
   }
 
   const onReject = async () => {
     if (mutating || justRead) return
     await api.changeApplicationState({
       of: 'student',
-      params: { id, applicationState: 'REJECTED_AS_STUDENT' },
+      params: { id: user.id, applicationState: 'REJECTED_AS_STUDENT' },
     })
     refetch()
-    console.log('reject', id)
+    console.log('reject', rut)
   }
 
   const onUndoAccept = async () => {
     if (mutating || justRead) return
     await api.changeApplicationState({
       of: 'student',
-      params: { id, applicationState: 'PENDING_AS_STUDENT' },
+      params: { id: user.id, applicationState: 'PENDING_AS_STUDENT' },
     })
     refetch()
-    console.log('undo accept', id)
+    console.log('undo accept', rut)
   }
 
   const onUndoReject = async () => {
     if (mutating || justRead) return
     await api.changeApplicationState({
       of: 'student',
-      params: { id, applicationState: 'PENDING_AS_STUDENT' },
+      params: { id: user.id, applicationState: 'PENDING_AS_STUDENT' },
     })
     refetch()
-    console.log('undo reject', id)
+    console.log('undo reject', rut)
   }
 
   return (
@@ -66,8 +68,17 @@ export default function StudentApplicationDetail({ justRead }: { justRead: boole
         </button>
 
         <h1 className="text-xl font-semibold mt-3">Detalle de postulación</h1>
-        <p className="text-sm text-gray-600 mt-1">Usuario ID: {user.id}</p>
-        <p className="text-sm text-gray-600">Estado: {user.studentProfile.applicationState}</p>
+        <p className="text-sm text-gray-600 mt-1">{user.names}</p>
+        <p className="text-sm text-gray-600">
+          {user.studentProfile.applicationState === 'ACCEPTED_AS_STUDENT'
+            ? 'Aceptad@'
+            : user.studentProfile.applicationState === 'PENDING_AS_STUDENT'
+              ? 'Pendiente'
+              : 'Rechazad@'}
+        </p>
+        <button className="underline" onClick={() => setEditing(true)}>
+          Editar
+        </button>
       </div>
 
       {/* Contenido scrolleable */}

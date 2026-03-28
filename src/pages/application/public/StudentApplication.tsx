@@ -298,7 +298,7 @@ function StudentApplication() {
                 register={register}
                 errorMessage={errors?.student?.avg1M?.message}
                 prop="student.avg1M"
-                step="any"
+                step="0.1"
                 placeholder="0.0"
               />
               <NumberField
@@ -306,7 +306,7 @@ function StudentApplication() {
                 register={register}
                 errorMessage={errors?.student?.avg2M?.message}
                 prop="student.avg2M"
-                step="any"
+                step="0.1"
                 placeholder="0.0"
               />
               <NumberField
@@ -314,7 +314,7 @@ function StudentApplication() {
                 register={register}
                 errorMessage={errors?.student?.avg3M?.message}
                 prop="student.avg3M"
-                step="any"
+                step="0.1"
                 placeholder="0.0"
               />
               <NumberField
@@ -322,7 +322,7 @@ function StudentApplication() {
                 register={register}
                 errorMessage={errors?.student?.avg4M?.message}
                 prop="student.avg4M"
-                step="any"
+                step="0.1"
                 placeholder="0.0"
               />
             </div>

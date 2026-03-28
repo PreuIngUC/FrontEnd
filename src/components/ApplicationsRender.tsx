@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 interface User {
-  id: string
+  rut: string
   names: string
   lastName0: string
   lastName1: string
@@ -21,10 +21,17 @@ export default function ApplicationsRender({
   error: string | undefined
 }) {
   const [tab, setTab] = useState<User['applicationState']>('PENDING')
+  const [search, setSearch] = useState<string>('')
   const navigate = useNavigate()
   const filtered = useMemo(() => {
-    return users.filter(u => u.applicationState === tab)
-  }, [users, tab])
+    const filter0 = users.filter(u => u.applicationState === tab)
+    if (search === '') return filter0
+    return filter0.filter(
+      u => [u.names, u.lastName0, u.lastName1].join(" ").toLowerCase().includes(search.toLowerCase())
+      ||
+      u.rut.includes(search)
+    )
+  }, [users, tab, search])
 
   return (
     <main className="p-6">
@@ -59,12 +66,20 @@ export default function ApplicationsRender({
           Rechazadas
         </button>
       </div>
-
+      {/* Bsucador */}
+      <input
+        className='border-1'
+        type="text"
+        value={search}
+        onChange={event => setSearch(event.target.value)}
+        placeholder='Buscar por nombre o RUT...'
+      />
       {/* Tabla */}
       <table className="w-full border-collapse">
         <thead>
           <tr className="border-b">
             <th className="text-left py-2">Nombre</th>
+            <th className="text-left py-2">RUT</th>
             <th className="text-left py-2">Acción</th>
           </tr>
         </thead>
@@ -72,12 +87,15 @@ export default function ApplicationsRender({
           {filtered.map((u, index) => (
             <tr key={index} className="border-b">
               <td className="py-2">
-                {u.lastName0} {u.lastName1} {u.names}
+                {u.names} {u.lastName0} {u.lastName1}
+              </td>
+              <td className="py-2">
+                {u.rut}
               </td>
               <td className="py-2">
                 <button
                   className="underline"
-                  onClick={() => navigate(`/${of}/application/${u.id}`)}
+                  onClick={() => navigate(`/${of}/application/${u.rut}`)}
                 >
                   Revisar
                 </button>
@@ -101,7 +119,7 @@ export default function ApplicationsRender({
           {!loading && !error && filtered.length === 0 && (
             <tr>
               <td colSpan={2} className="py-4 text-gray-500">
-                No hay postulaciones en esta pestaña.
+                No hay postulaciones que coincidan con la búsqueda.
               </td>
             </tr>
           )}

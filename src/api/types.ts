@@ -69,7 +69,7 @@ export interface paths {
                             lastName1: string;
                             /** Format: email */
                             email: string;
-                            /** Format: date */
+                            /** Format: date-time */
                             birthDate: string | null;
                             phoneNumber: string;
                         };
@@ -121,7 +121,7 @@ export interface paths {
                             lastName1: string;
                             /** Format: email */
                             email: string;
-                            /** Format: date */
+                            /** Format: date-time */
                             birthDate: string | null;
                             phoneNumber: string;
                         };
@@ -204,7 +204,7 @@ export interface paths {
                         /** @enum {string} */
                         pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
                         rut: string;
-                        /** Format: date */
+                        /** Format: date-time */
                         birthDate: string | null;
                         phoneNumber: string;
                     };
@@ -246,8 +246,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             users: {
-                                /** Format: uuid */
-                                id: string;
+                                rut: string;
                                 names: string;
                                 lastName0: string;
                                 lastName1: string;
@@ -293,8 +292,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             users: {
-                                /** Format: uuid */
-                                id: string;
+                                rut: string;
                                 names: string;
                                 lastName0: string;
                                 lastName1: string;
@@ -316,7 +314,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/private/student/application/:id": {
+    "/api/private/student/application/:rut": {
         parameters: {
             query?: never;
             header?: never;
@@ -328,7 +326,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    rut: string;
                 };
                 cookie?: never;
             };
@@ -353,9 +351,9 @@ export interface paths {
                                 lastName1: string;
                                 /** Format: email */
                                 email: string;
-                                /** Format: date */
+                                /** Format: date-time */
                                 createdAt: string | null;
-                                /** Format: date */
+                                /** Format: date-time */
                                 birthDate: string | null;
                                 phoneNumber: string;
                                 studentProfile: {
@@ -408,7 +406,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/private/staff/application/:id": {
+    "/api/private/staff/application/:rut": {
         parameters: {
             query?: never;
             header?: never;
@@ -420,7 +418,7 @@ export interface paths {
                 query?: never;
                 header?: never;
                 path: {
-                    id: string;
+                    rut: string;
                 };
                 cookie?: never;
             };
@@ -445,9 +443,9 @@ export interface paths {
                                 lastName1: string;
                                 /** Format: email */
                                 email: string;
-                                /** Format: date */
+                                /** Format: date-time */
                                 createdAt: string | null;
-                                /** Format: date */
+                                /** Format: date-time */
                                 birthDate: string | null;
                                 phoneNumber: string;
                                 staffProfile: {
@@ -564,8 +562,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             users: {
-                                /** Format: uuid */
-                                id: string;
+                                rut: string;
                                 names: string;
                                 lastName0: string;
                                 lastName1: string;
@@ -607,8 +604,7 @@ export interface paths {
                     content: {
                         "application/json": {
                             users: {
-                                /** Format: uuid */
-                                id: string;
+                                rut: string;
                                 names: string;
                                 lastName0: string;
                                 lastName1: string;

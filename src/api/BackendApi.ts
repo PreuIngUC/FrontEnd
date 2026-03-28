@@ -110,15 +110,15 @@ class BackendApi {
   }: {
     of: R
     params: R extends 'staff'
-      ? paths['/api/private/staff/application/:id']['get']['parameters']['path']
-      : paths['/api/private/student/application/:id']['get']['parameters']['path']
+      ? paths['/api/private/staff/application/:rut']['get']['parameters']['path']
+      : paths['/api/private/student/application/:rut']['get']['parameters']['path']
   }) {
-    const { id } = params
-    const path = `/api/private/${of}/application/${id}`
+    const { rut } = params
+    const path = `/api/private/${of}/application/${rut}`
     return this.get<
       R extends 'staff'
-        ? paths['/api/private/staff/application/:id']['get']['responses']['200']['content']['application/json']
-        : paths['/api/private/student/application/:id']['get']['responses']['200']['content']['application/json']
+        ? paths['/api/private/staff/application/:rut']['get']['responses']['200']['content']['application/json']
+        : paths['/api/private/student/application/:rut']['get']['responses']['200']['content']['application/json']
     >(path)
   }
   async getAcceptedApplications<R extends PluralKind>({ of }: { of: R }) {
