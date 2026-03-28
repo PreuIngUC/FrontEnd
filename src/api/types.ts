@@ -294,6 +294,8 @@ export interface paths {
                     content: {
                         "application/json": {
                             users: {
+                                /** Format: uuid */
+                                id: string;
                                 rut: string;
                                 names: string;
                                 lastName0: string;
@@ -635,6 +637,8 @@ export interface paths {
                     content: {
                         "application/json": {
                             users: {
+                                /** Format: uuid */
+                                id: string;
                                 rut: string;
                                 names: string;
                                 lastName0: string;
@@ -677,6 +681,8 @@ export interface paths {
                     content: {
                         "application/json": {
                             users: {
+                                /** Format: uuid */
+                                id: string;
                                 rut: string;
                                 names: string;
                                 lastName0: string;
