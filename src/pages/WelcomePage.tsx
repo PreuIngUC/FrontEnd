@@ -43,7 +43,7 @@ function WelcomePage() {
           md:text-xl
           text-blue-900"
         >
-          (FALTA EL LOGO!!!) ¡Bienvenido(a) a PreuIng!
+          ¡Bienvenido(a) a PreuIng!
         </h1>
 
         <div

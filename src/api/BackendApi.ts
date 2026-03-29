@@ -121,6 +121,19 @@ class BackendApi {
         : paths['/api/private/student/application/:id']['get']['responses']['200']['content']['application/json']
     >(path)
   }
+  async editApplication<R extends SingularKind>({
+    of,
+    params,
+    body,
+  }: {
+    of: R
+    params: paths['/api/private/student/application/:id']['patch']['parameters']['path'] //TODO: agregar el homologo pero para staff cuando esté listo en Backend
+    body: paths['/api/private/student/application/:id']['patch']['requestBody']['content']['application/json']
+  }) {
+    const { id } = params
+    const path = `/api/private/${of}/application/${id}`
+    return this.patch(path, body)
+  }
   async getAcceptedApplications<R extends PluralKind>({ of }: { of: R }) {
     return this.get<
       R extends 'staff'

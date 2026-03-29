@@ -69,7 +69,7 @@ export interface paths {
                             lastName1: string;
                             /** Format: email */
                             email: string;
-                            /** Format: date */
+                            /** Format: date-time */
                             birthDate: string | null;
                             phoneNumber: string;
                         };
@@ -121,7 +121,7 @@ export interface paths {
                             lastName1: string;
                             /** Format: email */
                             email: string;
-                            /** Format: date */
+                            /** Format: date-time */
                             birthDate: string | null;
                             phoneNumber: string;
                         };
@@ -204,7 +204,7 @@ export interface paths {
                         /** @enum {string} */
                         pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
                         rut: string;
-                        /** Format: date */
+                        /** Format: date-time */
                         birthDate: string | null;
                         phoneNumber: string;
                     };
@@ -248,6 +248,7 @@ export interface paths {
                             users: {
                                 /** Format: uuid */
                                 id: string;
+                                rut: string;
                                 names: string;
                                 lastName0: string;
                                 lastName1: string;
@@ -295,6 +296,7 @@ export interface paths {
                             users: {
                                 /** Format: uuid */
                                 id: string;
+                                rut: string;
                                 names: string;
                                 lastName0: string;
                                 lastName1: string;
@@ -353,9 +355,9 @@ export interface paths {
                                 lastName1: string;
                                 /** Format: email */
                                 email: string;
-                                /** Format: date */
+                                /** Format: date-time */
                                 createdAt: string | null;
-                                /** Format: date */
+                                /** Format: date-time */
                                 birthDate: string | null;
                                 phoneNumber: string;
                                 studentProfile: {
@@ -405,7 +407,78 @@ export interface paths {
         delete?: never;
         options?: never;
         head?: never;
-        patch?: never;
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: string;
+                };
+                cookie?: never;
+            };
+            requestBody: {
+                content: {
+                    "application/json": {
+                        user: {
+                            /** @enum {string} */
+                            pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
+                            rut: string;
+                            names: string;
+                            lastName0: string;
+                            lastName1: string;
+                            /** Format: email */
+                            email: string;
+                            /** Format: date-time */
+                            birthDate: string | null;
+                            phoneNumber: string;
+                        };
+                        student: {
+                            /** @enum {string} */
+                            educationalLevel: "PRIMERO_MEDIO" | "SEGUNDO_MEDIO" | "TERCERO_MEDIO" | "CUARTO_MEDIO" | "EGRESADO";
+                            /** @enum {string} */
+                            schoolType: "CIENTIFICO_HUMANISTA" | "TECNICO_PROFESIONAL" | "ARTISTICO";
+                            /** @enum {string} */
+                            schoolDependency: "MUNICIPAL" | "SUBVENCIONADO_O_ADMINISTRACION_DELEGADA" | "PARTICULAR_PAGADO";
+                            /** @enum {string} */
+                            electiveTest: "BIOLOGIA" | "FISICA" | "QUIMICA" | "HISTORIA" | "TECNICO";
+                            /** @enum {string} */
+                            takesM2: "SI" | "NO" | "AUN_NO_SE";
+                            /** @enum {string} */
+                            rshSection: "FROM_0_TO_40" | "FROM_41_TO_50" | "FROM_51_TO_60" | "FROM_61_TO_70" | "FROM_71_TO_80" | "FROM_81_TO_90" | "FROM_91_TO_100" | "DOESNT_HAVE";
+                            school: string;
+                            residence: string;
+                            targetProgram: string;
+                            targetUniversity: string;
+                            goalsAndPlans: string;
+                            scheduleDifficulties: string | null;
+                            avg1M: number;
+                            avg2M: number;
+                            avg3M: number;
+                            avg4M: number;
+                            familySize: number;
+                            totalMonthlyIncome: number;
+                            monthlyFoodExpenses: number;
+                            monthlyEducationExpenses: number;
+                            monthlyUtilitiesExpenses: number;
+                            monthlyTelecomExpenses: number;
+                            monthlyTransportationExpenses: number;
+                            monthlyHousingExpenses: number;
+                            monthlyHealthcareExpenses: number;
+                            monthlyMiscExpenses: number;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description No Content */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
         trace?: never;
     };
     "/api/private/staff/application/:id": {
@@ -445,9 +518,9 @@ export interface paths {
                                 lastName1: string;
                                 /** Format: email */
                                 email: string;
-                                /** Format: date */
+                                /** Format: date-time */
                                 createdAt: string | null;
-                                /** Format: date */
+                                /** Format: date-time */
                                 birthDate: string | null;
                                 phoneNumber: string;
                                 staffProfile: {
@@ -566,6 +639,7 @@ export interface paths {
                             users: {
                                 /** Format: uuid */
                                 id: string;
+                                rut: string;
                                 names: string;
                                 lastName0: string;
                                 lastName1: string;
@@ -609,6 +683,7 @@ export interface paths {
                             users: {
                                 /** Format: uuid */
                                 id: string;
+                                rut: string;
                                 names: string;
                                 lastName0: string;
                                 lastName1: string;

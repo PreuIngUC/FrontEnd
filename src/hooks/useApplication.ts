@@ -27,7 +27,7 @@ export default function useApplication<R extends SingularKind>({
       const data = (await api.getApplication<R>({ of, params: { id } })).data
       setUser(data.user)
     } catch {
-      setError('Errror obteniendo datos.')
+      setError('Error obteniendo datos.')
       setUser(null)
     } finally {
       setLoading(false)
