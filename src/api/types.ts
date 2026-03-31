@@ -201,12 +201,7 @@ export interface paths {
             requestBody: {
                 content: {
                     "application/json": {
-                        /** @enum {string} */
-                        pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
                         rut: string;
-                        /** Format: date-time */
-                        birthDate: string | null;
-                        phoneNumber: string;
                     };
                 };
             };
