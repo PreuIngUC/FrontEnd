@@ -973,6 +973,7 @@ export interface paths {
     patch?: never
     trace?: never
   }
+
 }
 export type webhooks = Record<string, never>
 export interface components {

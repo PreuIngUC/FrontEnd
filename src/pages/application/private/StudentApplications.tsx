@@ -4,7 +4,7 @@ import ApplicationsRender from '../../../components/ApplicationsRender.tsx'
 export default function StudentApplications() {
   const { users, loading, error } = useApplications({ of: 'students' })
 
-  const formated = users.map(u => {
+  const formatted = users.map(u => {
     const { studentProfile, ...clean } = u
     const applicationState: 'PENDING' | 'ACCEPTED' | 'REJECTED' =
       studentProfile.applicationState === 'PENDING_AS_STUDENT'
@@ -18,5 +18,5 @@ export default function StudentApplications() {
     }
   })
 
-  return <ApplicationsRender of="student" users={formated} loading={loading} error={error} />
+  return <ApplicationsRender of="student" users={formatted} loading={loading} error={error} />
 }
