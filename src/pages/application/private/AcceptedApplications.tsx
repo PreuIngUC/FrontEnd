@@ -1,25 +1,37 @@
-import { useNavigate } from 'react-router-dom'
 import useAcceptedApplications from '../../../hooks/useAcceptedApplications.ts'
 import { useApi } from '../../../wrappers/ApiProvider.tsx'
 import { useState } from 'react'
 import type { PluralKind } from '../../../api/BackendApi.ts'
+import UsersTable from '../../../components/UsersTable.tsx'
+import HeadAndAction from '../../../components/HeadAndAction.tsx'
+import ProgressBar from '../../../components/ProgressBar.tsx'
 
 export default function AcceptedApplications<T extends PluralKind>({ of }: { of: T }) {
   const { users, loading, error, refetch } = useAcceptedApplications({ of })
   const api = useApi()
   const [creating, setCreating] = useState<boolean>(false)
-  const navigate = useNavigate()
+  const [successfulItems, setSuccessfulItems] = useState<number>(0)
+  const [errorItems, setErrorItems] = useState<number>(0)
+  const [initialAmount, setInitialAmount] = useState<number>(users.length)
 
   const onCreateAccounts = async () => {
     if (!api) return
     if (creating) return
+    if (users.length <= 0) return
     setCreating(true)
+    setInitialAmount(users.length)
     const { jobId } = (await api.createJob({ of })).data
     const sleep = (ms: number) => new Promise(r => setTimeout(r, ms))
-    while ((await api.jobStep({ of, params: { jobId } })).data.stepsAvailable) {
+    let jobInfo = (await api.jobStep({ of, params: { jobId } })).data
+    setSuccessfulItems(jobInfo.created)
+    setErrorItems(jobInfo.haveErrors)
+    while (jobInfo.stepsAvailable) {
       await sleep(500)
       await refetch()
       await sleep(500)
+      jobInfo = (await api.jobStep({ of, params: { jobId } })).data
+      setSuccessfulItems(jobInfo.created)
+      setErrorItems(jobInfo.haveErrors)
     }
     setCreating(false)
     await refetch()
@@ -52,6 +64,11 @@ export default function AcceptedApplications<T extends PluralKind>({ of }: { of:
               ></path>
             </svg>
             <h3 className="text-xl font-bold text-blue-900 mb-2">Creando Cuentas...</h3>
+            <ProgressBar
+              successfulItems={successfulItems}
+              errorItems={errorItems}
+              totalItems={initialAmount}
+            />
             <p className="text-sm text-slate-600">
               Por favor, no cierres ni actualices esta página. Este proceso puede tomar unos
               momentos.
@@ -62,88 +79,30 @@ export default function AcceptedApplications<T extends PluralKind>({ of }: { of:
       <main className="min-h-screen bg-sky-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm border border-sky-100 p-6 md:p-8">
           {/* Cabecera y Acción Principal */}
-          <div className="mb-8 border-b border-sky-100 pb-4 flex flex-col md:flex-row md:items-start justify-between gap-4">
-            <div>
-              <h1 className="text-3xl font-extrabold text-blue-900 tracking-tight">
-                Postulaciones Aceptadas
-              </h1>
-              <p className="mt-2 text-slate-600">
-                Revisa la lista y genera las cuentas correspondientes.
-              </p>
-            </div>
-
-            <button
-              className={`inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 shadow-sm whitespace-nowrap ${
-                creating
-                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
-                  : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow border border-transparent focus:ring-2 focus:ring-blue-500 focus:ring-offset-1'
-              }`}
-              onClick={onCreateAccounts}
-              disabled={creating}
-            >
-              {creating ? 'Creando cuentas...' : 'Crear Cuentas'}
-            </button>
-          </div>
-
+          <HeadAndAction
+            title="Postulaciones Aceptadas"
+            paragraph="Revisa la lista y genera las cuentas"
+            extra={
+              <button
+                className={`inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 shadow-sm whitespace-nowrap ${
+                  creating
+                    ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
+                    : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow border border-transparent focus:ring-2 focus:ring-blue-500 focus:ring-offset-1'
+                }`}
+                onClick={onCreateAccounts}
+                disabled={creating}
+              >
+                {creating ? 'Creando cuentas...' : 'Crear Cuentas'}
+              </button>
+            }
+          />
           {/* Contenedor de la Tabla */}
-          <div className="overflow-x-auto rounded-xl border border-sky-100 shadow-sm">
-            <table className="w-full border-collapse text-left">
-              <thead className="bg-sky-50 border-b border-sky-100">
-                <tr>
-                  <th className="py-3 px-4 font-semibold text-blue-900 text-sm">Nombre Completo</th>
-                  <th className="py-3 px-4 font-semibold text-blue-900 text-sm text-right">
-                    Acción
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-sky-50">
-                {users.map(u => (
-                  <tr
-                    key={u.id}
-                    className="transition-colors hover:bg-blue-50/50 even:bg-slate-50 odd:bg-white"
-                  >
-                    <td className="py-3 px-4 text-slate-700 font-medium">
-                      {u.lastName0} {u.lastName1} {u.names}
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <button
-                        className="inline-flex items-center px-3 py-1 bg-white border border-sky-200 text-blue-700 text-sm font-medium rounded-lg hover:bg-sky-50 hover:border-sky-300 transition-colors shadow-sm"
-                        onClick={() =>
-                          navigate(`/${of === 'staff' ? of : 'student'}/read-application/${u.id}`)
-                        }
-                      >
-                        Revisar
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-
-                {/* Estados de carga, error y vacío */}
-                {loading && (
-                  <tr>
-                    <td colSpan={2} className="py-8 text-center text-slate-500 animate-pulse">
-                      Cargando postulaciones...
-                    </td>
-                  </tr>
-                )}
-                {error && (
-                  <tr>
-                    <td colSpan={2} className="py-8 text-center text-red-500 font-medium bg-red-50">
-                      Ocurrió un error: {error}
-                    </td>
-                  </tr>
-                )}
-                {!loading && !error && users.length === 0 && (
-                  <tr>
-                    <td colSpan={2} className="py-12 text-center text-slate-500">
-                      <p className="text-lg font-medium text-slate-600 mb-1">Sin resultados</p>
-                      <p className="text-sm">No hay postulaciones en esta pestaña.</p>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+          <UsersTable
+            users={users}
+            loading={loading}
+            error={error}
+            redirectsTo={of === 'staff' ? '/staff/read-application/' : '/student/read-application/'}
+          />
         </div>
       </main>
     </>
