@@ -4,22 +4,34 @@ import { useState } from 'react'
 import type { PluralKind } from '../../../api/BackendApi.ts'
 import UsersTable from '../../../components/UsersTable.tsx'
 import HeadAndAction from '../../../components/HeadAndAction.tsx'
+import ProgressBar from '../../../components/ProgressBar.tsx'
 
 export default function AcceptedApplications<T extends PluralKind>({ of }: { of: T }) {
   const { users, loading, error, refetch } = useAcceptedApplications({ of })
   const api = useApi()
   const [creating, setCreating] = useState<boolean>(false)
+  const [successfulItems, setSuccessfulItems] = useState<number>(0)
+  const [errorItems, setErrorItems] = useState<number>(0)
+  const [initialAmount, setInitialAmount] = useState<number>(users.length)
 
   const onCreateAccounts = async () => {
     if (!api) return
     if (creating) return
+    if (users.length <= 0) return
     setCreating(true)
+    setInitialAmount(users.length)
     const { jobId } = (await api.createJob({ of })).data
     const sleep = (ms: number) => new Promise(r => setTimeout(r, ms))
-    while ((await api.jobStep({ of, params: { jobId } })).data.stepsAvailable) {
+    let jobInfo = (await api.jobStep({ of, params: { jobId } })).data
+    setSuccessfulItems(jobInfo.created)
+    setErrorItems(jobInfo.haveErrors)
+    while (jobInfo.stepsAvailable) {
       await sleep(500)
       await refetch()
       await sleep(500)
+      jobInfo = (await api.jobStep({ of, params: { jobId } })).data
+      setSuccessfulItems(jobInfo.created)
+      setErrorItems(jobInfo.haveErrors)
     }
     setCreating(false)
     await refetch()
@@ -52,6 +64,11 @@ export default function AcceptedApplications<T extends PluralKind>({ of }: { of:
               ></path>
             </svg>
             <h3 className="text-xl font-bold text-blue-900 mb-2">Creando Cuentas...</h3>
+            <ProgressBar
+              successfulItems={successfulItems}
+              errorItems={errorItems}
+              totalItems={initialAmount}
+            />
             <p className="text-sm text-slate-600">
               Por favor, no cierres ni actualices esta página. Este proceso puede tomar unos
               momentos.
@@ -80,12 +97,12 @@ export default function AcceptedApplications<T extends PluralKind>({ of }: { of:
             }
           />
           {/* Contenedor de la Tabla */}
-          {UsersTable({
-            users,
-            loading,
-            error,
-            redirectsTo: of === 'staff' ? '/staff/read-application/' : '/student/read-application/',
-          })}
+          <UsersTable
+            users={users}
+            loading={loading}
+            error={error}
+            redirectsTo={of === 'staff' ? '/staff/read-application/' : '/student/read-application/'}
+          />
         </div>
       </main>
     </>

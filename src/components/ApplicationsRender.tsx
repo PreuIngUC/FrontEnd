@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
-import { useNavigate } from 'react-router-dom'
 import UsersTable from './UsersTable'
+import HeadAndAction from './HeadAndAction'
 
 interface User {
   id: string
@@ -24,7 +24,6 @@ export default function ApplicationsRender({
 }) {
   const [tab, setTab] = useState<User['applicationState']>('PENDING')
   const [search, setSearch] = useState<string>('')
-  const navigate = useNavigate()
 
   const filtered = useMemo(() => {
     const filter0 = users.filter(u => u.applicationState === tab)
@@ -42,20 +41,10 @@ export default function ApplicationsRender({
     <main className="min-h-screen bg-sky-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto bg-white rounded-2xl shadow-sm border border-sky-100 p-6 md:p-8">
         {/* Cabecera */}
-        <div className="mb-8 border-b border-sky-100 pb-4">
-          <button
-            className="text-blue-600 hover:text-blue-800 hover:underline text-sm font-medium mb-4 flex items-center gap-1 transition-colors"
-            onClick={() => navigate(-1)}
-          >
-            &larr; Volver
-          </button>
-          <h1 className="text-3xl font-extrabold text-blue-900 tracking-tight">
-            Postulaciones {of === 'staff' ? 'Staff' : 'Estudiantes'}
-          </h1>
-          <p className="mt-2 text-slate-600">Revisa y gestiona las solicitudes de ingreso.</p>
-        </div>
-
-        {/* Controles: Tabs y Buscador */}
+        <HeadAndAction
+          title={'Postulaciones a ' + (of === 'staff' ? 'Equipo' : 'Estudiante')}
+          paragraph="Revisa y gestiona las postulaciones de ingreso."
+        />
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           {/* Selector de Estado (Tabs) */}
           <div className="flex bg-slate-100 p-1 rounded-xl w-full md:w-auto">
@@ -88,13 +77,12 @@ export default function ApplicationsRender({
             />
           </div>
         </div>
-        {/* Contenedor de la Tabla */}
-        {UsersTable({
-          users: filtered,
-          loading,
-          error,
-          redirectsTo: of === 'staff' ? '/staff/application/' : 'student/application/',
-        })}
+        <UsersTable
+          users={filtered}
+          loading={loading}
+          error={error}
+          redirectsTo={of === 'staff' ? '/staff/application/' : 'student/application/'}
+        />
       </div>
     </main>
   )
