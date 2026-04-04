@@ -81,7 +81,7 @@ export default function ApplicationsRender({
           users={filtered}
           loading={loading}
           error={error}
-          redirectsTo={of === 'staff' ? '/staff/application/' : 'student/application/'}
+          redirectsTo={of === 'staff' ? '/staff/application/' : '/student/application/'}
         />
       </div>
     </main>
