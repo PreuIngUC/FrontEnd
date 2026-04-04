@@ -23,15 +23,15 @@ export default function AcceptedApplications<T extends PluralKind>({ of }: { of:
     const { jobId } = (await api.createJob({ of })).data
     const sleep = (ms: number) => new Promise(r => setTimeout(r, ms))
     let jobInfo = (await api.jobStep({ of, params: { jobId } })).data
-    setSuccessfulItems(jobInfo.created)
-    setErrorItems(jobInfo.haveErrors)
+    setSuccessfulItems(successfulItems + jobInfo.created)
+    setErrorItems(errorItems + jobInfo.haveErrors)
     while (jobInfo.stepsAvailable) {
       await sleep(500)
       await refetch()
       await sleep(500)
       jobInfo = (await api.jobStep({ of, params: { jobId } })).data
-      setSuccessfulItems(jobInfo.created)
-      setErrorItems(jobInfo.haveErrors)
+      setSuccessfulItems(successfulItems + jobInfo.created)
+      setErrorItems(errorItems + jobInfo.haveErrors)
     }
     setCreating(false)
     await refetch()
