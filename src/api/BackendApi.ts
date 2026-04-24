@@ -168,6 +168,11 @@ class BackendApi {
   ) {
     return this.patch('/api/public/users/verify-then-password', body)
   }
+  async studentAbleToApply() {
+    return this.get<
+      paths['/api/public/student/able-to-apply']['get']['responses']['200']['content']['application/json']
+    >('/api/public/student/able-to-apply')
+  }
 }
 
 export default BackendApi
