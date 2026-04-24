@@ -10,6 +10,7 @@ import { useApi } from '../../../wrappers/ApiProvider.tsx'
 import { useNavigate } from 'react-router-dom'
 import type z from 'zod'
 import * as selectFieldsOptions from '../../../constants/applications/students/SelectFieldsOptions.ts'
+import { useEffect, useState } from 'react'
 
 //TODO: borrar este comentario
 
@@ -46,6 +47,15 @@ function mapFormToBody(values: FormType): BodyType {
 function StudentApplication() {
   const api = useApi()
   const navigate = useNavigate()
+  const [ableToApply, setAbleToApply] = useState<boolean>(false)
+  useEffect(() => {
+    if (!api || !navigate) return
+    void (async () => {
+      const ableToApply = (await api.studentAbleToApply()).data.ableToApply
+      if (!ableToApply) return navigate('/application/closed', { replace: true })
+      setAbleToApply(ableToApply)
+    })()
+  }, [api, navigate])
   const {
     register,
     handleSubmit,
@@ -69,8 +79,8 @@ function StudentApplication() {
         schoolType: undefined,
         schoolDependency: undefined,
         residence: '',
-        electiveTest: undefined,
-        takesM2: undefined,
+        electiveTest: 'TECNICO',
+        takesM2: 'NO',
         targetProgram: '',
         targetUniversity: '',
         goalsAndPlans: '',
@@ -105,367 +115,392 @@ function StudentApplication() {
   }
 
   return (
-    <div className="min-h-screen bg-sky-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-sky-100">
-        {/* ENCABEZADO DE LA TARJETA */}
-        <div className="bg-blue-900 py-6 px-8 text-center sm:px-10">
-          <h2 className="text-3xl font-extrabold text-white tracking-tight">
-            Postulación Estudiante
-          </h2>
-          <p className="mt-2 text-sky-200 text-sm">
-            Completa el formulario para ser parte del equipo.
-          </p>
-        </div>
-
-        {/* CUERPO DEL FORMULARIO Y TEXTO INTRODUCTORIO */}
-        <div className="py-8 px-8 sm:px-10">
-          {/* --- BLOQUE DE INFORMACIÓN INICIAL --- */}
-          <div className="mb-10 bg-slate-50 border border-slate-200 rounded-xl p-6 text-slate-700 shadow-sm">
-            <p className="mb-5 text-base text-center md:text-left">
-              El siguiente formulario tiene el objetivo de permitirte <strong>POSTULAR</strong> al
-              preuniversitario social de ingeniería. Esta es una primera instancia de comunicación.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
-              {/* Fechas */}
-              <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
-                <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
-                  📅 Fechas Clave
-                </h4>
-                <ul className="list-disc pl-5 space-y-2 text-sm">
-                  <li>
-                    <strong>Entrevistas presenciales:</strong> Entre el 16 y el 27 de marzo del
-                    2026.{' '}
-                    <span className="text-red-600 font-medium">Debe asistir con tutor legal.</span>
-                  </li>
-                  <li>
-                    <strong>Inicio de clases:</strong> Lunes 30 de marzo del 2026.
-                  </li>
-                </ul>
-              </div>
-
-              {/* Info Preliminar */}
-              <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
-                <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
-                  💡 Información Preliminar
-                </h4>
-                <ul className="list-disc pl-5 space-y-2 text-sm">
-                  <li>
-                    <strong>No se cobra mensualidad.</strong> Solo se debe pagar una matrícula de
-                    $15.000 pesos semestral.
-                  </li>
-                  <li>
-                    El compromiso es fundamental: Nos reservamos el derecho de no renovar la
-                    matrícula ante reiteradas <strong>inasistencias injustificadas</strong>.
-                  </li>
-                  <li>
-                    La planificación considera ambos semestres, preparando para la PAES de verano
-                    del 2027.
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <p className="text-center text-sm bg-sky-100 text-blue-900 py-3 rounded-lg font-medium">
-              Frente a cualquier duda o problema con este formulario escríbenos al correo:{' '}
-              <a href="mailto:preu.ing@gmail.com" className="font-bold hover:underline">
-                preu.ing@gmail.com
-              </a>
+    ableToApply && (
+      <div className="min-h-screen bg-sky-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-sky-100">
+          {/* ENCABEZADO DE LA TARJETA */}
+          <div className="bg-blue-900 py-6 px-8 text-center sm:px-10">
+            <h2 className="text-3xl font-extrabold text-white tracking-tight">
+              Postulación Estudiante
+            </h2>
+            <p className="mt-2 text-sky-200 text-sm">
+              Completa el formulario para ser parte del equipo.
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            {/* --- SECCIÓN 1: DATOS PERSONALES --- */}
-            <SectionTitle title="Datos Personales" />
+          {/* CUERPO DEL FORMULARIO Y TEXTO INTRODUCTORIO */}
+          <div className="py-8 px-8 sm:px-10">
+            {/* --- BLOQUE DE INFORMACIÓN INICIAL --- */}
+            <div className="mb-10 bg-slate-50 border border-slate-200 rounded-xl p-6 text-slate-700 shadow-sm">
+              <p className="mb-5 text-base text-center md:text-left">
+                El siguiente formulario tiene el objetivo de permitirte <strong>POSTULAR</strong> al
+                preuniversitario social de ingeniería. Esta es una primera instancia de
+                comunicación.
+              </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-              <TextField
-                label="Nombres"
-                register={register}
-                errorMessage={errors?.user?.names?.message}
-                prop="user.names"
-              />
-              <TextField
-                label="Apellido Paterno"
-                register={register}
-                errorMessage={errors?.user?.lastName0?.message}
-                prop="user.lastName0"
-              />
-              <TextField
-                label="Apellido Materno"
-                register={register}
-                errorMessage={errors?.user?.lastName1?.message}
-                prop="user.lastName1"
-              />
-              <TextField
-                label="RUT"
-                placeholder="12345678-9"
-                register={register}
-                errorMessage={errors?.user?.rut?.message}
-                prop="user.rut"
-              />
-              <SelectField
-                label="Pronombres"
-                register={register}
-                errorMessage={errors?.user?.pronouns?.message}
-                prop="user.pronouns"
-                options={selectFieldsOptions.pronounsOpts}
-              />
-              <TextField
-                label="Fecha de Nacimiento"
-                type="date"
-                register={register}
-                errorMessage={errors?.user?.birthDate?.message}
-                prop="user.birthDate"
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                {/* Fechas */}
+                <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
+                  <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                    📅 Fechas Clave
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-2 text-sm">
+                    <li>
+                      <strong>Entrevistas presenciales:</strong> Entre el 16 y el 27 de marzo del
+                      2026.{' '}
+                      <span className="text-red-600 font-medium">
+                        Debe asistir con tutor legal.
+                      </span>
+                    </li>
+                    <li>
+                      <strong>Inicio de clases:</strong> Lunes 30 de marzo del 2026.
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Info Preliminar */}
+                <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
+                  <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                    💡 Información Preliminar
+                  </h4>
+                  <ul className="list-disc pl-5 space-y-2 text-sm">
+                    <li>
+                      <strong>No se cobra mensualidad.</strong> Solo se debe pagar una matrícula de
+                      $15.000 pesos semestral.
+                    </li>
+                    <li>
+                      El compromiso es fundamental: Nos reservamos el derecho de no renovar la
+                      matrícula ante reiteradas <strong>inasistencias injustificadas</strong>.
+                    </li>
+                    <li>
+                      La planificación considera ambos semestres, preparando para la PAES de verano
+                      del 2027.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <p className="text-center text-sm bg-sky-100 text-blue-900 py-3 rounded-lg font-medium">
+                Frente a cualquier duda o problema con este formulario escríbenos al correo:{' '}
+                <a href="mailto:preu.ing@gmail.com" className="font-bold hover:underline">
+                  preu.ing@gmail.com
+                </a>
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <TextField
-                label="Número de teléfono"
-                placeholder="+56912345678"
-                register={register}
-                errorMessage={errors?.user?.phoneNumber?.message}
-                prop="user.phoneNumber"
-              />
-              <div className="hidden md:block"></div>
-              <TextField
-                label="Email"
-                placeholder="ejemplo@correo.cl"
-                register={register}
-                errorMessage={errors?.user?.email?.message}
-                prop="user.email"
-              />
-              <TextField
-                label="Confirma tu Email"
-                placeholder="ejemplo@correo.cl"
-                register={register}
-                errorMessage={errors?.user?.confirmEmail?.message}
-                prop="user.confirmEmail"
-              />
-            </div>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              {/* --- SECCIÓN 1: DATOS PERSONALES --- */}
+              <SectionTitle title="Datos Personales" />
 
-            {/* --- SECCIÓN 2: ANTECEDENTES ACADÉMICOS --- */}
-            <SectionTitle title="Antecedentes Académicos" />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                <TextField
+                  label="Nombres"
+                  register={register}
+                  errorMessage={errors?.user?.names?.message}
+                  prop="user.names"
+                />
+                <TextField
+                  label="Apellido Paterno"
+                  register={register}
+                  errorMessage={errors?.user?.lastName0?.message}
+                  prop="user.lastName0"
+                />
+                <TextField
+                  label="Apellido Materno"
+                  register={register}
+                  errorMessage={errors?.user?.lastName1?.message}
+                  prop="user.lastName1"
+                />
+                <TextField
+                  label="RUT"
+                  placeholder="12345678-9"
+                  register={register}
+                  errorMessage={errors?.user?.rut?.message}
+                  prop="user.rut"
+                />
+                <SelectField
+                  label="Pronombres"
+                  register={register}
+                  errorMessage={errors?.user?.pronouns?.message}
+                  prop="user.pronouns"
+                  options={selectFieldsOptions.pronounsOpts}
+                />
+                <TextField
+                  label="Fecha de Nacimiento"
+                  type="date"
+                  register={register}
+                  errorMessage={errors?.user?.birthDate?.message}
+                  prop="user.birthDate"
+                />
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <SelectField
-                label="Nivel Educacional"
-                register={register}
-                errorMessage={errors?.student?.educationalLevel?.message}
-                prop="student.educationalLevel"
-                options={selectFieldsOptions.educationalLevelOpts}
-              />
-              <TextField
-                label="Colegio de Procedencia"
-                register={register}
-                errorMessage={errors?.student?.school?.message}
-                prop="student.school"
-              />
-              <SelectField
-                label="Tipo de Establecimiento"
-                register={register}
-                errorMessage={errors?.student?.schoolType?.message}
-                prop="student.schoolType"
-                options={selectFieldsOptions.schoolTypeOpts}
-              />
-              <SelectField
-                label="Dependencia del Colegio"
-                register={register}
-                errorMessage={errors?.student?.schoolDependency?.message}
-                prop="student.schoolDependency"
-                options={selectFieldsOptions.schoolDependencyOpts}
-              />
-            </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <TextField
+                  label="Número de teléfono"
+                  placeholder="+56912345678"
+                  register={register}
+                  errorMessage={errors?.user?.phoneNumber?.message}
+                  prop="user.phoneNumber"
+                />
+                <div className="hidden md:block"></div>
+                <TextField
+                  label="Email"
+                  placeholder="ejemplo@correo.cl"
+                  register={register}
+                  errorMessage={errors?.user?.email?.message}
+                  prop="user.email"
+                />
+                <TextField
+                  label="Confirma tu Email"
+                  placeholder="ejemplo@correo.cl"
+                  register={register}
+                  errorMessage={errors?.user?.confirmEmail?.message}
+                  prop="user.confirmEmail"
+                />
+              </div>
 
-            <div className="mb-6">
-              <TextField
-                label="¿En qué comuna resides actualmente?"
-                placeholder="Ej: Puente Alto, Maipú, Santiago..."
-                register={register}
-                errorMessage={errors?.student?.residence?.message}
-                prop="student.residence"
-              />
-            </div>
+              {/* --- SECCIÓN 2: ANTECEDENTES ACADÉMICOS --- */}
+              <SectionTitle title="Antecedentes Académicos" />
 
-            <h4 className="text-md font-semibold text-blue-900 mb-4 mt-6">Promedios de Notas</h4>
-            <p className="text-sm text-slate-500 mt-1">
-              En caso de no conocer alguno todavía, ingresa 0.0
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <NumberField
-                label="1° Medio"
-                register={register}
-                errorMessage={errors?.student?.avg1M?.message}
-                prop="student.avg1M"
-                step="0.1"
-                placeholder="0.0"
-              />
-              <NumberField
-                label="2° Medio"
-                register={register}
-                errorMessage={errors?.student?.avg2M?.message}
-                prop="student.avg2M"
-                step="0.1"
-                placeholder="0.0"
-              />
-              <NumberField
-                label="3° Medio"
-                register={register}
-                errorMessage={errors?.student?.avg3M?.message}
-                prop="student.avg3M"
-                step="0.1"
-                placeholder="0.0"
-              />
-              <NumberField
-                label="4° Medio (opc)"
-                register={register}
-                errorMessage={errors?.student?.avg4M?.message}
-                prop="student.avg4M"
-                step="0.1"
-                placeholder="0.0"
-              />
-            </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <SelectField
+                  label="Nivel Educacional"
+                  register={register}
+                  errorMessage={errors?.student?.educationalLevel?.message}
+                  prop="student.educationalLevel"
+                  options={selectFieldsOptions.educationalLevelOpts}
+                />
+                <TextField
+                  label="Colegio de Procedencia"
+                  register={register}
+                  errorMessage={errors?.student?.school?.message}
+                  prop="student.school"
+                />
+                <SelectField
+                  label="Tipo de Establecimiento"
+                  register={register}
+                  errorMessage={errors?.student?.schoolType?.message}
+                  prop="student.schoolType"
+                  options={selectFieldsOptions.schoolTypeOpts}
+                />
+                <SelectField
+                  label="Dependencia del Colegio"
+                  register={register}
+                  errorMessage={errors?.student?.schoolDependency?.message}
+                  prop="student.schoolDependency"
+                  options={selectFieldsOptions.schoolDependencyOpts}
+                />
+              </div>
 
-            {/* --- SECCIÓN 3: INTERESES Y OBJETIVOS --- */}
-            <SectionTitle title="Intereses y Objetivos" />
+              <div className="mb-6">
+                <TextField
+                  label="¿En qué comuna resides actualmente?"
+                  placeholder="Ej: Puente Alto, Maipú, Santiago..."
+                  register={register}
+                  errorMessage={errors?.student?.residence?.message}
+                  prop="student.residence"
+                />
+              </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <SelectField
+              <h4 className="text-md font-semibold text-blue-900 mb-4 mt-6">Promedios de Notas</h4>
+              <p className="text-sm text-slate-500 mt-1">
+                En caso de no conocer alguno todavía, ingresa 0.0
+              </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <NumberField
+                  label="1° Medio"
+                  register={register}
+                  errorMessage={errors?.student?.avg1M?.message}
+                  prop="student.avg1M"
+                  step="0.1"
+                  placeholder="0.0"
+                />
+                <NumberField
+                  label="2° Medio"
+                  register={register}
+                  errorMessage={errors?.student?.avg2M?.message}
+                  prop="student.avg2M"
+                  step="0.1"
+                  placeholder="0.0"
+                />
+                <NumberField
+                  label="3° Medio"
+                  register={register}
+                  errorMessage={errors?.student?.avg3M?.message}
+                  prop="student.avg3M"
+                  step="0.1"
+                  placeholder="0.0"
+                />
+                <NumberField
+                  label="4° Medio (opc)"
+                  register={register}
+                  errorMessage={errors?.student?.avg4M?.message}
+                  prop="student.avg4M"
+                  step="0.1"
+                  placeholder="0.0"
+                />
+              </div>
+
+              {/* --- SECCIÓN 3: INTERESES Y OBJETIVOS --- */}
+              <SectionTitle title="Intereses y Objetivos" />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {/* <SelectField
                 label="¿Cuál de los planes electivos que ofrecemos prefieres?"
                 register={register}
                 errorMessage={errors?.student?.electiveTest?.message}
                 prop="student.electiveTest"
                 options={selectFieldsOptions.electiveTestOpts}
-              />
-              <SelectField
+              /> */}
+                {/* <SelectField
                 label="¿Rendirás la prueba M2?"
                 register={register}
                 errorMessage={errors?.student?.takesM2?.message}
                 prop="student.takesM2"
                 options={selectFieldsOptions.takesM2Opts}
-              />
-              <TextField
-                label="Carrera de Interés"
-                register={register}
-                errorMessage={errors?.student?.targetProgram?.message}
-                prop="student.targetProgram"
-              />
-              <TextField
-                label="Universidad de Interés"
-                register={register}
-                errorMessage={errors?.student?.targetUniversity?.message}
-                prop="student.targetUniversity"
-              />
-            </div>
-
-            <div className="space-y-6 mb-6">
-              <TextField
-                label="¿Cuáles son tus objetivos y planes para este año? ¿Cómo se relacionan con nuestro preuniversitario?"
-                placeholder="Cuéntanos brevemente..."
-                register={register}
-                errorMessage={errors?.student?.goalsAndPlans?.message}
-                prop="student.goalsAndPlans"
-              />
-              <TextField
-                label="Nuestro horario de clases será de lunes a jueves de 18:00 a 20:00 ¿Tienes alguna dificultad con este horario?"
-                placeholder="Si/No, especifica..."
-                register={register}
-                errorMessage={errors?.student?.scheduleDifficulties?.message}
-                prop="student.scheduleDifficulties"
-              />
-            </div>
-
-            {/* --- SECCIÓN 4: ANTECEDENTES SOCIOECONÓMICOS --- */}
-            <SectionTitle
-              title="Antecedentes Socioeconómicos"
-              description="Esta información es confidencial y nos ayuda a entender tu contexto."
-            />
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <SelectField
-                label="Tramo en el Registro Social de Hogares"
-                register={register}
-                errorMessage={errors?.student?.rshSection?.message}
-                prop="student.rshSection"
-                options={selectFieldsOptions.rshSectionOpts}
-              />
-              <NumberField
-                label="Cantidad de integrantes en tu Hogar (incluyéndote)"
-                register={register}
-                errorMessage={errors?.student?.familySize?.message}
-                prop="student.familySize"
-              />
-              <NumberField
-                label="Ingreso Total Familiar"
-                register={register}
-                errorMessage={errors?.student?.totalMonthlyIncome?.message}
-                prop="student.totalMonthlyIncome"
-              />
-            </div>
-
-            <h4 className="text-md font-semibold text-blue-900 mb-4">Gastos Mensuales Estimados</h4>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
-              <NumberField
-                label="Alimentación"
-                register={register}
-                prop="student.monthlyFoodExpenses"
-                errorMessage={errors?.student?.monthlyFoodExpenses?.message}
-              />
-              <NumberField
-                label="Educación"
-                register={register}
-                prop="student.monthlyEducationExpenses"
-                errorMessage={errors?.student?.monthlyEducationExpenses?.message}
-              />
-              <NumberField
-                label="Cuentas Básicas"
-                register={register}
-                prop="student.monthlyUtilitiesExpenses"
-                errorMessage={errors?.student?.monthlyUtilitiesExpenses?.message}
-              />
-              <NumberField
-                label="Telecomunicaciones"
-                register={register}
-                prop="student.monthlyTelecomExpenses"
-                errorMessage={errors?.student?.monthlyTelecomExpenses?.message}
-              />
-              <NumberField
-                label="Transporte"
-                register={register}
-                prop="student.monthlyTransportationExpenses"
-                errorMessage={errors?.student?.monthlyTransportationExpenses?.message}
-              />
-              <NumberField
-                label="Vivienda"
-                register={register}
-                prop="student.monthlyHousingExpenses"
-                errorMessage={errors?.student?.monthlyHousingExpenses?.message}
-              />
-              <NumberField
-                label="Salud"
-                register={register}
-                prop="student.monthlyHealthcareExpenses"
-                errorMessage={errors?.student?.monthlyHealthcareExpenses?.message}
-              />
-              <NumberField
-                label="Otros"
-                register={register}
-                prop="student.monthlyMiscExpenses"
-                errorMessage={errors?.student?.monthlyMiscExpenses?.message}
-              />
-            </div>
-
-            {/* BOTÓN DE ENVÍO CENTRADO */}
-            <div className="flex justify-center pt-6 border-t border-sky-100">
-              <div className="w-full md:w-1/2">
-                <SubmitApplicationButton disabled={isSubmitting} />
+              /> */}
+                <TextField
+                  label="Carrera de Interés"
+                  register={register}
+                  errorMessage={errors?.student?.targetProgram?.message}
+                  prop="student.targetProgram"
+                />
+                <TextField
+                  label="Universidad de Interés"
+                  register={register}
+                  errorMessage={errors?.student?.targetUniversity?.message}
+                  prop="student.targetUniversity"
+                />
               </div>
-            </div>
-          </form>
+
+              <div className="space-y-6 mb-6">
+                <TextField
+                  label="¿Cuáles son tus objetivos y planes para este año? ¿Cómo se relacionan con nuestro preuniversitario?"
+                  placeholder="Cuéntanos brevemente..."
+                  register={register}
+                  errorMessage={errors?.student?.goalsAndPlans?.message}
+                  prop="student.goalsAndPlans"
+                />
+                <TextField
+                  label="Nuestro horario de clases será de lunes a jueves de 18:00 a 20:00 ¿Tienes alguna dificultad con este horario?"
+                  placeholder="Si/No, especifica..."
+                  register={register}
+                  errorMessage={errors?.student?.scheduleDifficulties?.message}
+                  prop="student.scheduleDifficulties"
+                />
+              </div>
+
+              {/* --- SECCIÓN 4: ANTECEDENTES SOCIOECONÓMICOS --- */}
+              <SectionTitle
+                title="Antecedentes Socioeconómicos"
+                description="Esta información es confidencial y nos ayuda a entender tu contexto."
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <SelectField
+                  label="Tramo en el Registro Social de Hogares"
+                  register={register}
+                  errorMessage={errors?.student?.rshSection?.message}
+                  prop="student.rshSection"
+                  options={selectFieldsOptions.rshSectionOpts}
+                />
+                <NumberField
+                  label="Cantidad de integrantes en tu Hogar (incluyéndote)"
+                  register={register}
+                  errorMessage={errors?.student?.familySize?.message}
+                  prop="student.familySize"
+                />
+                <NumberField
+                  label="Ingreso Total Familiar"
+                  register={register}
+                  errorMessage={errors?.student?.totalMonthlyIncome?.message}
+                  prop="student.totalMonthlyIncome"
+                  placeholder="1000"
+                  step="1000"
+                />
+              </div>
+
+              <h4 className="text-md font-semibold text-blue-900 mb-4">
+                Gastos Mensuales Estimados
+              </h4>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-10">
+                <NumberField
+                  label="Alimentación"
+                  register={register}
+                  prop="student.monthlyFoodExpenses"
+                  errorMessage={errors?.student?.monthlyFoodExpenses?.message}
+                  placeholder="1000"
+                  step="1000"
+                />
+                <NumberField
+                  label="Educación"
+                  register={register}
+                  prop="student.monthlyEducationExpenses"
+                  errorMessage={errors?.student?.monthlyEducationExpenses?.message}
+                  placeholder="1000"
+                  step="1000"
+                />
+                <NumberField
+                  label="Cuentas Básicas"
+                  register={register}
+                  prop="student.monthlyUtilitiesExpenses"
+                  errorMessage={errors?.student?.monthlyUtilitiesExpenses?.message}
+                  placeholder="1000"
+                  step="1000"
+                />
+                <NumberField
+                  label="Telecomunicaciones"
+                  register={register}
+                  prop="student.monthlyTelecomExpenses"
+                  errorMessage={errors?.student?.monthlyTelecomExpenses?.message}
+                  placeholder="1000"
+                  step="1000"
+                />
+                <NumberField
+                  label="Transporte"
+                  register={register}
+                  prop="student.monthlyTransportationExpenses"
+                  errorMessage={errors?.student?.monthlyTransportationExpenses?.message}
+                  placeholder="1000"
+                  step="1000"
+                />
+                <NumberField
+                  label="Vivienda"
+                  register={register}
+                  prop="student.monthlyHousingExpenses"
+                  errorMessage={errors?.student?.monthlyHousingExpenses?.message}
+                  placeholder="1000"
+                  step="1000"
+                />
+                <NumberField
+                  label="Salud"
+                  register={register}
+                  prop="student.monthlyHealthcareExpenses"
+                  errorMessage={errors?.student?.monthlyHealthcareExpenses?.message}
+                  placeholder="1000"
+                  step="1000"
+                />
+                <NumberField
+                  label="Otros"
+                  register={register}
+                  prop="student.monthlyMiscExpenses"
+                  errorMessage={errors?.student?.monthlyMiscExpenses?.message}
+                  placeholder="1000"
+                  step="1000"
+                />
+              </div>
+
+              {/* BOTÓN DE ENVÍO CENTRADO */}
+              <div className="flex justify-center pt-6 border-t border-sky-100">
+                <div className="w-full md:w-1/2">
+                  <SubmitApplicationButton disabled={isSubmitting} />
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    )
   )
 }
 
