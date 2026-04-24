@@ -14,6 +14,7 @@ import StaffApplicationDetail from '../pages/application/private/StaffApplicatio
 import VerifyThenPassword from '../pages/application/public/VerifyThenPassword.tsx'
 import AcceptedApplications from '../pages/application/private/AcceptedApplications.tsx'
 import StudentApplicationDetail from '../pages/application/private/StudentApplicationDetial.tsx'
+import CoursesPage from '../pages/coursesManagement/CoursesPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -136,6 +137,21 @@ const router = createBrowserRouter([
       {
         path: '/verify',
         element: <VerifyThenPassword />,
+      },
+      {
+        path: '/courses',
+        element: (
+          <ProtectedRoute
+            permissionsRequired={[
+              Permissions.EditCourses,
+              Permissions.ReadCourses,
+              Permissions.CreateCourses,
+              Permissions.CreateCourseEnrolments,
+            ]}
+          >
+            <CoursesPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
