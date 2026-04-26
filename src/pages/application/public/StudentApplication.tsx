@@ -167,7 +167,9 @@ function StudentApplication() {
                     </li>
                     <li>
                       La planificación considera desde la fecha de inicio hasta dos semanas antes de
-                      la PAES de verano del 2027.
+                      la PAES de verano del 2027. No habrá clases durante las semanas de receso ni
+                      en las vacaciones de invierno de la universidad. Todas estas fechas se
+                      comunicarán con antelación.
                     </li>
                     <li>
                       Cada estudiante tendrá 2 clases semanales, con horarios específicos
