@@ -121,10 +121,10 @@ function StudentApplication() {
           {/* ENCABEZADO DE LA TARJETA */}
           <div className="bg-blue-900 py-6 px-8 text-center sm:px-10">
             <h2 className="text-3xl font-extrabold text-white tracking-tight">
-              Postulación Estudiante
+              Postulación Estudiante Online 2026
             </h2>
             <p className="mt-2 text-sky-200 text-sm">
-              Completa el formulario para ser parte del equipo.
+              Completa el formulario para ser parte del Preuniversitario Social de Ingeniería UC.
             </p>
           </div>
 
@@ -146,14 +146,7 @@ function StudentApplication() {
                   </h4>
                   <ul className="list-disc pl-5 space-y-2 text-sm">
                     <li>
-                      <strong>Entrevistas presenciales:</strong> Entre el 16 y el 27 de marzo del
-                      2026.{' '}
-                      <span className="text-red-600 font-medium">
-                        Debe asistir con tutor legal.
-                      </span>
-                    </li>
-                    <li>
-                      <strong>Inicio de clases:</strong> Lunes 30 de marzo del 2026.
+                      <strong>Inicio de clases:</strong> Lunes 04 de mayo.
                     </li>
                   </ul>
                 </div>
@@ -166,15 +159,20 @@ function StudentApplication() {
                   <ul className="list-disc pl-5 space-y-2 text-sm">
                     <li>
                       <strong>No se cobra mensualidad.</strong> Solo se debe pagar una matrícula de
-                      $15.000 pesos semestral.
+                      $15.000 pesos por el período completo de clases.
                     </li>
                     <li>
-                      El compromiso es fundamental: Nos reservamos el derecho de no renovar la
+                      El compromiso es fundamental: nos reservamos el derecho de cancelar la
                       matrícula ante reiteradas <strong>inasistencias injustificadas</strong>.
                     </li>
                     <li>
-                      La planificación considera ambos semestres, preparando para la PAES de verano
-                      del 2027.
+                      La planificación considera desde la fecha de inicio hasta dos semanas antes de
+                      la PAES de verano del 2027.
+                    </li>
+                    <li>
+                      Cada estudiante tendrá 2 clases semanales, con horarios específicos
+                      dependiendo de su sección. Estos horarios se encuentran en el rango de lunes a
+                      jueves de 19:00 a 19:50 y 20:00 a 20:50.
                     </li>
                   </ul>
                 </div>
