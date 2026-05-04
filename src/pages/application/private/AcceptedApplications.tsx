@@ -83,17 +83,20 @@ export default function AcceptedApplications<T extends PluralKind>({ of }: { of:
             title="Postulaciones Aceptadas"
             paragraph="Revisa la lista y genera las cuentas"
             extra={
-              <button
-                className={`inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 shadow-sm whitespace-nowrap ${
-                  creating
-                    ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
-                    : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow border border-transparent focus:ring-2 focus:ring-blue-500 focus:ring-offset-1'
-                }`}
-                onClick={onCreateAccounts}
-                disabled={creating}
-              >
-                {creating ? 'Creando cuentas...' : 'Crear Cuentas'}
-              </button>
+              <>
+                <p>{'Hay ' + users.length + ' postulaciones aceptadas'}</p>
+                <button
+                  className={`inline-flex items-center justify-center px-4 py-2 rounded-xl text-sm font-semibold transition-all duration-200 shadow-sm whitespace-nowrap ${
+                    creating
+                      ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200'
+                      : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow border border-transparent focus:ring-2 focus:ring-blue-500 focus:ring-offset-1'
+                  }`}
+                  onClick={onCreateAccounts}
+                  disabled={creating}
+                >
+                  {creating ? 'Creando cuentas...' : 'Crear Cuentas'}
+                </button>
+              </>
             }
           />
           {/* Contenedor de la Tabla */}

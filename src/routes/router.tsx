@@ -15,6 +15,7 @@ import VerifyThenPassword from '../pages/application/public/VerifyThenPassword.t
 import AcceptedApplications from '../pages/application/private/AcceptedApplications.tsx'
 import StudentApplicationDetail from '../pages/application/private/StudentApplicationDetial.tsx'
 import CoursesPage from '../pages/coursesManagement/CoursesPage.tsx'
+import ApplicationsClosed from '../pages/application/public/ApplicationsClosed.tsx'
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: '/application/submitted',
         element: <ApplicationSubmitted />,
+      },
+      {
+        path: '/application/closed',
+        element: <ApplicationsClosed />,
       },
       {
         path: '/home',
