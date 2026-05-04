@@ -9,26 +9,40 @@ export default function useAcceptedApplications<R extends PluralKind>({ of }: { 
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | undefined>(undefined)
   const api = useApi()
-  const fetch = useCallback(async () => {
-    if (!api) return
-    if (!of) return
+  useEffect(() => {
+    let ignore = false
+    void (async () => {
+      if (!api) return
+      if (!of) return
+      try {
+        const res = await api.getAcceptedApplications({ of })
+        if (!ignore) setUsers(res.data.users)
+      } catch {
+        if (!ignore) {
+          setError('Hubo un error obteniendo a los usuarios.')
+          setUsers([])
+        }
+      } finally {
+        if (!ignore) setLoading(false)
+      }
+    })()
+    return () => {
+      ignore = true
+    }
+  }, [api, of])
+  const refetch = useCallback(async () => {
+    if (!api || !of) return
     setLoading(true)
     setError(undefined)
     try {
-      const data = (await api.getAcceptedApplications<R>({ of })).data
-      setUsers(data.users)
+      const res = await api.getAcceptedApplications({ of })
+      setUsers(res.data.users)
     } catch {
-      setError('Error obteniendo usuarios.')
+      setError('Hubo un error obteniendo a los usuarios.')
       setUsers([])
     } finally {
       setLoading(false)
     }
   }, [api, of])
-  const refetch = useCallback(async () => {
-    await fetch()
-  }, [fetch])
-  useEffect(() => {
-    void fetch()
-  }, [fetch])
   return { users, loading, error, refetch }
 }

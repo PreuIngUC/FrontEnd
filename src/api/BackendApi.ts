@@ -173,6 +173,18 @@ class BackendApi {
       paths['/api/public/student/able-to-apply']['get']['responses']['200']['content']['application/json']
     >('/api/public/student/able-to-apply')
   }
+  async getCourses() {
+    return this.get<
+      paths['/api/private/courses']['get']['responses']['200']['content']['application/json']
+    >('/api/private/courses')
+  }
+  async createCourse(
+    body: paths['/api/private/course']['post']['requestBody']['content']['application/json'],
+  ) {
+    return this.post<
+      paths['/api/private/course']['post']['responses']['201']['content']['application/json']
+    >('/api/private/course', body)
+  }
 }
 
 export default BackendApi

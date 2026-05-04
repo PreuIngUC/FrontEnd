@@ -40,7 +40,7 @@ function mapFormToBody(values: FormType): BodyType {
 
 export default function StudentApplicationDetail({ justRead }: { justRead: boolean }) {
   const { id } = useParams<{ id: string }>()
-  const { user, loading, error, mutating, refetch } = useApplication({ of: 'student', id })
+  const { user, loading, error, refetch } = useApplication({ of: 'student', id })
   const api = useApi()
   const navigate = useNavigate()
 
@@ -82,7 +82,7 @@ export default function StudentApplicationDetail({ justRead }: { justRead: boole
   const isRejected = user.studentProfile.applicationState === 'REJECTED_AS_STUDENT'
 
   const onAccept = async () => {
-    if (mutating || justRead) return
+    if (loading || justRead) return
     await api.changeApplicationState({
       of: 'student',
       params: { id: user.id, applicationState: 'ACCEPTED_AS_STUDENT' },
@@ -91,7 +91,7 @@ export default function StudentApplicationDetail({ justRead }: { justRead: boole
     console.log('accept', id)
   }
   const onReject = async () => {
-    if (mutating || justRead) return
+    if (loading || justRead) return
     await api.changeApplicationState({
       of: 'student',
       params: { id: user.id, applicationState: 'REJECTED_AS_STUDENT' },
@@ -100,7 +100,7 @@ export default function StudentApplicationDetail({ justRead }: { justRead: boole
     console.log('reject', id)
   }
   const onUndoAccept = async () => {
-    if (mutating || justRead) return
+    if (loading || justRead) return
     await api.changeApplicationState({
       of: 'student',
       params: { id: user.id, applicationState: 'PENDING_AS_STUDENT' },
@@ -109,7 +109,7 @@ export default function StudentApplicationDetail({ justRead }: { justRead: boole
     console.log('undo accept', id)
   }
   const onUndoReject = async () => {
-    if (mutating || justRead) return
+    if (loading || justRead) return
     await api.changeApplicationState({
       of: 'student',
       params: { id: user.id, applicationState: 'PENDING_AS_STUDENT' },
