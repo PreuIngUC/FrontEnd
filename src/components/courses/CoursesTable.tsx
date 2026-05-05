@@ -31,8 +31,12 @@ export default function CoursesTable({
               className="transition-colors hover:bg-blue-50/50 even:bg-slate-50 odd:bg-white"
             >
               <td className="py-3 px-4 text-slate-700 font-medium">{c.name}</td>
-              <td className="py-3 px-4 text-slate-600 font-mono text-sm">{c.startDate}</td>
-              <td className="py-3 px-4 text-slate-600 font-mono text-sm">{c.endDate}</td>
+              <td className="py-3 px-4 text-slate-600 font-mono text-sm">
+                {c.startDate ?? 'Sin Fecha'}
+              </td>
+              <td className="py-3 px-4 text-slate-600 font-mono text-sm">
+                {c.endDate ?? 'Sin Fecha'}
+              </td>
               <td className="py-3 px-4 text-right">
                 <button
                   className="inline-flex items-center px-3 py-1 bg-white border border-sky-200 text-blue-700 text-sm font-medium rounded-lg hover:bg-sky-50 hover:border-sky-300 transition-colors shadow-sm"

@@ -16,6 +16,7 @@ import AcceptedApplications from '../pages/application/private/AcceptedApplicati
 import StudentApplicationDetail from '../pages/application/private/StudentApplicationDetial.tsx'
 import CoursesPage from '../pages/coursesManagement/CoursesPage.tsx'
 import ApplicationsClosed from '../pages/application/public/ApplicationsClosed.tsx'
+import CourseDetail from '../pages/coursesManagement/CourseDetail.tsx'
 
 const router = createBrowserRouter([
   {
@@ -155,6 +156,21 @@ const router = createBrowserRouter([
             ]}
           >
             <CoursesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/course/:id',
+        element: (
+          <ProtectedRoute
+            permissionsRequired={[
+              Permissions.EditCourses,
+              Permissions.ReadCourses,
+              Permissions.CreateCourses,
+              Permissions.CreateCourseEnrolments,
+            ]}
+          >
+            <CourseDetail />
           </ProtectedRoute>
         ),
       },

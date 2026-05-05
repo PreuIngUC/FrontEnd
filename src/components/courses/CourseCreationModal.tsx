@@ -23,12 +23,10 @@ export default function CourseCreationModal({
     setCreating(true)
 
     try {
-      // 3. Preparamos los datos.
-      // Solo incluimos las fechas si el usuario las rellenó.
       const courseData = {
         name,
-        ...(startDate ? { startDate } : { startDate: null }),
-        ...(endDate ? { endDate } : { endDate: null }),
+        ...(startDate ? { startDate } : {}),
+        ...(endDate ? { endDate } : {}),
       }
       await api.createCourse(courseData)
       onSuccess()

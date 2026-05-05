@@ -16,7 +16,7 @@ function computeVD(body: string): string {
 
 function rutVerify(rut: string) {
   const [body, vD] = rut.split('-')
-  return vD === computeVD(body)
+  return vD.toUpperCase() === computeVD(body)
 }
 
 export default rutVerify
