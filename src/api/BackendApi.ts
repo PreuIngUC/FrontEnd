@@ -201,6 +201,16 @@ class BackendApi {
       paths['/api/private/course/:id']['patch']['responses']['200']['content']['application/json']
     >(`/api/private/course/${id}`, body)
   }
+  async getCourseSections({ id }: { id: string }) {
+    return this.get<
+      paths['/api/private/course/:id/sections']['get']['responses']['200']['content']['application/json']
+    >(`/api/private/course/${id}/sections`)
+  }
+  async getCoursesAvailableForApplications() {
+    return this.get<
+      paths['/api/public/courses/applications_available']['get']['responses']['200']['content']['application/json']
+    >('/api/public/courses/applications_available')
+  }
 }
 
 export default BackendApi

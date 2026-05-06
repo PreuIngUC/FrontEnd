@@ -6,6 +6,7 @@ interface CheckboxFieldProps<T extends FieldValues> {
   errorMessage?: string
   prop: Path<T>
   readOnly?: boolean
+  value?: string | number
 }
 
 function CheckboxField<T extends FieldValues>({
@@ -14,12 +15,14 @@ function CheckboxField<T extends FieldValues>({
   errorMessage,
   prop,
   readOnly = false,
+  value,
 }: CheckboxFieldProps<T>) {
   return (
     <div className="flex flex-col w-full">
       <label className="flex items-center gap-3 cursor-pointer py-2">
         <input
           type="checkbox"
+          value={value}
           {...register(prop)}
           disabled={readOnly}
           className={`

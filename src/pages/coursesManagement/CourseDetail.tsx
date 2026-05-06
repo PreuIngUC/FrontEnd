@@ -8,6 +8,7 @@ import useCourse from '../../hooks/useCourse'
 import TextField from '../../components/form/TextField'
 import CheckboxField from '../../components/form/CheckboxField'
 import { useApi } from '../../wrappers/ApiProvider'
+import SectionsTable from '../../components/sections/SectionsTable'
 
 const CourseSchema = z.object({
   name: z.string().min(1, 'El nombre es obligatorio'),
@@ -104,7 +105,7 @@ export default function CourseDetail() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto p-6 mt-4">
+      <div className="max-w-5xl mx-auto p-6 mt-4 flex flex-col gap-6">
         <form
           onSubmit={handleSubmit(onSubmitEdit)}
           className="bg-white rounded-xl shadow-sm border border-sky-100 p-8"
@@ -176,7 +177,6 @@ export default function CourseDetail() {
               />
             )}
           </div>
-
           {/* SECCIÓN 2: CONFIGURACIÓN */}
           <SectionTitle title="Configuración" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -202,7 +202,6 @@ export default function CourseDetail() {
               readOnly={!editing}
             />
           </div>
-
           {/* ACCIONES DE EDICIÓN */}
           {editing && (
             <div className="mt-8 pt-6 border-t border-sky-100 flex items-center justify-end gap-4">
@@ -227,6 +226,10 @@ export default function CourseDetail() {
             </div>
           )}
         </form>
+        <div className="bg-white rounded-xl shadow-sm border border-sky-100 p-8">
+          <SectionTitle title="Secciones del Curso" className="" />
+          <SectionsTable sections={course.sections} loading={loading} error={error} />
+        </div>
       </div>
     </main>
   )
