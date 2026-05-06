@@ -14,7 +14,9 @@ import StaffApplicationDetail from '../pages/application/private/StaffApplicatio
 import VerifyThenPassword from '../pages/application/public/VerifyThenPassword.tsx'
 import AcceptedApplications from '../pages/application/private/AcceptedApplications.tsx'
 import StudentApplicationDetail from '../pages/application/private/StudentApplicationDetial.tsx'
+import CoursesPage from '../pages/coursesManagement/CoursesPage.tsx'
 import ApplicationsClosed from '../pages/application/public/ApplicationsClosed.tsx'
+import CourseDetail from '../pages/coursesManagement/CourseDetail.tsx'
 
 const router = createBrowserRouter([
   {
@@ -102,7 +104,8 @@ const router = createBrowserRouter([
               Permissions.ReadStaffApplications,
             ]}
           >
-            <StaffApplicationDetail justRead={false} />
+            {/* <StaffApplicationDetail justRead={false} /> */}
+            <StaffApplicationDetail />
           </ProtectedRoute>
         ),
       },
@@ -110,7 +113,8 @@ const router = createBrowserRouter([
         path: '/staff/read-application/:id',
         element: (
           <ProtectedRoute permissionsRequired={[Permissions.ReadStaffApplications]}>
-            <StaffApplicationDetail justRead={true} />
+            {/* <StaffApplicationDetail justRead={true} /> */}
+            <StaffApplicationDetail />
           </ProtectedRoute>
         ),
       },
@@ -141,6 +145,36 @@ const router = createBrowserRouter([
       {
         path: '/verify',
         element: <VerifyThenPassword />,
+      },
+      {
+        path: '/courses',
+        element: (
+          <ProtectedRoute
+            permissionsRequired={[
+              Permissions.EditCourses,
+              Permissions.ReadCourses,
+              Permissions.CreateCourses,
+              Permissions.CreateCourseEnrolments,
+            ]}
+          >
+            <CoursesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/course/:id',
+        element: (
+          <ProtectedRoute
+            permissionsRequired={[
+              Permissions.EditCourses,
+              Permissions.ReadCourses,
+              Permissions.CreateCourses,
+              Permissions.CreateCourseEnrolments,
+            ]}
+          >
+            <CourseDetail />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

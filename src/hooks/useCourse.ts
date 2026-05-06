@@ -1,17 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useApi } from '../wrappers/ApiProvider.tsx'
-import type { SingularKind } from '../api/BackendApi.ts'
 import type BackendApi from '../api/BackendApi.ts'
 
-export default function useApplication<R extends SingularKind>({
-  of,
-  id,
-}: {
-  of: R
-  id: string | undefined
-}) {
-  const [user, setUser] = useState<
-    Awaited<ReturnType<typeof BackendApi.prototype.getApplication<R>>>['data']['user'] | null
+export default function useCourse({ id }: { id: string | undefined }) {
+  const [course, setCourse] = useState<
+    Awaited<ReturnType<typeof BackendApi.prototype.getCourse>>['data'] | null
   >(null)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | undefined>(undefined)
@@ -20,17 +13,16 @@ export default function useApplication<R extends SingularKind>({
     let ignore = false
     void (async () => {
       if (!api) return
-      if (!of) return
       if (!id) return
       setLoading(true)
       setError(undefined)
       try {
-        const data = (await api.getApplication<R>({ of, params: { id } })).data
-        if (!ignore) setUser(data.user)
+        const data = (await api.getCourse(id)).data
+        if (!ignore) setCourse(data)
       } catch {
         if (!ignore) {
           setError('Error obteniendo datos.')
-          setUser(null)
+          setCourse(null)
         }
       } finally {
         if (!ignore) setLoading(false)
@@ -39,22 +31,21 @@ export default function useApplication<R extends SingularKind>({
     return () => {
       ignore = true
     }
-  }, [api, of, id])
+  }, [api, id])
   const refetch = useCallback(async () => {
     if (!api) return
-    if (!of) return
     if (!id) return
     setLoading(true)
     setError(undefined)
     try {
-      const data = (await api.getApplication<R>({ of, params: { id } })).data
-      setUser(data.user)
+      const data = (await api.getCourse(id)).data
+      setCourse(data)
     } catch {
       setError('Error obteniendo datos.')
-      setUser(null)
+      setCourse(null)
     } finally {
       setLoading(false)
     }
-  }, [api, of, id])
-  return { user, loading, error, refetch }
+  }, [api, id])
+  return { course, loading, error, refetch }
 }

@@ -173,6 +173,44 @@ class BackendApi {
       paths['/api/public/student/able-to-apply']['get']['responses']['200']['content']['application/json']
     >('/api/public/student/able-to-apply')
   }
+  async getCourses() {
+    return this.get<
+      paths['/api/private/courses']['get']['responses']['200']['content']['application/json']
+    >('/api/private/courses')
+  }
+  async createCourse(
+    body: paths['/api/private/course']['post']['requestBody']['content']['application/json'],
+  ) {
+    return this.post<
+      paths['/api/private/course']['post']['responses']['201']['content']['application/json']
+    >('/api/private/course', body)
+  }
+  async getCourse(id: string) {
+    return this.get<
+      paths['/api/private/course/:id']['get']['responses']['200']['content']['application/json']
+    >(`/api/private/course/${id}`)
+  }
+  async editCourse({
+    id,
+    body,
+  }: {
+    id: string
+    body: paths['/api/private/course/:id']['patch']['requestBody']['content']['application/json']
+  }) {
+    return this.patch<
+      paths['/api/private/course/:id']['patch']['responses']['200']['content']['application/json']
+    >(`/api/private/course/${id}`, body)
+  }
+  async getCourseSections({ id }: { id: string }) {
+    return this.get<
+      paths['/api/private/course/:id/sections']['get']['responses']['200']['content']['application/json']
+    >(`/api/private/course/${id}/sections`)
+  }
+  async getCoursesAvailableForApplications() {
+    return this.get<
+      paths['/api/public/courses/applications_available']['get']['responses']['200']['content']['application/json']
+    >('/api/public/courses/applications_available')
+  }
 }
 
 export default BackendApi

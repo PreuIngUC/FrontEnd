@@ -33,9 +33,21 @@ export const actionCards: ActionCardProps[] = [
   // },
   {
     id: 'acceptedStudents',
-    title: 'Estudiantes Aceptados',
+    title: 'Postulaciones Aceptadas',
     description: 'Deshacer aceptación o crear cuentas en masa a estudiantes aceptados.',
     to: '/students/accepted',
     permissions: [Permissions.CreateStudentUsers],
+  },
+  {
+    id: 'courses',
+    title: 'Cursos',
+    description: 'Gestionar cursos del Preuniversitario.',
+    to: '/courses',
+    permissions: [
+      Permissions.ReadCourses,
+      Permissions.CreateCourses,
+      Permissions.EditCourses,
+      Permissions.CreateCourseEnrolments,
+    ],
   },
 ]

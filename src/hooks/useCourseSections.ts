@@ -1,18 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useApi } from '../wrappers/ApiProvider.tsx'
-import type { SingularKind } from '../api/BackendApi.ts'
-import type BackendApi from '../api/BackendApi.ts'
+import type BackendApi from '../api/BackendApi'
+import { useApi } from '../wrappers/ApiProvider'
 
-export default function useApplication<R extends SingularKind>({
-  of,
-  id,
-}: {
-  of: R
-  id: string | undefined
-}) {
-  const [user, setUser] = useState<
-    Awaited<ReturnType<typeof BackendApi.prototype.getApplication<R>>>['data']['user'] | null
-  >(null)
+export default function useCourses({ id }: { id: string | undefined }) {
+  const [sections, setSections] = useState<
+    Awaited<ReturnType<typeof BackendApi.prototype.getCourseSections>>['data']['sections']
+  >([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | undefined>(undefined)
   const api = useApi()
@@ -20,17 +13,16 @@ export default function useApplication<R extends SingularKind>({
     let ignore = false
     void (async () => {
       if (!api) return
-      if (!of) return
       if (!id) return
       setLoading(true)
       setError(undefined)
       try {
-        const data = (await api.getApplication<R>({ of, params: { id } })).data
-        if (!ignore) setUser(data.user)
+        const data = (await api.getCourseSections({ id })).data
+        if (!ignore) setSections(data.sections)
       } catch {
         if (!ignore) {
           setError('Error obteniendo datos.')
-          setUser(null)
+          setSections([])
         }
       } finally {
         if (!ignore) setLoading(false)
@@ -39,22 +31,21 @@ export default function useApplication<R extends SingularKind>({
     return () => {
       ignore = true
     }
-  }, [api, of, id])
+  }, [api, id])
   const refetch = useCallback(async () => {
     if (!api) return
-    if (!of) return
     if (!id) return
     setLoading(true)
     setError(undefined)
     try {
-      const data = (await api.getApplication<R>({ of, params: { id } })).data
-      setUser(data.user)
+      const data = (await api.getCourseSections({ id })).data
+      setSections(data.sections)
     } catch {
       setError('Error obteniendo datos.')
-      setUser(null)
+      setSections([])
     } finally {
       setLoading(false)
     }
-  }, [api, of, id])
-  return { user, loading, error, refetch }
+  }, [api, id])
+  return { sections, loading, error, refetch }
 }

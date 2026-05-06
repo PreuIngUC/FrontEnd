@@ -12,7 +12,6 @@ export default function useApplications<R extends PluralKind>({ of }: { of: R })
   useEffect(() => {
     if (!api) return
     if (!of) return
-    setLoading(true)
     void (async () => {
       try {
         const data = (await api.getApplications<R>({ of })).data
