@@ -12,7 +12,7 @@ export default function HeadAndAction({
 }) {
   const navigate = useNavigate()
   return (
-    <div className="mb-8 border-b border-sky-100 pb-4 flex flex-col md:flex-row md:items-start justify-between gap-4">
+    <div className="mb-8 border-b border-sky-100 pb-4 flex flex-col md:flex-row md:items-start justify-between gap-4 flex-wrap relative">
       <div>
         <button
           className="text-blue-600 hover:text-blue-800 hover:underline text-sm font-medium mb-4 flex items-center gap-1 transition-colors"

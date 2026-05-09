@@ -127,8 +127,12 @@ class BackendApi {
     body,
   }: {
     of: R
-    params: paths['/api/private/student/application/:id']['patch']['parameters']['path'] //TODO: agregar el homologo pero para staff cuando esté listo en Backend
-    body: paths['/api/private/student/application/:id']['patch']['requestBody']['content']['application/json']
+    params:
+      | paths['/api/private/student/application/:id']['patch']['parameters']['path']
+      | paths['/api/private/staff/application/:id']['patch']['parameters']['path']
+    body:
+      | paths['/api/private/student/application/:id']['patch']['requestBody']['content']['application/json']
+      | paths['/api/private/staff/application/:id']['patch']['requestBody']['content']['application/json']
   }) {
     const { id } = params
     const path = `/api/private/${of}/application/${id}`
