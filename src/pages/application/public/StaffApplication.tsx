@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -90,9 +91,13 @@ function StaffApplication() {
   const navigate = useNavigate()
   const { courses, loading, error } = useCoursesAvailableForApplications()
 
+  const [uniChoice, setUniChoice] = useState<'puc' | 'otra' | ''>('')
+  const [programChoice, setProgramChoice] = useState<'civil' | 'licc' | 'college' | 'otra' | ''>('')
+
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormType>({
     resolver: zodResolver(StaffApplicationSchema),
@@ -224,20 +229,103 @@ function StaffApplication() {
             <SectionTitle title="Antecedentes Académicos (Universidad)" />
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <TextField
-                label="Universidad"
-                placeholder="Ej: Pontificia Universidad Católica de Chile"
-                register={register}
-                errorMessage={errors?.staff?.university?.message}
-                prop="staff.university"
-              />
-              <TextField
-                label="Carrera"
-                placeholder="Ej: Ingeniería Civil"
-                register={register}
-                errorMessage={errors?.staff?.program?.message}
-                prop="staff.program"
-              />
+              <div className="flex flex-col w-full">
+                <label className="text-sm font-semibold text-blue-900">Universidad</label>
+                <select
+                  className={`w-full px-4 py-2 mt-1 bg-white border rounded-xl shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 cursor-pointer ${
+                    uniChoice !== 'otra' && errors?.staff?.university
+                      ? 'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 bg-red-50/50'
+                      : 'border-sky-200 focus:border-sky-500 focus:ring-sky-200 text-slate-700'
+                  }`}
+                  value={uniChoice}
+                  onChange={e => {
+                    const val = e.target.value as 'puc' | 'otra' | ''
+                    setUniChoice(val)
+                    if (val === 'puc') {
+                      setValue('staff.university', 'Pontificia Universidad Católica de Chile', {
+                        shouldValidate: true,
+                      })
+                    } else {
+                      setValue('staff.university', '', { shouldValidate: true })
+                    }
+                  }}
+                >
+                  <option value="" disabled hidden>
+                    Selecciona una opción...
+                  </option>
+                  <option value="puc">Pontificia Universidad Católica de Chile</option>
+                  <option value="otra">Otra</option>
+                </select>
+                <div className="min-h-[20px] mt-1">
+                  {uniChoice !== 'otra' && errors?.staff?.university && (
+                    <p className="text-xs text-red-600 font-medium">
+                      * {errors.staff.university.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {uniChoice === 'otra' && (
+                <TextField
+                  label="Nombre de la Universidad"
+                  placeholder="Ej: Universidad de Chile"
+                  register={register}
+                  errorMessage={errors?.staff?.university?.message}
+                  prop="staff.university"
+                />
+              )}
+
+              <div className="flex flex-col w-full">
+                <label className="text-sm font-semibold text-blue-900">Carrera</label>
+                <select
+                  className={`w-full px-4 py-2 mt-1 bg-white border rounded-xl shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 cursor-pointer ${
+                    programChoice !== 'otra' && errors?.staff?.program
+                      ? 'border-red-400 focus:border-red-500 focus:ring-red-200 text-red-900 bg-red-50/50'
+                      : 'border-sky-200 focus:border-sky-500 focus:ring-sky-200 text-slate-700'
+                  }`}
+                  value={programChoice}
+                  onChange={e => {
+                    const val = e.target.value as 'civil' | 'licc' | 'college' | 'otra' | ''
+                    setProgramChoice(val)
+                    if (val === 'civil') {
+                      setValue('staff.program', 'Ingeniería Civil', { shouldValidate: true })
+                    } else if (val === 'licc') {
+                      setValue('staff.program', 'LICC', { shouldValidate: true })
+                    } else if (val === 'college') {
+                      setValue('staff.program', 'College Major Ingeniería', {
+                        shouldValidate: true,
+                      })
+                    } else {
+                      setValue('staff.program', '', { shouldValidate: true })
+                    }
+                  }}
+                >
+                  <option value="" disabled hidden>
+                    Selecciona una opción...
+                  </option>
+                  <option value="civil">Ingeniería Civil</option>
+                  <option value="licc">LICC</option>
+                  <option value="college">College Major Ingeniería</option>
+                  <option value="otra">Otra</option>
+                </select>
+                <div className="min-h-[20px] mt-1">
+                  {programChoice !== 'otra' && errors?.staff?.program && (
+                    <p className="text-xs text-red-600 font-medium">
+                      * {errors.staff.program.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {programChoice === 'otra' && (
+                <TextField
+                  label="Nombre de la Carrera"
+                  placeholder="Ej: Ingeniería Comercial"
+                  register={register}
+                  errorMessage={errors?.staff?.program?.message}
+                  prop="staff.program"
+                />
+              )}
               <NumberField
                 label="Año de Ingreso"
                 placeholder="Ej: 2023"
