@@ -219,7 +219,7 @@ function StaffApplication() {
               />
               <div className="hidden md:block"></div>
               <TextField
-                label="Email"
+                label="Email (Si eres alumno UC, ingresa el institucional)"
                 placeholder="ejemplo@correo.cl"
                 register={register}
                 errorMessage={errors?.user?.email?.message}
