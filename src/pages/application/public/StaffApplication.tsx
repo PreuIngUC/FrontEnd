@@ -20,17 +20,26 @@ type BodyType =
 const StaffApplicationSchema = z.object({
   user: z
     .object({
-      rut: z.string().min(1, 'Requerido'),
-      names: z.string().min(1, 'Requerido'),
-      lastName0: z.string().min(1, 'Requerido'),
-      lastName1: z.string().min(1, 'Requerido'),
+      rut: z
+        .string()
+        .trim()
+        .toUpperCase()
+        .regex(/^\d{7,8}-[\dK]$/, { message: 'Formato inválido' }),
+      names: z.string().min(2, 'Mínimo 2 caracteres').trim(),
+      lastName0: z.string().min(2, 'Mínimo 2 caracteres').trim(),
+      lastName1: z.string().min(2, 'Mínimo 2 caracteres').trim(),
       pronouns: z.enum(['EL_LO', 'ELLA_LA', 'ELLE_LE'], {
         error: 'Debe seleccionar una opción válida',
       }),
       email: z.string().min(1, 'Requerido').email('Correo inválido'),
       confirmEmail: z.string().min(1, 'Requerido').email('Correo inválido'),
       birthDate: z.string().min(1, 'Requerido'),
-      phoneNumber: z.string().min(1, 'Requerido'),
+      phoneNumber: z
+        .string()
+        .trim()
+        .regex(/^\+\d{11}$/, {
+          message: 'Debe ser + seguido de 11 dígitos (ej: +56912345678)',
+        }),
     })
     .refine(data => data.email === data.confirmEmail, {
       message: 'Los correos no coinciden',
@@ -178,7 +187,7 @@ function StaffApplication() {
                 prop="user.lastName1"
               />
               <TextField
-                label="RUT"
+                label="RUT (sin puntos y con guión)"
                 placeholder="12345678-9"
                 register={register}
                 errorMessage={errors?.user?.rut?.message}
