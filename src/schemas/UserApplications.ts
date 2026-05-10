@@ -10,7 +10,6 @@ const UserInput = UserSchema.omit({
   createdAt: true,
 })
   .extend({
-    rut: z.string().refine(rutVerify, 'RUT inválido'),
     birthDate: z.coerce
       .date()
       .min(new Date('1900-01-01'), 'Fecha demasiado antigua')
@@ -26,6 +25,7 @@ const UserInput = UserSchema.omit({
       })
     }
   })
+  .refine(data => rutVerify(data.rut), { message: 'RUT inválido', path: ['rut'] })
 
 const StaffInput = StaffProfileSchema.omit({
   id: true,

@@ -212,7 +212,7 @@ function StudentApplication() {
                   prop="user.lastName1"
                 />
                 <TextField
-                  label="RUT"
+                  label="RUT (sin puntos y con guión)"
                   placeholder="12345678-9"
                   register={register}
                   errorMessage={errors?.user?.rut?.message}
@@ -382,7 +382,7 @@ function StudentApplication() {
                   prop="student.goalsAndPlans"
                 />
                 <TextField
-                  label="Nuestro horario de clases será de lunes a jueves de 18:00 a 20:00 ¿Tienes alguna dificultad con este horario?"
+                  label="¿Tienes alguna dificultad con el horario?"
                   placeholder="Si/No, especifica..."
                   register={register}
                   errorMessage={errors?.student?.scheduleDifficulties?.message}

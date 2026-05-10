@@ -656,17 +656,12 @@ export interface paths {
               user: {
                 /** @enum {string} */
                 pronouns: 'EL_LO' | 'ELLA_LA' | 'ELLE_LE'
-                /** Format: uuid */
-                id: string
-                auth0Id: string | null
                 rut: string
                 names: string
                 lastName0: string
                 lastName1: string
                 /** Format: email */
                 email: string
-                /** Format: date-time */
-                createdAt: string | null
                 /** Format: date-time */
                 birthDate: string | null
                 phoneNumber: string
@@ -686,6 +681,15 @@ export interface paths {
                   entryYear: number
                   studentNumber: string
                 }
+                courseApplications: {
+                  /** @enum {string} */
+                  type: 'COORDINATOR' | 'TEACHER'
+                  /** @enum {string} */
+                  status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
+                  /** Format: uuid */
+                  id: string
+                  course: string
+                }[]
               }
             }
           }
@@ -697,7 +701,70 @@ export interface paths {
     delete?: never
     options?: never
     head?: never
-    patch?: never
+    /** Edits a staff application. */
+    patch: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            user: {
+              /** @enum {string} */
+              pronouns: 'EL_LO' | 'ELLA_LA' | 'ELLE_LE'
+              rut: string
+              names: string
+              lastName0: string
+              lastName1: string
+              /** Format: email */
+              email: string
+              /** Format: date-time */
+              birthDate: string | null
+              phoneNumber: string
+              staffProfile: {
+                /** @enum {string} */
+                applicationState:
+                  | 'PENDING_AS_STUDENT'
+                  | 'PENDING_AS_STAFF'
+                  | 'ACCEPTED_AS_STUDENT'
+                  | 'ACCEPTED_AS_STAFF'
+                  | 'CREATED'
+                  | 'REJECTED_AS_STAFF'
+                  | 'REJECTED_AS_STUDENT'
+                  | 'ACTIVE'
+                program: string
+                university: string
+                entryYear: number
+                studentNumber: string
+              }
+              courseApplications: {
+                /** @enum {string} */
+                type: 'COORDINATOR' | 'TEACHER'
+                /** @enum {string} */
+                status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
+                /** Format: uuid */
+                id: string
+                course: string
+              }[]
+            }
+          }
+        }
+      }
+      responses: {
+        /** @description No Content */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
     trace?: never
   }
   '/api/private/student/appstate/:applicationState/:id': {
