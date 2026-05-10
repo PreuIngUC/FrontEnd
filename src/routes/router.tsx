@@ -102,7 +102,6 @@ const router = createBrowserRouter([
               Permissions.ReadStaffApplications,
             ]}
           >
-            {/* <StaffApplicationDetail justRead={false} /> */}
             <StaffApplicationDetail justRead={false} />
           </ProtectedRoute>
         ),
@@ -111,7 +110,6 @@ const router = createBrowserRouter([
         path: '/staff/read-application/:id',
         element: (
           <ProtectedRoute permissionsRequired={[Permissions.ReadStaffApplications]}>
-            {/* <StaffApplicationDetail justRead={true} /> */}
             <StaffApplicationDetail justRead={true} />
           </ProtectedRoute>
         ),

@@ -4,1768 +4,1844 @@
  */
 
 export interface paths {
-    "/api/public/health": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            message: string;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/public/staff/application": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        user: {
-                            /** @enum {string} */
-                            pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
-                            rut: string;
-                            names: string;
-                            lastName0: string;
-                            lastName1: string;
-                            /** Format: email */
-                            email: string;
-                            /** Format: date-time */
-                            birthDate: string | null;
-                            phoneNumber: string;
-                        };
-                        staff: {
-                            program: string;
-                            university: string;
-                            entryYear: number;
-                            studentNumber: string;
-                        };
-                        applications: {
-                            /** Format: uuid */
-                            courseId: string;
-                            /** @enum {string} */
-                            type: "COORDINATOR" | "TEACHER";
-                        }[];
-                    };
-                };
-            };
-            responses: {
-                /** @description No Content */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/public/student/application": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        user: {
-                            /** @enum {string} */
-                            pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
-                            rut: string;
-                            names: string;
-                            lastName0: string;
-                            lastName1: string;
-                            /** Format: email */
-                            email: string;
-                            /** Format: date-time */
-                            birthDate: string | null;
-                            phoneNumber: string;
-                        };
-                        student: {
-                            /** @enum {string} */
-                            educationalLevel: "PRIMERO_MEDIO" | "SEGUNDO_MEDIO" | "TERCERO_MEDIO" | "CUARTO_MEDIO" | "EGRESADO";
-                            /** @enum {string} */
-                            schoolType: "CIENTIFICO_HUMANISTA" | "TECNICO_PROFESIONAL" | "ARTISTICO";
-                            /** @enum {string} */
-                            schoolDependency: "MUNICIPAL" | "SUBVENCIONADO_O_ADMINISTRACION_DELEGADA" | "PARTICULAR_PAGADO";
-                            /** @enum {string} */
-                            electiveTest: "BIOLOGIA" | "FISICA" | "QUIMICA" | "HISTORIA" | "TECNICO";
-                            /** @enum {string} */
-                            takesM2: "SI" | "NO" | "AUN_NO_SE";
-                            /** @enum {string} */
-                            rshSection: "FROM_0_TO_40" | "FROM_41_TO_50" | "FROM_51_TO_60" | "FROM_61_TO_70" | "FROM_71_TO_80" | "FROM_81_TO_90" | "FROM_91_TO_100" | "DOESNT_HAVE";
-                            school: string;
-                            residence: string;
-                            targetProgram: string;
-                            targetUniversity: string;
-                            goalsAndPlans: string;
-                            scheduleDifficulties: string | null;
-                            avg1M: number;
-                            avg2M: number;
-                            avg3M: number;
-                            avg4M: number;
-                            familySize: number;
-                            totalMonthlyIncome: number;
-                            monthlyFoodExpenses: number;
-                            monthlyEducationExpenses: number;
-                            monthlyUtilitiesExpenses: number;
-                            monthlyTelecomExpenses: number;
-                            monthlyTransportationExpenses: number;
-                            monthlyHousingExpenses: number;
-                            monthlyHealthcareExpenses: number;
-                            monthlyMiscExpenses: number;
-                        };
-                    };
-                };
-            };
-            responses: {
-                /** @description No Content */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/public/users/verify-then-password": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        rut: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description No Content */
-                204: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/public/student/able-to-apply": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Check if the user is able to apply */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            ableToApply: boolean;
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/public/courses/applications_available": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Returns an array of all the courses available for applications */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            courses: {
-                                /** Format: uuid */
-                                id: string;
-                                name: string;
-                                openForTeachers: boolean;
-                                openForCoordinators: boolean;
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/students/applications": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            users: {
-                                /** Format: uuid */
-                                id: string;
-                                rut: string;
-                                names: string;
-                                lastName0: string;
-                                lastName1: string;
-                                studentProfile: {
-                                    /** @enum {string} */
-                                    applicationState: "ACCEPTED_AS_STUDENT" | "PENDING_AS_STUDENT" | "REJECTED_AS_STUDENT";
-                                };
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/staff/applications": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            users: {
-                                /** Format: uuid */
-                                id: string;
-                                rut: string;
-                                names: string;
-                                lastName0: string;
-                                lastName1: string;
-                                staffProfile: {
-                                    /** @enum {string} */
-                                    applicationState: "ACCEPTED_AS_STAFF" | "PENDING_AS_STAFF" | "REJECTED_AS_STAFF";
-                                };
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/student/application/:id": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            user: {
-                                /** @enum {string} */
-                                pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
-                                /** Format: uuid */
-                                id: string;
-                                auth0Id: string | null;
-                                rut: string;
-                                names: string;
-                                lastName0: string;
-                                lastName1: string;
-                                /** Format: email */
-                                email: string;
-                                /** Format: date-time */
-                                createdAt: string | null;
-                                /** Format: date-time */
-                                birthDate: string | null;
-                                phoneNumber: string;
-                                studentProfile: {
-                                    /** @enum {string} */
-                                    applicationState: "PENDING_AS_STUDENT" | "PENDING_AS_STAFF" | "ACCEPTED_AS_STUDENT" | "ACCEPTED_AS_STAFF" | "CREATED" | "REJECTED_AS_STAFF" | "REJECTED_AS_STUDENT" | "ACTIVE";
-                                    /** @enum {string} */
-                                    educationalLevel: "PRIMERO_MEDIO" | "SEGUNDO_MEDIO" | "TERCERO_MEDIO" | "CUARTO_MEDIO" | "EGRESADO";
-                                    /** @enum {string} */
-                                    schoolType: "CIENTIFICO_HUMANISTA" | "TECNICO_PROFESIONAL" | "ARTISTICO";
-                                    /** @enum {string} */
-                                    schoolDependency: "MUNICIPAL" | "SUBVENCIONADO_O_ADMINISTRACION_DELEGADA" | "PARTICULAR_PAGADO";
-                                    /** @enum {string} */
-                                    electiveTest: "BIOLOGIA" | "FISICA" | "QUIMICA" | "HISTORIA" | "TECNICO";
-                                    /** @enum {string} */
-                                    takesM2: "SI" | "NO" | "AUN_NO_SE";
-                                    /** @enum {string} */
-                                    rshSection: "FROM_0_TO_40" | "FROM_41_TO_50" | "FROM_51_TO_60" | "FROM_61_TO_70" | "FROM_71_TO_80" | "FROM_81_TO_90" | "FROM_91_TO_100" | "DOESNT_HAVE";
-                                    school: string;
-                                    residence: string;
-                                    targetProgram: string;
-                                    targetUniversity: string;
-                                    goalsAndPlans: string;
-                                    scheduleDifficulties: string | null;
-                                    avg1M: number;
-                                    avg2M: number;
-                                    avg3M: number;
-                                    avg4M: number;
-                                    familySize: number;
-                                    totalMonthlyIncome: number;
-                                    monthlyFoodExpenses: number;
-                                    monthlyEducationExpenses: number;
-                                    monthlyUtilitiesExpenses: number;
-                                    monthlyTelecomExpenses: number;
-                                    monthlyTransportationExpenses: number;
-                                    monthlyHousingExpenses: number;
-                                    monthlyHealthcareExpenses: number;
-                                    monthlyMiscExpenses: number;
-                                };
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        user: {
-                            /** @enum {string} */
-                            pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
-                            rut: string;
-                            names: string;
-                            lastName0: string;
-                            lastName1: string;
-                            /** Format: email */
-                            email: string;
-                            /** Format: date-time */
-                            birthDate: string | null;
-                            phoneNumber: string;
-                        };
-                        student: {
-                            /** @enum {string} */
-                            educationalLevel: "PRIMERO_MEDIO" | "SEGUNDO_MEDIO" | "TERCERO_MEDIO" | "CUARTO_MEDIO" | "EGRESADO";
-                            /** @enum {string} */
-                            schoolType: "CIENTIFICO_HUMANISTA" | "TECNICO_PROFESIONAL" | "ARTISTICO";
-                            /** @enum {string} */
-                            schoolDependency: "MUNICIPAL" | "SUBVENCIONADO_O_ADMINISTRACION_DELEGADA" | "PARTICULAR_PAGADO";
-                            /** @enum {string} */
-                            electiveTest: "BIOLOGIA" | "FISICA" | "QUIMICA" | "HISTORIA" | "TECNICO";
-                            /** @enum {string} */
-                            takesM2: "SI" | "NO" | "AUN_NO_SE";
-                            /** @enum {string} */
-                            rshSection: "FROM_0_TO_40" | "FROM_41_TO_50" | "FROM_51_TO_60" | "FROM_61_TO_70" | "FROM_71_TO_80" | "FROM_81_TO_90" | "FROM_91_TO_100" | "DOESNT_HAVE";
-                            school: string;
-                            residence: string;
-                            targetProgram: string;
-                            targetUniversity: string;
-                            goalsAndPlans: string;
-                            scheduleDifficulties: string | null;
-                            avg1M: number;
-                            avg2M: number;
-                            avg3M: number;
-                            avg4M: number;
-                            familySize: number;
-                            totalMonthlyIncome: number;
-                            monthlyFoodExpenses: number;
-                            monthlyEducationExpenses: number;
-                            monthlyUtilitiesExpenses: number;
-                            monthlyTelecomExpenses: number;
-                            monthlyTransportationExpenses: number;
-                            monthlyHousingExpenses: number;
-                            monthlyHealthcareExpenses: number;
-                            monthlyMiscExpenses: number;
-                        };
-                    };
-                };
-            };
-            responses: {
-                /** @description No Content */
-                204: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/private/staff/application/:id": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            user: {
-                                /** @enum {string} */
-                                pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
-                                rut: string;
-                                names: string;
-                                lastName0: string;
-                                lastName1: string;
-                                /** Format: email */
-                                email: string;
-                                /** Format: date-time */
-                                birthDate: string | null;
-                                phoneNumber: string;
-                                staffProfile: {
-                                    /** @enum {string} */
-                                    applicationState: "PENDING_AS_STUDENT" | "PENDING_AS_STAFF" | "ACCEPTED_AS_STUDENT" | "ACCEPTED_AS_STAFF" | "CREATED" | "REJECTED_AS_STAFF" | "REJECTED_AS_STUDENT" | "ACTIVE";
-                                    program: string;
-                                    university: string;
-                                    entryYear: number;
-                                    studentNumber: string;
-                                };
-                                courseApplications: {
-                                    /** @enum {string} */
-                                    type: "COORDINATOR" | "TEACHER";
-                                    /** @enum {string} */
-                                    status: "PENDING" | "ACCEPTED" | "REJECTED";
-                                    /** Format: uuid */
-                                    id: string;
-                                    course: string;
-                                }[];
-                            };
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Edits a staff application. */
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        user: {
-                            /** @enum {string} */
-                            pronouns: "EL_LO" | "ELLA_LA" | "ELLE_LE";
-                            rut: string;
-                            names: string;
-                            lastName0: string;
-                            lastName1: string;
-                            /** Format: email */
-                            email: string;
-                            /** Format: date-time */
-                            birthDate: string | null;
-                            phoneNumber: string;
-                            staffProfile: {
-                                /** @enum {string} */
-                                applicationState: "PENDING_AS_STUDENT" | "PENDING_AS_STAFF" | "ACCEPTED_AS_STUDENT" | "ACCEPTED_AS_STAFF" | "CREATED" | "REJECTED_AS_STAFF" | "REJECTED_AS_STUDENT" | "ACTIVE";
-                                program: string;
-                                university: string;
-                                entryYear: number;
-                                studentNumber: string;
-                            };
-                            courseApplications: {
-                                /** @enum {string} */
-                                type: "COORDINATOR" | "TEACHER";
-                                /** @enum {string} */
-                                status: "PENDING" | "ACCEPTED" | "REJECTED";
-                                /** Format: uuid */
-                                id: string;
-                                course: string;
-                            }[];
-                        };
-                    };
-                };
-            };
-            responses: {
-                /** @description No Content */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/private/student/appstate/:applicationState/:id": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                    applicationState: "PENDING_AS_STUDENT" | "ACCEPTED_AS_STUDENT" | "REJECTED_AS_STUDENT";
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description No Content */
-                204: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/private/staff/appstate/:applicationState/:id": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                    applicationState: "PENDING_AS_STAFF" | "ACCEPTED_AS_STAFF" | "REJECTED_AS_STAFF";
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description No Content */
-                204: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/private/students/accepted": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            users: {
-                                /** Format: uuid */
-                                id: string;
-                                rut: string;
-                                names: string;
-                                lastName0: string;
-                                lastName1: string;
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/staff/accepted": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            users: {
-                                /** Format: uuid */
-                                id: string;
-                                rut: string;
-                                names: string;
-                                lastName0: string;
-                                lastName1: string;
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/job/students/create": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            jobId: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/job/staff/create": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            jobId: string;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/job/students/step/:jobId": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    jobId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            created: number;
-                            haveErrors: number;
-                            stepsAvailable: boolean;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/job/staff/step/:jobId": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    jobId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            created: number;
-                            haveErrors: number;
-                            stepsAvailable: boolean;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/job/status/:jobId": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    jobId: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @enum {string} */
-                            status: "PENDING" | "RUNNING" | "DONE" | "DONE_WITH_ERRORS";
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/course": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Creates a new course, the response contains the id and createdAt attributes. */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        name: string;
-                        /** Format: date-time */
-                        startDate?: string | null;
-                        /** Format: date-time */
-                        endDate?: string | null;
-                    };
-                };
-            };
-            responses: {
-                /** @description OK */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            name: string;
-                            openForTeachers: boolean;
-                            openForCoordinators: boolean;
-                            finished: boolean;
-                            /** Format: date-time */
-                            startDate: string | null;
-                            /** Format: date-time */
-                            endDate: string | null;
-                            /** Format: date-time */
-                            createdAt: string | null;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/course/:id": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Returns all course information, including coordinators, teachers and sections (id and name) */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            name: string;
-                            openForTeachers: boolean;
-                            openForCoordinators: boolean;
-                            finished: boolean;
-                            /** Format: date-time */
-                            startDate: string | null;
-                            /** Format: date-time */
-                            endDate: string | null;
-                            /** Format: date-time */
-                            createdAt: string | null;
-                            staff: {
-                                /** Format: uuid */
-                                id: string;
-                                names: string;
-                                lastName0: string;
-                                lastName1: string;
-                                /** @enum {string} */
-                                role: "COORDINATOR" | "TEACHER";
-                                /** Format: uuid */
-                                courseEnrolmentId: string;
-                                active: boolean;
-                            }[];
-                            sections: {
-                                /** Format: uuid */
-                                id: string;
-                                name: string;
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Edits a course and returns the edited course */
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        name?: string;
-                        openForTeachers?: boolean;
-                        openForCoordinators?: boolean;
-                        finished?: boolean;
-                        /** Format: date-time */
-                        startDate?: string | null;
-                        /** Format: date-time */
-                        endDate?: string | null;
-                    };
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            name: string;
-                            openForTeachers: boolean;
-                            openForCoordinators: boolean;
-                            finished: boolean;
-                            /** Format: date-time */
-                            startDate: string | null;
-                            /** Format: date-time */
-                            endDate: string | null;
-                            /** Format: date-time */
-                            createdAt: string | null;
-                        };
-                    };
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/private/courses": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Returns an array of all the courses on de DataBase */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            courses: {
-                                /** Format: uuid */
-                                id: string;
-                                name: string;
-                                /** Format: date-time */
-                                startDate: string | null;
-                                /** Format: date-time */
-                                endDate: string | null;
-                                finished: boolean;
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/course_enrolment": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Creates an enrolment to a specific course */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** @enum {string} */
-                        role: "COORDINATOR" | "TEACHER";
-                        /** Format: uuid */
-                        userId: string;
-                        /** Format: uuid */
-                        courseId: string;
-                        /** Format: date-time */
-                        startDate: string | null;
-                        /** Format: date-time */
-                        endDate: string | null;
-                        active: boolean;
-                    };
-                };
-            };
-            responses: {
-                /** @description OK */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @enum {string} */
-                            role: "COORDINATOR" | "TEACHER";
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            userId: string;
-                            /** Format: uuid */
-                            courseId: string;
-                            /** Format: date-time */
-                            createdAt: string | null;
-                            /** Format: date-time */
-                            startDate: string | null;
-                            /** Format: date-time */
-                            endDate: string | null;
-                            active: boolean;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/course/:id/sections": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Returns all sections linked to a course */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            sections: {
-                                /** Format: uuid */
-                                id: string;
-                                name: string;
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/section": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Creates a Section and returns its values */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** Format: uuid */
-                        courseId: string;
-                        name: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description OK */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            courseId: string;
-                            name: string;
-                            /** Format: date-time */
-                            createdAt: string | null;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/section/:id": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Returns the data of a specific section */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            courseId: string;
-                            name: string;
-                            /** Format: date-time */
-                            createdAt: string | null;
-                            members: {
-                                /** Format: uuid */
-                                id: string;
-                                names: string;
-                                lastName0: string;
-                                lastName1: string;
-                                /** @enum {string} */
-                                role: "TEACHER" | "STUDENT";
-                            }[];
-                            schedules: {
-                                /** Format: uuid */
-                                id: string;
-                                /** Format: uuid */
-                                sectionId: string;
-                                day: number;
-                                timeBlock: number;
-                                classroom: string | null;
-                                repetition: number;
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Edits the basic info of a section */
-        patch: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path: {
-                    id: string;
-                };
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** Format: uuid */
-                        courseId: string;
-                        name: string;
-                    };
-                };
-            };
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            courseId: string;
-                            name: string;
-                            /** Format: date-time */
-                            createdAt: string | null;
-                        };
-                    };
-                };
-            };
-        };
-        trace?: never;
-    };
-    "/api/private/sections": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Returns all the existing sections */
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            sections: {
-                                /** Format: uuid */
-                                id: string;
-                                /** Format: uuid */
-                                courseId: string;
-                                name: string;
-                                /** Format: date-time */
-                                createdAt: string | null;
-                                courseName: string;
-                            }[];
-                        };
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/private/section_enrolment": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Creates a section enrolment and returns it */
-        post: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody: {
-                content: {
-                    "application/json": {
-                        /** @enum {string} */
-                        role: "TEACHER" | "STUDENT";
-                        /** Format: uuid */
-                        userId: string;
-                        /** Format: uuid */
-                        sectionId: string;
-                        /** Format: date-time */
-                        startDate: string | null;
-                        /** Format: date-time */
-                        endDate: string | null;
-                        active: boolean;
-                    };
-                };
-            };
-            responses: {
-                /** @description OK */
-                201: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": {
-                            /** @enum {string} */
-                            role: "TEACHER" | "STUDENT";
-                            /** Format: uuid */
-                            id: string;
-                            /** Format: uuid */
-                            userId: string;
-                            /** Format: uuid */
-                            sectionId: string;
-                            /** Format: date-time */
-                            createdAt: string | null;
-                            /** Format: date-time */
-                            startDate: string | null;
-                            /** Format: date-time */
-                            endDate: string | null;
-                            active: boolean;
-                        };
-                    };
-                };
-            };
-        };
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": string;
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/favicon.ico": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description No Content */
-                204: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content?: never;
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/openapi.json": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: {
-            parameters: {
-                query?: never;
-                header?: never;
-                path?: never;
-                cookie?: never;
-            };
-            requestBody?: never;
-            responses: {
-                /** @description OK */
-                200: {
-                    headers: {
-                        [name: string]: unknown;
-                    };
-                    content: {
-                        "application/json": unknown;
-                    };
-                };
-            };
-        };
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
+  '/api/public/health': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              message: string
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/public/staff/application': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            user: {
+              /** @enum {string} */
+              pronouns: 'EL_LO' | 'ELLA_LA' | 'ELLE_LE'
+              rut: string
+              names: string
+              lastName0: string
+              lastName1: string
+              /** Format: email */
+              email: string
+              /** Format: date-time */
+              birthDate: string | null
+              phoneNumber: string
+            }
+            staff: {
+              program: string
+              university: string
+              entryYear: number
+              studentNumber: string
+            }
+            applications: {
+              /** Format: uuid */
+              courseId: string
+              /** @enum {string} */
+              type: 'COORDINATOR' | 'TEACHER'
+            }[]
+          }
+        }
+      }
+      responses: {
+        /** @description No Content */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/public/student/application': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            user: {
+              /** @enum {string} */
+              pronouns: 'EL_LO' | 'ELLA_LA' | 'ELLE_LE'
+              rut: string
+              names: string
+              lastName0: string
+              lastName1: string
+              /** Format: email */
+              email: string
+              /** Format: date-time */
+              birthDate: string | null
+              phoneNumber: string
+            }
+            student: {
+              /** @enum {string} */
+              educationalLevel:
+                | 'PRIMERO_MEDIO'
+                | 'SEGUNDO_MEDIO'
+                | 'TERCERO_MEDIO'
+                | 'CUARTO_MEDIO'
+                | 'EGRESADO'
+              /** @enum {string} */
+              schoolType: 'CIENTIFICO_HUMANISTA' | 'TECNICO_PROFESIONAL' | 'ARTISTICO'
+              /** @enum {string} */
+              schoolDependency:
+                | 'MUNICIPAL'
+                | 'SUBVENCIONADO_O_ADMINISTRACION_DELEGADA'
+                | 'PARTICULAR_PAGADO'
+              /** @enum {string} */
+              electiveTest: 'BIOLOGIA' | 'FISICA' | 'QUIMICA' | 'HISTORIA' | 'TECNICO'
+              /** @enum {string} */
+              takesM2: 'SI' | 'NO' | 'AUN_NO_SE'
+              /** @enum {string} */
+              rshSection:
+                | 'FROM_0_TO_40'
+                | 'FROM_41_TO_50'
+                | 'FROM_51_TO_60'
+                | 'FROM_61_TO_70'
+                | 'FROM_71_TO_80'
+                | 'FROM_81_TO_90'
+                | 'FROM_91_TO_100'
+                | 'DOESNT_HAVE'
+              school: string
+              residence: string
+              targetProgram: string
+              targetUniversity: string
+              goalsAndPlans: string
+              scheduleDifficulties: string | null
+              avg1M: number
+              avg2M: number
+              avg3M: number
+              avg4M: number
+              familySize: number
+              totalMonthlyIncome: number
+              monthlyFoodExpenses: number
+              monthlyEducationExpenses: number
+              monthlyUtilitiesExpenses: number
+              monthlyTelecomExpenses: number
+              monthlyTransportationExpenses: number
+              monthlyHousingExpenses: number
+              monthlyHealthcareExpenses: number
+              monthlyMiscExpenses: number
+            }
+          }
+        }
+      }
+      responses: {
+        /** @description No Content */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/public/users/verify-then-password': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            rut: string
+          }
+        }
+      }
+      responses: {
+        /** @description No Content */
+        204: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    trace?: never
+  }
+  '/api/public/student/able-to-apply': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Check if the user is able to apply */
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              ableToApply: boolean
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/public/courses/applications_available': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Returns an array of all the courses available for applications */
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              courses: {
+                /** Format: uuid */
+                id: string
+                name: string
+                openForTeachers: boolean
+                openForCoordinators: boolean
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/students/applications': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              users: {
+                /** Format: uuid */
+                id: string
+                rut: string
+                names: string
+                lastName0: string
+                lastName1: string
+                studentProfile: {
+                  /** @enum {string} */
+                  applicationState:
+                    | 'ACCEPTED_AS_STUDENT'
+                    | 'PENDING_AS_STUDENT'
+                    | 'REJECTED_AS_STUDENT'
+                }
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/staff/applications': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              users: {
+                /** Format: uuid */
+                id: string
+                rut: string
+                names: string
+                lastName0: string
+                lastName1: string
+                staffProfile: {
+                  /** @enum {string} */
+                  applicationState: 'ACCEPTED_AS_STAFF' | 'PENDING_AS_STAFF' | 'REJECTED_AS_STAFF'
+                }
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/student/application/:id': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              user: {
+                /** @enum {string} */
+                pronouns: 'EL_LO' | 'ELLA_LA' | 'ELLE_LE'
+                /** Format: uuid */
+                id: string
+                auth0Id: string | null
+                rut: string
+                names: string
+                lastName0: string
+                lastName1: string
+                /** Format: email */
+                email: string
+                /** Format: date-time */
+                createdAt: string | null
+                /** Format: date-time */
+                birthDate: string | null
+                phoneNumber: string
+                studentProfile: {
+                  /** @enum {string} */
+                  applicationState:
+                    | 'PENDING_AS_STUDENT'
+                    | 'PENDING_AS_STAFF'
+                    | 'ACCEPTED_AS_STUDENT'
+                    | 'ACCEPTED_AS_STAFF'
+                    | 'CREATED'
+                    | 'REJECTED_AS_STAFF'
+                    | 'REJECTED_AS_STUDENT'
+                    | 'ACTIVE'
+                  /** @enum {string} */
+                  educationalLevel:
+                    | 'PRIMERO_MEDIO'
+                    | 'SEGUNDO_MEDIO'
+                    | 'TERCERO_MEDIO'
+                    | 'CUARTO_MEDIO'
+                    | 'EGRESADO'
+                  /** @enum {string} */
+                  schoolType: 'CIENTIFICO_HUMANISTA' | 'TECNICO_PROFESIONAL' | 'ARTISTICO'
+                  /** @enum {string} */
+                  schoolDependency:
+                    | 'MUNICIPAL'
+                    | 'SUBVENCIONADO_O_ADMINISTRACION_DELEGADA'
+                    | 'PARTICULAR_PAGADO'
+                  /** @enum {string} */
+                  electiveTest: 'BIOLOGIA' | 'FISICA' | 'QUIMICA' | 'HISTORIA' | 'TECNICO'
+                  /** @enum {string} */
+                  takesM2: 'SI' | 'NO' | 'AUN_NO_SE'
+                  /** @enum {string} */
+                  rshSection:
+                    | 'FROM_0_TO_40'
+                    | 'FROM_41_TO_50'
+                    | 'FROM_51_TO_60'
+                    | 'FROM_61_TO_70'
+                    | 'FROM_71_TO_80'
+                    | 'FROM_81_TO_90'
+                    | 'FROM_91_TO_100'
+                    | 'DOESNT_HAVE'
+                  school: string
+                  residence: string
+                  targetProgram: string
+                  targetUniversity: string
+                  goalsAndPlans: string
+                  scheduleDifficulties: string | null
+                  avg1M: number
+                  avg2M: number
+                  avg3M: number
+                  avg4M: number
+                  familySize: number
+                  totalMonthlyIncome: number
+                  monthlyFoodExpenses: number
+                  monthlyEducationExpenses: number
+                  monthlyUtilitiesExpenses: number
+                  monthlyTelecomExpenses: number
+                  monthlyTransportationExpenses: number
+                  monthlyHousingExpenses: number
+                  monthlyHealthcareExpenses: number
+                  monthlyMiscExpenses: number
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            user: {
+              /** @enum {string} */
+              pronouns: 'EL_LO' | 'ELLA_LA' | 'ELLE_LE'
+              rut: string
+              names: string
+              lastName0: string
+              lastName1: string
+              /** Format: email */
+              email: string
+              /** Format: date-time */
+              birthDate: string | null
+              phoneNumber: string
+            }
+            student: {
+              /** @enum {string} */
+              educationalLevel:
+                | 'PRIMERO_MEDIO'
+                | 'SEGUNDO_MEDIO'
+                | 'TERCERO_MEDIO'
+                | 'CUARTO_MEDIO'
+                | 'EGRESADO'
+              /** @enum {string} */
+              schoolType: 'CIENTIFICO_HUMANISTA' | 'TECNICO_PROFESIONAL' | 'ARTISTICO'
+              /** @enum {string} */
+              schoolDependency:
+                | 'MUNICIPAL'
+                | 'SUBVENCIONADO_O_ADMINISTRACION_DELEGADA'
+                | 'PARTICULAR_PAGADO'
+              /** @enum {string} */
+              electiveTest: 'BIOLOGIA' | 'FISICA' | 'QUIMICA' | 'HISTORIA' | 'TECNICO'
+              /** @enum {string} */
+              takesM2: 'SI' | 'NO' | 'AUN_NO_SE'
+              /** @enum {string} */
+              rshSection:
+                | 'FROM_0_TO_40'
+                | 'FROM_41_TO_50'
+                | 'FROM_51_TO_60'
+                | 'FROM_61_TO_70'
+                | 'FROM_71_TO_80'
+                | 'FROM_81_TO_90'
+                | 'FROM_91_TO_100'
+                | 'DOESNT_HAVE'
+              school: string
+              residence: string
+              targetProgram: string
+              targetUniversity: string
+              goalsAndPlans: string
+              scheduleDifficulties: string | null
+              avg1M: number
+              avg2M: number
+              avg3M: number
+              avg4M: number
+              familySize: number
+              totalMonthlyIncome: number
+              monthlyFoodExpenses: number
+              monthlyEducationExpenses: number
+              monthlyUtilitiesExpenses: number
+              monthlyTelecomExpenses: number
+              monthlyTransportationExpenses: number
+              monthlyHousingExpenses: number
+              monthlyHealthcareExpenses: number
+              monthlyMiscExpenses: number
+            }
+          }
+        }
+      }
+      responses: {
+        /** @description No Content */
+        204: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    trace?: never
+  }
+  '/api/private/staff/application/:id': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              user: {
+                /** @enum {string} */
+                pronouns: 'EL_LO' | 'ELLA_LA' | 'ELLE_LE'
+                rut: string
+                names: string
+                lastName0: string
+                lastName1: string
+                /** Format: email */
+                email: string
+                /** Format: date-time */
+                birthDate: string | null
+                phoneNumber: string
+                staffProfile: {
+                  /** @enum {string} */
+                  applicationState:
+                    | 'PENDING_AS_STUDENT'
+                    | 'PENDING_AS_STAFF'
+                    | 'ACCEPTED_AS_STUDENT'
+                    | 'ACCEPTED_AS_STAFF'
+                    | 'CREATED'
+                    | 'REJECTED_AS_STAFF'
+                    | 'REJECTED_AS_STUDENT'
+                    | 'ACTIVE'
+                  program: string
+                  university: string
+                  entryYear: number
+                  studentNumber: string
+                }
+                courseApplications: {
+                  /** @enum {string} */
+                  type: 'COORDINATOR' | 'TEACHER'
+                  /** @enum {string} */
+                  status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
+                  /** Format: uuid */
+                  id: string
+                  course: string
+                }[]
+              }
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Edits a staff application. */
+    patch: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            user: {
+              /** @enum {string} */
+              pronouns: 'EL_LO' | 'ELLA_LA' | 'ELLE_LE'
+              rut: string
+              names: string
+              lastName0: string
+              lastName1: string
+              /** Format: email */
+              email: string
+              /** Format: date-time */
+              birthDate: string | null
+              phoneNumber: string
+              staffProfile: {
+                /** @enum {string} */
+                applicationState:
+                  | 'PENDING_AS_STUDENT'
+                  | 'PENDING_AS_STAFF'
+                  | 'ACCEPTED_AS_STUDENT'
+                  | 'ACCEPTED_AS_STAFF'
+                  | 'CREATED'
+                  | 'REJECTED_AS_STAFF'
+                  | 'REJECTED_AS_STUDENT'
+                  | 'ACTIVE'
+                program: string
+                university: string
+                entryYear: number
+                studentNumber: string
+              }
+              courseApplications: {
+                /** @enum {string} */
+                type: 'COORDINATOR' | 'TEACHER'
+                /** @enum {string} */
+                status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
+                /** Format: uuid */
+                id: string
+                course: string
+              }[]
+            }
+          }
+        }
+      }
+      responses: {
+        /** @description No Content */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    trace?: never
+  }
+  '/api/private/student/appstate/:applicationState/:id': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+          applicationState: 'PENDING_AS_STUDENT' | 'ACCEPTED_AS_STUDENT' | 'REJECTED_AS_STUDENT'
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description No Content */
+        204: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    trace?: never
+  }
+  '/api/private/staff/appstate/:applicationState/:id': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+          applicationState: 'PENDING_AS_STAFF' | 'ACCEPTED_AS_STAFF' | 'REJECTED_AS_STAFF'
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description No Content */
+        204: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    trace?: never
+  }
+  '/api/private/students/accepted': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              users: {
+                /** Format: uuid */
+                id: string
+                rut: string
+                names: string
+                lastName0: string
+                lastName1: string
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/staff/accepted': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              users: {
+                /** Format: uuid */
+                id: string
+                rut: string
+                names: string
+                lastName0: string
+                lastName1: string
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/job/students/create': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** Format: uuid */
+              jobId: string
+            }
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/job/staff/create': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** Format: uuid */
+              jobId: string
+            }
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/job/students/step/:jobId': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          jobId: string
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              created: number
+              haveErrors: number
+              stepsAvailable: boolean
+            }
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/job/staff/step/:jobId': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          jobId: string
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              created: number
+              haveErrors: number
+              stepsAvailable: boolean
+            }
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/job/status/:jobId': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          jobId: string
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** @enum {string} */
+              status: 'PENDING' | 'RUNNING' | 'DONE' | 'DONE_WITH_ERRORS'
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/course': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Creates a new course, the response contains the id and createdAt attributes. */
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            name: string
+            /** Format: date-time */
+            startDate?: string | null
+            /** Format: date-time */
+            endDate?: string | null
+          }
+        }
+      }
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** Format: uuid */
+              id: string
+              name: string
+              openForTeachers: boolean
+              openForCoordinators: boolean
+              finished: boolean
+              /** Format: date-time */
+              startDate: string | null
+              /** Format: date-time */
+              endDate: string | null
+              /** Format: date-time */
+              createdAt: string | null
+            }
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/course/:id': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Returns all course information, including coordinators,
+     * teachers and sections (id and name) */
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** Format: uuid */
+              id: string
+              name: string
+              openForTeachers: boolean
+              openForCoordinators: boolean
+              finished: boolean
+              /** Format: date-time */
+              startDate: string | null
+              /** Format: date-time */
+              endDate: string | null
+              /** Format: date-time */
+              createdAt: string | null
+              staff: {
+                /** Format: uuid */
+                id: string
+                names: string
+                lastName0: string
+                lastName1: string
+                /** @enum {string} */
+                role: 'COORDINATOR' | 'TEACHER'
+                /** Format: uuid */
+                courseEnrolmentId: string
+                active: boolean
+              }[]
+              sections: {
+                /** Format: uuid */
+                id: string
+                name: string
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Edits a course and returns the edited course */
+    patch: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            name?: string
+            openForTeachers?: boolean
+            openForCoordinators?: boolean
+            finished?: boolean
+            /** Format: date-time */
+            startDate?: string | null
+            /** Format: date-time */
+            endDate?: string | null
+          }
+        }
+      }
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** Format: uuid */
+              id: string
+              name: string
+              openForTeachers: boolean
+              openForCoordinators: boolean
+              finished: boolean
+              /** Format: date-time */
+              startDate: string | null
+              /** Format: date-time */
+              endDate: string | null
+              /** Format: date-time */
+              createdAt: string | null
+            }
+          }
+        }
+      }
+    }
+    trace?: never
+  }
+  '/api/private/courses': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Returns an array of all the courses on de DataBase */
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              courses: {
+                /** Format: uuid */
+                id: string
+                name: string
+                /** Format: date-time */
+                startDate: string | null
+                /** Format: date-time */
+                endDate: string | null
+                finished: boolean
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/course_enrolment': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Creates an enrolment to a specific course */
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            /** @enum {string} */
+            role: 'COORDINATOR' | 'TEACHER'
+            /** Format: uuid */
+            userId: string
+            /** Format: uuid */
+            courseId: string
+            /** Format: date-time */
+            startDate: string | null
+            /** Format: date-time */
+            endDate: string | null
+            active: boolean
+          }
+        }
+      }
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** @enum {string} */
+              role: 'COORDINATOR' | 'TEACHER'
+              /** Format: uuid */
+              id: string
+              /** Format: uuid */
+              userId: string
+              /** Format: uuid */
+              courseId: string
+              /** Format: date-time */
+              createdAt: string | null
+              /** Format: date-time */
+              startDate: string | null
+              /** Format: date-time */
+              endDate: string | null
+              active: boolean
+            }
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/course/:id/sections': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Returns all sections linked to a course */
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              sections: {
+                /** Format: uuid */
+                id: string
+                name: string
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/section': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Creates a Section and returns its values */
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            /** Format: uuid */
+            courseId: string
+            name: string
+          }
+        }
+      }
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** Format: uuid */
+              id: string
+              /** Format: uuid */
+              courseId: string
+              name: string
+              /** Format: date-time */
+              createdAt: string | null
+            }
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/section/:id': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Returns the data of a specific section */
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** Format: uuid */
+              id: string
+              /** Format: uuid */
+              courseId: string
+              name: string
+              /** Format: date-time */
+              createdAt: string | null
+              members: {
+                /** Format: uuid */
+                id: string
+                names: string
+                lastName0: string
+                lastName1: string
+                /** @enum {string} */
+                role: 'TEACHER' | 'STUDENT'
+              }[]
+              schedules: {
+                /** Format: uuid */
+                id: string
+                /** Format: uuid */
+                sectionId: string
+                day: number
+                timeBlock: number
+                classroom: string | null
+                repetition: number
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    /** Edits the basic info of a section */
+    patch: {
+      parameters: {
+        query?: never
+        header?: never
+        path: {
+          id: string
+        }
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            /** Format: uuid */
+            courseId: string
+            name: string
+          }
+        }
+      }
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** Format: uuid */
+              id: string
+              /** Format: uuid */
+              courseId: string
+              name: string
+              /** Format: date-time */
+              createdAt: string | null
+            }
+          }
+        }
+      }
+    }
+    trace?: never
+  }
+  '/api/private/sections': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Returns all the existing sections */
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              sections: {
+                /** Format: uuid */
+                id: string
+                /** Format: uuid */
+                courseId: string
+                name: string
+                /** Format: date-time */
+                createdAt: string | null
+                courseName: string
+              }[]
+            }
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/api/private/section_enrolment': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /** Creates a section enrolment and returns it */
+    post: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody: {
+        content: {
+          'application/json': {
+            /** @enum {string} */
+            role: 'TEACHER' | 'STUDENT'
+            /** Format: uuid */
+            userId: string
+            /** Format: uuid */
+            sectionId: string
+            /** Format: date-time */
+            startDate: string | null
+            /** Format: date-time */
+            endDate: string | null
+            active: boolean
+          }
+        }
+      }
+      responses: {
+        /** @description OK */
+        201: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': {
+              /** @enum {string} */
+              role: 'TEACHER' | 'STUDENT'
+              /** Format: uuid */
+              id: string
+              /** Format: uuid */
+              userId: string
+              /** Format: uuid */
+              sectionId: string
+              /** Format: date-time */
+              createdAt: string | null
+              /** Format: date-time */
+              startDate: string | null
+              /** Format: date-time */
+              endDate: string | null
+              active: boolean
+            }
+          }
+        }
+      }
+    }
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': string
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/favicon.ico': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description No Content */
+        204: {
+          headers: {
+            [name: string]: unknown
+          }
+          content?: never
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/openapi.json': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: {
+      parameters: {
+        query?: never
+        header?: never
+        path?: never
+        cookie?: never
+      }
+      requestBody?: never
+      responses: {
+        /** @description OK */
+        200: {
+          headers: {
+            [name: string]: unknown
+          }
+          content: {
+            'application/json': unknown
+          }
+        }
+      }
+    }
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
 }
-export type webhooks = Record<string, never>;
+export type webhooks = Record<string, never>
 export interface components {
-    schemas: never;
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+  schemas: never
+  responses: never
+  parameters: never
+  requestBodies: never
+  headers: never
+  pathItems: never
 }
-export type $defs = Record<string, never>;
-export type operations = Record<string, never>;
+export type $defs = Record<string, never>
+export type operations = Record<string, never>
