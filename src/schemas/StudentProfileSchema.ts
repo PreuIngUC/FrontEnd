@@ -41,18 +41,21 @@ export const StudentProfileSchema = z.object({
   avg3M: z.number().min(0.0).max(7.0),
   avg4M: z.number().min(0.0).max(7.0),
   familySize: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
-  totalMonthlyIncome: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
-  monthlyFoodExpenses: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
-  monthlyEducationExpenses: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
-  monthlyUtilitiesExpenses: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
-  monthlyTelecomExpenses: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
+  totalMonthlyIncome: z.number().int().nonnegative({ message: 'Debe ser un valor positivo' }),
+  monthlyFoodExpenses: z.number().int().nonnegative({ message: 'Debe ser un valor positivo' }),
+  monthlyEducationExpenses: z.number().int().nonnegative({ message: 'Debe ser un valor positivo' }),
+  monthlyUtilitiesExpenses: z.number().int().nonnegative({ message: 'Debe ser un valor positivo' }),
+  monthlyTelecomExpenses: z.number().int().nonnegative({ message: 'Debe ser un valor positivo' }),
   monthlyTransportationExpenses: z
     .number()
     .int()
-    .positive({ message: 'Debe ser un valor positivo' }),
-  monthlyHousingExpenses: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
-  monthlyHealthcareExpenses: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
-  monthlyMiscExpenses: z.number().int().positive({ message: 'Debe ser un valor positivo' }),
+    .nonnegative({ message: 'Debe ser un valor positivo' }),
+  monthlyHousingExpenses: z.number().int().nonnegative({ message: 'Debe ser un valor positivo' }),
+  monthlyHealthcareExpenses: z
+    .number()
+    .int()
+    .nonnegative({ message: 'Debe ser un valor positivo' }),
+  monthlyMiscExpenses: z.number().int().nonnegative({ message: 'Debe ser un valor positivo' }),
 })
 
 export type StudentProfile = z.infer<typeof StudentProfileSchema>
