@@ -78,7 +78,7 @@ function mapFormToBody(values: FormType): BodyType {
     const [courseId, type] = app.split('_')
     return {
       courseId,
-      type: type as 'COORDINATOR' | 'TEACHER',
+      type: type as 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR',
     }
   })
   void confirmEmail
@@ -361,7 +361,14 @@ function StaffApplication() {
                 courses.map(course => (
                   <div key={course.id} className="space-y-2">
                     <h4 className="font-medium text-slate-700">{course.name}</h4>
-
+                    {course.openForCoordinators && (
+                      <CheckboxField
+                        label={'Coordinador(a)'}
+                        value={`${course.id}_COORDINATOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
                     {course.openForTeachers && (
                       <CheckboxField
                         label={'Profesor(a)'}
@@ -370,11 +377,18 @@ function StaffApplication() {
                         prop="applications"
                       />
                     )}
-
-                    {course.openForCoordinators && (
+                    {course.openForEditors && (
                       <CheckboxField
-                        label={'Coordinador(a)'}
-                        value={`${course.id}_COORDINATOR`}
+                        label={'Editor(a)'}
+                        value={`${course.id}_EDITOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForMonitors && (
+                      <CheckboxField
+                        label={'Monitor(a)'}
+                        value={`${course.id}_MONITOR`}
                         register={register}
                         prop="applications"
                       />
