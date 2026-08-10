@@ -685,7 +685,7 @@ export interface paths {
                 }
                 courseApplications: {
                   /** @enum {string} */
-                  type: 'COORDINATOR' | 'TEACHER'
+                  type: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
                   /** @enum {string} */
                   status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
                   /** Format: uuid */
@@ -746,7 +746,7 @@ export interface paths {
               }
               courseApplications: {
                 /** @enum {string} */
-                type: 'COORDINATOR' | 'TEACHER'
+                type: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
                 /** @enum {string} */
                 status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
                 /** Format: uuid */
