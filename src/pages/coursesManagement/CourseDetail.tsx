@@ -16,6 +16,8 @@ const CourseSchema = z.object({
   endDate: z.string().nullable().optional(),
   openForTeachers: z.boolean(),
   openForCoordinators: z.boolean(),
+  openForEditors: z.boolean(),
+  openForMonitors: z.boolean(),
   finished: z.boolean(),
 })
 
@@ -60,6 +62,8 @@ export default function CourseDetail() {
         endDate: course.endDate ? course.endDate.slice(0, 10) : '',
         openForTeachers: course.openForTeachers,
         openForCoordinators: course.openForCoordinators,
+        openForEditors: course.openForEditors,
+        openForMonitors: course.openForMonitors,
         finished: course.finished,
       })
     }
@@ -181,10 +185,10 @@ export default function CourseDetail() {
           <SectionTitle title="Configuración" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <CheckboxField
-              label="Abierto para Profesores"
+              label="Abierto para Coordinadores"
               register={register}
-              errorMessage={errors?.openForTeachers?.message}
-              prop="openForTeachers"
+              errorMessage={errors?.openForCoordinators?.message}
+              prop="openForCoordinators"
               readOnly={!editing}
             />
             <CheckboxField
@@ -192,6 +196,27 @@ export default function CourseDetail() {
               register={register}
               errorMessage={errors?.openForCoordinators?.message}
               prop="openForCoordinators"
+              readOnly={!editing}
+            />
+            <CheckboxField
+              label="Abierto para Profesores"
+              register={register}
+              errorMessage={errors?.openForTeachers?.message}
+              prop="openForTeachers"
+              readOnly={!editing}
+            />
+            <CheckboxField
+              label="Abierto para Monitores"
+              register={register}
+              errorMessage={errors?.openForMonitors?.message}
+              prop="openForMonitors"
+              readOnly={!editing}
+            />
+            <CheckboxField
+              label="Abierto para Editores"
+              register={register}
+              errorMessage={errors?.openForEditors?.message}
+              prop="openForEditors"
               readOnly={!editing}
             />
             <CheckboxField

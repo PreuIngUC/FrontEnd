@@ -83,7 +83,7 @@ export interface paths {
               /** Format: uuid */
               courseId: string
               /** @enum {string} */
-              type: 'COORDINATOR' | 'TEACHER'
+              type: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
             }[]
           }
         }
@@ -312,6 +312,8 @@ export interface paths {
                 name: string
                 openForTeachers: boolean
                 openForCoordinators: boolean
+                openForEditors: boolean
+                openForMonitors: boolean
               }[]
             }
           }
@@ -1146,6 +1148,8 @@ export interface paths {
         content: {
           'application/json': {
             name: string
+            openForEditors: boolean
+            openForMonitors: boolean
             /** Format: date-time */
             startDate?: string | null
             /** Format: date-time */
@@ -1166,6 +1170,8 @@ export interface paths {
               name: string
               openForTeachers: boolean
               openForCoordinators: boolean
+              openForEditors: boolean
+              openForMonitors: boolean
               finished: boolean
               /** Format: date-time */
               startDate: string | null
@@ -1191,8 +1197,7 @@ export interface paths {
       path?: never
       cookie?: never
     }
-    /** Returns all course information, including coordinators,
-     * teachers and sections (id and name) */
+    /** Returns all course information, including coordinator*/
     get: {
       parameters: {
         query?: never
@@ -1216,6 +1221,8 @@ export interface paths {
               name: string
               openForTeachers: boolean
               openForCoordinators: boolean
+              openForEditors: boolean
+              openForMonitors: boolean
               finished: boolean
               /** Format: date-time */
               startDate: string | null
@@ -1230,7 +1237,7 @@ export interface paths {
                 lastName0: string
                 lastName1: string
                 /** @enum {string} */
-                role: 'COORDINATOR' | 'TEACHER'
+                role: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
                 /** Format: uuid */
                 courseEnrolmentId: string
                 active: boolean
@@ -1266,6 +1273,8 @@ export interface paths {
             name?: string
             openForTeachers?: boolean
             openForCoordinators?: boolean
+            openForEditors?: boolean
+            openForMonitors?: boolean
             finished?: boolean
             /** Format: date-time */
             startDate?: string | null
@@ -1287,6 +1296,8 @@ export interface paths {
               name: string
               openForTeachers: boolean
               openForCoordinators: boolean
+              openForEditors: boolean
+              openForMonitors: boolean
               finished: boolean
               /** Format: date-time */
               startDate: string | null
@@ -1369,7 +1380,7 @@ export interface paths {
         content: {
           'application/json': {
             /** @enum {string} */
-            role: 'COORDINATOR' | 'TEACHER'
+            role: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
             /** Format: uuid */
             userId: string
             /** Format: uuid */
@@ -1391,7 +1402,7 @@ export interface paths {
           content: {
             'application/json': {
               /** @enum {string} */
-              role: 'COORDINATOR' | 'TEACHER'
+              role: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
               /** Format: uuid */
               id: string
               /** Format: uuid */

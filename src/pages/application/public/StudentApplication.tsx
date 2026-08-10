@@ -146,7 +146,11 @@ function StudentApplication() {
                   </h4>
                   <ul className="list-disc pl-5 space-y-2 text-sm">
                     <li>
-                      <strong>Inicio de clases:</strong> Lunes 04 de mayo.
+                      <strong>Primera semana de ensayos del semestre:</strong> Semana del 17 de
+                      agosto.
+                    </li>
+                    <li>
+                      <strong>Inicio de clases:</strong> Lunes 24 de agosto.
                     </li>
                   </ul>
                 </div>
@@ -166,15 +170,23 @@ function StudentApplication() {
                       matrícula ante reiteradas <strong>inasistencias injustificadas</strong>.
                     </li>
                     <li>
-                      La planificación considera desde la fecha de inicio hasta dos semanas antes de
-                      la PAES de verano del 2027. No habrá clases durante las semanas de receso ni
-                      en las vacaciones de invierno de la universidad. Todas estas fechas se
-                      comunicarán con antelación.
+                      La planificación considera desde la fecha de inicio hasta una semana antes de
+                      la PAES de Verano para la Admisión 2027. No habrá clases durante la semana de
+                      receso de la universidad. Todas estas fechas se comunicarán con antelación.
                     </li>
                     <li>
-                      Cada estudiante tendrá 2 clases semanales, con horarios específicos
-                      dependiendo de su sección. Estos horarios se encuentran en el rango de lunes a
-                      jueves de 19:00 a 19:50 y 20:00 a 20:50.
+                      El horario de clases es de lunes a jueves, de{' '}
+                      <strong>18:00 a 20:00 hrs </strong> presencial.
+                    </li>
+                    <li>
+                      <strong>IMPORTANTE:</strong> este semestre el preuniversitario no realizará
+                      intensivos de toda la materia PAES, es decir, este período de postulaciones es{' '}
+                      <strong>
+                        solo para incorporarse a las clases regulares que comenzaron a principio de
+                        año.
+                      </strong>{' '}
+                      Esto se traduce en que se verán contenidos de, aproximadamente, la mitad del
+                      temario en adelante.
                     </li>
                   </ul>
                 </div>
@@ -183,7 +195,7 @@ function StudentApplication() {
               <p className="text-center text-sm bg-sky-100 text-blue-900 py-3 rounded-lg font-medium">
                 Frente a cualquier duda o problema con este formulario escríbenos al correo:{' '}
                 <a href="mailto:preu.ing@gmail.com" className="font-bold hover:underline">
-                  preu.ing@gmail.com
+                  contacto@preuinguc.org
                 </a>
               </p>
             </div>
