@@ -48,7 +48,7 @@ const StaffApplicationEditSchema = z.object({
     z.object({
       id: z.string(),
       course: z.string(),
-      type: z.enum(['COORDINATOR', 'TEACHER']),
+      type: z.enum(['COORDINATOR', 'TEACHER', 'EDITOR', 'MONITOR']), // TODO: revisar si EDITOR/MONITOR deben ser editables o solo lectura
       status: z.enum(['PENDING', 'ACCEPTED', 'REJECTED']),
     }),
   ),
