@@ -121,7 +121,7 @@ function StudentApplication() {
           {/* ENCABEZADO DE LA TARJETA */}
           <div className="bg-blue-900 py-6 px-8 text-center sm:px-10">
             <h2 className="text-3xl font-extrabold text-white tracking-tight">
-              Postulación Estudiante Online 2026
+              Postulación Estudiantes 2026 - Presencial
             </h2>
             <p className="mt-2 text-sky-200 text-sm">
               Completa el formulario para ser parte del Preuniversitario Social de Ingeniería UC.
