@@ -1197,7 +1197,8 @@ export interface paths {
       path?: never
       cookie?: never
     }
-    /** Returns all course information, including coordinators, teachers and sections (id and name) */
+    /** Returns all course information, including coordinators,
+     * teachers and sections (id and name) */
     get: {
       parameters: {
         query?: never
