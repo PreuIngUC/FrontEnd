@@ -18,6 +18,11 @@ const CourseSchema = z.object({
   openForCoordinators: z.boolean(),
   openForEditors: z.boolean(),
   openForMonitors: z.boolean(),
+  openForVolunteers: z.boolean(),
+  openForManagers: z.boolean(),
+  openForDesigners: z.boolean(),
+  openForDevelopers: z.boolean(),
+  openForDirectors: z.boolean(),
   finished: z.boolean(),
 })
 
@@ -64,6 +69,11 @@ export default function CourseDetail() {
         openForCoordinators: course.openForCoordinators,
         openForEditors: course.openForEditors,
         openForMonitors: course.openForMonitors,
+        openForDesigners: course.openForDesigners,
+        openForDevelopers: course.openForDevelopers,
+        openForDirectors: course.openForDirectors,
+        openForVolunteers: course.openForVolunteers,
+        openForManagers: course.openForManagers,
         finished: course.finished,
       })
     }
@@ -192,13 +202,6 @@ export default function CourseDetail() {
               readOnly={!editing}
             />
             <CheckboxField
-              label="Abierto para Coordinadores"
-              register={register}
-              errorMessage={errors?.openForCoordinators?.message}
-              prop="openForCoordinators"
-              readOnly={!editing}
-            />
-            <CheckboxField
               label="Abierto para Profesores"
               register={register}
               errorMessage={errors?.openForTeachers?.message}
@@ -217,6 +220,41 @@ export default function CourseDetail() {
               register={register}
               errorMessage={errors?.openForEditors?.message}
               prop="openForEditors"
+              readOnly={!editing}
+            />
+            <CheckboxField
+              label="Abierto para Voluntarios"
+              register={register}
+              errorMessage={errors?.openForVolunteers?.message}
+              prop="openForVolunteers"
+              readOnly={!editing}
+            />
+            <CheckboxField
+              label="Abierto para Directores"
+              register={register}
+              errorMessage={errors?.openForDirectors?.message}
+              prop="openForDirectors"
+              readOnly={!editing}
+            />
+            <CheckboxField
+              label="Abierto para Diseñadores"
+              register={register}
+              errorMessage={errors?.openForDesigners?.message}
+              prop="openForDesigners"
+              readOnly={!editing}
+            />
+            <CheckboxField
+              label="Abierto para Desarrolladores"
+              register={register}
+              errorMessage={errors?.openForDevelopers?.message}
+              prop="openForDevelopers"
+              readOnly={!editing}
+            />
+            <CheckboxField
+              label="Abierto para Encargados"
+              register={register}
+              errorMessage={errors?.openForManagers?.message}
+              prop="openForManagers"
               readOnly={!editing}
             />
             <CheckboxField
