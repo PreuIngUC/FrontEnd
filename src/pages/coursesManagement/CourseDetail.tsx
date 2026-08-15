@@ -195,6 +195,13 @@ export default function CourseDetail() {
           <SectionTitle title="Configuración" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <CheckboxField
+              label="Abierto para Directores"
+              register={register}
+              errorMessage={errors?.openForDirectors?.message}
+              prop="openForDirectors"
+              readOnly={!editing}
+            />
+            <CheckboxField
               label="Abierto para Coordinadores"
               register={register}
               errorMessage={errors?.openForCoordinators?.message}
@@ -227,13 +234,6 @@ export default function CourseDetail() {
               register={register}
               errorMessage={errors?.openForVolunteers?.message}
               prop="openForVolunteers"
-              readOnly={!editing}
-            />
-            <CheckboxField
-              label="Abierto para Directores"
-              register={register}
-              errorMessage={errors?.openForDirectors?.message}
-              prop="openForDirectors"
               readOnly={!editing}
             />
             <CheckboxField
