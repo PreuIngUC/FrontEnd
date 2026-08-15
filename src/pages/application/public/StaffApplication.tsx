@@ -78,7 +78,16 @@ function mapFormToBody(values: FormType): BodyType {
     const [courseId, type] = app.split('_')
     return {
       courseId,
-      type: type as 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR',
+      type: type as
+        | 'COORDINATOR'
+        | 'TEACHER'
+        | 'EDITOR'
+        | 'MONITOR'
+        | 'VOLUNTEER'
+        | 'DIRECTOR'
+        | 'DESIGNER'
+        | 'DEVELOPER'
+        | 'MANAGER',
     }
   })
   void confirmEmail
@@ -361,10 +370,26 @@ function StaffApplication() {
                 courses.map(course => (
                   <div key={course.id} className="space-y-2">
                     <h4 className="font-medium text-slate-700">{course.name}</h4>
+                    {course.openForDirectors && (
+                      <CheckboxField
+                        label={'Director(a)'}
+                        value={`${course.id}_DIRECTOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
                     {course.openForCoordinators && (
                       <CheckboxField
                         label={'Coordinador(a)'}
                         value={`${course.id}_COORDINATOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForManagers && (
+                      <CheckboxField
+                        label={'Encargado(a)'}
+                        value={`${course.id}_MANAGER`}
                         register={register}
                         prop="applications"
                       />
@@ -389,6 +414,30 @@ function StaffApplication() {
                       <CheckboxField
                         label={'Monitor(a)'}
                         value={`${course.id}_MONITOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForVolunteers && (
+                      <CheckboxField
+                        label={'Voluntario(a)'}
+                        value={`${course.id}_VOLUNTEER`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForDesigners && (
+                      <CheckboxField
+                        label={'Diseñador(a)'}
+                        value={`${course.id}_DESIGNER`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForDevelopers && (
+                      <CheckboxField
+                        label={'Desarrollador(a)'}
+                        value={`${course.id}_DEVELOPER`}
                         register={register}
                         prop="applications"
                       />
