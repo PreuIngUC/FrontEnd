@@ -1180,6 +1180,8 @@ export interface paths {
         content: {
           'application/json': {
             name: string
+            openForEditors: boolean
+            openForMonitors: boolean
             /** Format: date-time */
             startDate?: string | null
             /** Format: date-time */
@@ -1232,8 +1234,7 @@ export interface paths {
       path?: never
       cookie?: never
     }
-    /** Returns all course information, including coordinators,
-     * teachers and sections (id and name) */
+    /** Returns all course information, including coordinator*/
     get: {
       parameters: {
         query?: never
