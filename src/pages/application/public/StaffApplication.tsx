@@ -177,9 +177,11 @@ function StaffApplication() {
           {/* --- BLOQUE DE INFORMACIÓN INICIAL --- */}
           <div className="mb-10 bg-slate-50 border border-slate-200 rounded-xl p-6 text-slate-700 shadow-sm">
             <p className="mb-5 text-base text-center md:text-left">
-              El siguiente formulario te permitirá <strong>POSTULAR</strong> al preuniversitario
-              social de ingeniería. Esta es una primera instancia de comunicación, esperamos poder
-              conocerte ;)
+              En <strong>PreuIngUC</strong> estamos en búsqueda de personas motivadas y con ganas de
+              poner en práctica sus habilidades dentro de nuestras diferentes áreas de acción, somos
+              una comunidad unida, multidisciplinaria y animada por disminuir las brechas
+              educativas, ideal para generar nuevas redes y aplicar tus conocimientos. Esta será una
+              primera instancia de comunicación, esperamos poder conocerte pronto ;)
             </p>
 
             <div className="grid grid-cols-1 gap-4 mb-5">
@@ -190,7 +192,7 @@ function StaffApplication() {
                 </h4>
                 <ul className="list-disc pl-5 space-y-2 text-sm">
                   <li>
-                    <strong>Inicio del proceso de postulaciones:</strong> sábado 15 de agosto.
+                    <strong>Inicio del proceso de postulaciones:</strong> domingo 16 de agosto.
                   </li>
                   <li>
                     <strong>Fin del proceso de postulaciones:</strong> domingo 30 de agosto.
@@ -201,13 +203,19 @@ function StaffApplication() {
               {/* Info Preliminar */}
               <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
                 <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">💡 Cargos</h4>
+                <p className="mb-5 text-sm text-center md:text-left">
+                  A continuación puedes revisar información sobre los cargos disponibles a los que
+                  puedes postular (haciendo click/tap en el de tu interés). Puedes postular a más de
+                  uno, nos contactaremos contigo para conocerte más y definir cuál (o cuáles) sería
+                  tu cargo ideal.
+                </p>
                 <AccordionList items={roleDefinitions} />
               </div>
             </div>
 
             <p className="text-center text-sm bg-sky-100 text-blue-900 py-3 rounded-lg font-medium">
               Frente a cualquier duda o problema con este formulario escríbenos al correo:{' '}
-              <a href="mailto:preu.ing@gmail.com" className="font-bold hover:underline">
+              <a href="mailto:contacto@preuinguc.org" className="font-bold hover:underline">
                 contacto@preuinguc.org
               </a>
             </p>
@@ -431,6 +439,14 @@ function StaffApplication() {
                       <CheckboxField
                         label={'Monitor(a)'}
                         value={`${course.id}_MONITOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForManagers && (
+                      <CheckboxField
+                        label={'Encargado(a)'}
+                        value={`${course.id}_MANAGER`}
                         register={register}
                         prop="applications"
                       />
