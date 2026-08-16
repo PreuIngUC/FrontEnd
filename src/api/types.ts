@@ -83,7 +83,16 @@ export interface paths {
               /** Format: uuid */
               courseId: string
               /** @enum {string} */
-              type: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
+              type:
+                | 'COORDINATOR'
+                | 'TEACHER'
+                | 'EDITOR'
+                | 'MONITOR'
+                | 'VOLUNTEER'
+                | 'DIRECTOR'
+                | 'DESIGNER'
+                | 'DEVELOPER'
+                | 'MANAGER'
             }[]
           }
         }
@@ -314,6 +323,11 @@ export interface paths {
                 openForCoordinators: boolean
                 openForEditors: boolean
                 openForMonitors: boolean
+                openForVolunteers: boolean
+                openForManagers: boolean
+                openForDesigners: boolean
+                openForDevelopers: boolean
+                openForDirectors: boolean
               }[]
             }
           }
@@ -685,7 +699,16 @@ export interface paths {
                 }
                 courseApplications: {
                   /** @enum {string} */
-                  type: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
+                  type:
+                    | 'COORDINATOR'
+                    | 'TEACHER'
+                    | 'EDITOR'
+                    | 'MONITOR'
+                    | 'VOLUNTEER'
+                    | 'DIRECTOR'
+                    | 'DESIGNER'
+                    | 'DEVELOPER'
+                    | 'MANAGER'
                   /** @enum {string} */
                   status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
                   /** Format: uuid */
@@ -746,7 +769,16 @@ export interface paths {
               }
               courseApplications: {
                 /** @enum {string} */
-                type: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
+                type:
+                  | 'COORDINATOR'
+                  | 'TEACHER'
+                  | 'EDITOR'
+                  | 'MONITOR'
+                  | 'VOLUNTEER'
+                  | 'DIRECTOR'
+                  | 'DESIGNER'
+                  | 'DEVELOPER'
+                  | 'MANAGER'
                 /** @enum {string} */
                 status: 'PENDING' | 'ACCEPTED' | 'REJECTED'
                 /** Format: uuid */
@@ -1172,6 +1204,11 @@ export interface paths {
               openForCoordinators: boolean
               openForEditors: boolean
               openForMonitors: boolean
+              openForVolunteers: boolean
+              openForManagers: boolean
+              openForDesigners: boolean
+              openForDevelopers: boolean
+              openForDirectors: boolean
               finished: boolean
               /** Format: date-time */
               startDate: string | null
@@ -1223,6 +1260,11 @@ export interface paths {
               openForCoordinators: boolean
               openForEditors: boolean
               openForMonitors: boolean
+              openForVolunteers: boolean
+              openForManagers: boolean
+              openForDesigners: boolean
+              openForDevelopers: boolean
+              openForDirectors: boolean
               finished: boolean
               /** Format: date-time */
               startDate: string | null
@@ -1237,7 +1279,16 @@ export interface paths {
                 lastName0: string
                 lastName1: string
                 /** @enum {string} */
-                role: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
+                role:
+                  | 'COORDINATOR'
+                  | 'TEACHER'
+                  | 'EDITOR'
+                  | 'MONITOR'
+                  | 'VOLUNTEER'
+                  | 'DIRECTOR'
+                  | 'DESIGNER'
+                  | 'DEVELOPER'
+                  | 'MANAGER'
                 /** Format: uuid */
                 courseEnrolmentId: string
                 active: boolean
@@ -1275,6 +1326,11 @@ export interface paths {
             openForCoordinators?: boolean
             openForEditors?: boolean
             openForMonitors?: boolean
+            openForVolunteers?: boolean
+            openForManagers?: boolean
+            openForDesigners?: boolean
+            openForDevelopers?: boolean
+            openForDirectors?: boolean
             finished?: boolean
             /** Format: date-time */
             startDate?: string | null
@@ -1298,6 +1354,11 @@ export interface paths {
               openForCoordinators: boolean
               openForEditors: boolean
               openForMonitors: boolean
+              openForVolunteers: boolean
+              openForManagers: boolean
+              openForDesigners: boolean
+              openForDevelopers: boolean
+              openForDirectors: boolean
               finished: boolean
               /** Format: date-time */
               startDate: string | null
@@ -1380,7 +1441,16 @@ export interface paths {
         content: {
           'application/json': {
             /** @enum {string} */
-            role: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
+            role:
+              | 'COORDINATOR'
+              | 'TEACHER'
+              | 'EDITOR'
+              | 'MONITOR'
+              | 'VOLUNTEER'
+              | 'DIRECTOR'
+              | 'DESIGNER'
+              | 'DEVELOPER'
+              | 'MANAGER'
             /** Format: uuid */
             userId: string
             /** Format: uuid */
@@ -1402,7 +1472,16 @@ export interface paths {
           content: {
             'application/json': {
               /** @enum {string} */
-              role: 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR'
+              role:
+                | 'COORDINATOR'
+                | 'TEACHER'
+                | 'EDITOR'
+                | 'MONITOR'
+                | 'VOLUNTEER'
+                | 'DIRECTOR'
+                | 'DESIGNER'
+                | 'DEVELOPER'
+                | 'MANAGER'
               /** Format: uuid */
               id: string
               /** Format: uuid */
