@@ -177,8 +177,9 @@ function StaffApplication() {
           {/* --- BLOQUE DE INFORMACIÓN INICIAL --- */}
           <div className="mb-10 bg-slate-50 border border-slate-200 rounded-xl p-6 text-slate-700 shadow-sm">
             <p className="mb-5 text-base text-center md:text-left">
-              El siguiente formulario tiene el objetivo de permitirte <strong>POSTULAR</strong> al
-              preuniversitario social de ingeniería. Esta es una primera instancia de comunicación.
+              El siguiente formulario te permitirá <strong>POSTULAR</strong> al preuniversitario
+              social de ingeniería. Esta es una primera instancia de comunicación, esperamos poder
+              conocerte ;)
             </p>
 
             <div className="grid grid-cols-1 gap-4 mb-5">
@@ -199,9 +200,7 @@ function StaffApplication() {
 
               {/* Info Preliminar */}
               <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
-                <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
-                  💡 Información Preliminar
-                </h4>
+                <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">💡 Cargos</h4>
                 <AccordionList items={roleDefinitions} />
               </div>
             </div>

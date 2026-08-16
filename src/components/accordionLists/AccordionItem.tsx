@@ -26,7 +26,7 @@ function AccordionItem({
 
       {/* Contenedor del contenido (Aquí va la magia de la animación) */}
       <div
-        className={`transition-all duration-300 ${isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'}`}
+        className={`grid transition-[grid-template-rows,opacity] duration-300 ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}
       >
         <div className="overflow-hidden">{content}</div>
       </div>
