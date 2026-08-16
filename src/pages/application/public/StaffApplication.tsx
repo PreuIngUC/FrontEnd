@@ -429,24 +429,8 @@ function StaffApplication() {
                     )}
                     {course.openForCoordinators && (
                       <CheckboxField
-                        label={'Editor(a)'}
-                        value={`${course.id}_EDITOR`}
-                        register={register}
-                        prop="applications"
-                      />
-                    )}
-                    {course.openForMonitors && (
-                      <CheckboxField
-                        label={'Monitor(a)'}
-                        value={`${course.id}_MONITOR`}
-                        register={register}
-                        prop="applications"
-                      />
-                    )}
-                    {course.openForManagers && (
-                      <CheckboxField
-                        label={'Encargado(a)'}
-                        value={`${course.id}_MANAGER`}
+                        label={'Coordinador(a)'}
+                        value={`${course.id}_COORDINATOR`}
                         register={register}
                         prop="applications"
                       />
@@ -467,18 +451,18 @@ function StaffApplication() {
                         prop="applications"
                       />
                     )}
-                    {course.openForEditors && (
-                      <CheckboxField
-                        label={'Editor(a)'}
-                        value={`${course.id}_EDITOR`}
-                        register={register}
-                        prop="applications"
-                      />
-                    )}
                     {course.openForMonitors && (
                       <CheckboxField
                         label={'Monitor(a)'}
                         value={`${course.id}_MONITOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForEditors && (
+                      <CheckboxField
+                        label={'Editor(a)'}
+                        value={`${course.id}_EDITOR`}
                         register={register}
                         prop="applications"
                       />
