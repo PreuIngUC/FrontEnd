@@ -48,7 +48,17 @@ const StaffApplicationEditSchema = z.object({
     z.object({
       id: z.string(),
       course: z.string(),
-      type: z.enum(['COORDINATOR', 'TEACHER', 'EDITOR', 'MONITOR']), // TODO: revisar si EDITOR/MONITOR deben ser editables o solo lectura
+      type: z.enum([
+        'COORDINATOR',
+        'TEACHER',
+        'EDITOR',
+        'MONITOR',
+        'VOLUNTEER',
+        'DIRECTOR',
+        'DESIGNER',
+        'DEVELOPER',
+        'MANAGER',
+      ]), // TODO: revisar si EDITOR/MONITOR deben ser editables o solo lectura
       status: z.enum(['PENDING', 'ACCEPTED', 'REJECTED']),
     }),
   ),
@@ -338,7 +348,25 @@ export default function StaffApplicationDetail({ justRead }: { justRead: boolean
                   >
                     <td className="py-3 px-4 text-slate-700 font-medium">{field.course}</td>
                     <td className="py-3 px-4 text-slate-600 text-sm">
-                      {field.type === 'TEACHER' ? 'Profesor(a)' : 'Coordinador(a)'}
+                      {field.type === 'TEACHER'
+                        ? 'Profesor(a)'
+                        : field.type === 'COORDINATOR'
+                          ? 'Coordinador(a)'
+                          : field.type === 'EDITOR'
+                            ? 'Editor(a)'
+                            : field.type === 'MONITOR'
+                              ? 'Monitor(a)'
+                              : field.type === 'VOLUNTEER'
+                                ? 'Voluntario(a)'
+                                : field.type === 'DIRECTOR'
+                                  ? 'Director(a)'
+                                  : field.type === 'DESIGNER'
+                                    ? 'Diseñador(a)'
+                                    : field.type === 'DEVELOPER'
+                                      ? 'Desarrollador(a)'
+                                      : field.type === 'MANAGER'
+                                        ? 'Encargado(a)'
+                                        : field.type}
                     </td>
                     <td className="py-3 px-4">
                       {editing ? (

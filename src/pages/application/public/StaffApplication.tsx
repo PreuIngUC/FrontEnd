@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom'
 import useCoursesAvailableForApplications from '../../../hooks/useCoursesAvailableForApplications.ts'
 import * as selectFieldsOptions from '../../../constants/applications/students/SelectFieldsOptions.ts'
 import CheckboxField from '../../../components/form/CheckboxField.tsx'
+import AccordionList from '../../../components/accordionLists/AccordionList.tsx'
+import roleDefinitions from '../../../constants/applications/staff/roleDefinitions.tsx'
 
 // --- Tipos y Esquema ---
 type BodyType =
@@ -78,7 +80,16 @@ function mapFormToBody(values: FormType): BodyType {
     const [courseId, type] = app.split('_')
     return {
       courseId,
-      type: type as 'COORDINATOR' | 'TEACHER' | 'EDITOR' | 'MONITOR',
+      type: type as
+        | 'COORDINATOR'
+        | 'TEACHER'
+        | 'EDITOR'
+        | 'MONITOR'
+        | 'VOLUNTEER'
+        | 'DIRECTOR'
+        | 'DESIGNER'
+        | 'DEVELOPER'
+        | 'MANAGER',
     }
   })
   void confirmEmail
@@ -153,7 +164,7 @@ function StaffApplication() {
         {/* ENCABEZADO DE LA TARJETA */}
         <div className="bg-blue-900 py-6 px-8 text-center sm:px-10">
           <h2 className="text-3xl font-extrabold text-white tracking-tight">
-            Postulación Equipo 2026
+            Postulación Equipo 2026 - 2
           </h2>
           <p className="mt-2 text-sky-200 text-sm">
             Completa el formulario para ser parte del equipo del Preuniversitario Social de
@@ -163,6 +174,45 @@ function StaffApplication() {
 
         {/* CUERPO DEL FORMULARIO */}
         <div className="py-8 px-8 sm:px-10">
+          {/* --- BLOQUE DE INFORMACIÓN INICIAL --- */}
+          <div className="mb-10 bg-slate-50 border border-slate-200 rounded-xl p-6 text-slate-700 shadow-sm">
+            <p className="mb-5 text-base text-center md:text-left">
+              El siguiente formulario te permitirá <strong>POSTULAR</strong> al preuniversitario
+              social de ingeniería. Esta es una primera instancia de comunicación, esperamos poder
+              conocerte ;)
+            </p>
+
+            <div className="grid grid-cols-1 gap-4 mb-5">
+              {/* Fechas */}
+              <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
+                <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">
+                  📅 Fechas Clave
+                </h4>
+                <ul className="list-disc pl-5 space-y-2 text-sm">
+                  <li>
+                    <strong>Inicio del proceso de postulaciones:</strong> sábado 15 de agosto.
+                  </li>
+                  <li>
+                    <strong>Fin del proceso de postulaciones:</strong> domingo 30 de agosto.
+                  </li>
+                </ul>
+              </div>
+
+              {/* Info Preliminar */}
+              <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
+                <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">💡 Cargos</h4>
+                <AccordionList items={roleDefinitions} />
+              </div>
+            </div>
+
+            <p className="text-center text-sm bg-sky-100 text-blue-900 py-3 rounded-lg font-medium">
+              Frente a cualquier duda o problema con este formulario escríbenos al correo:{' '}
+              <a href="mailto:preu.ing@gmail.com" className="font-bold hover:underline">
+                contacto@preuinguc.org
+              </a>
+            </p>
+          </div>
+
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             {/* --- SECCIÓN 1: DATOS PERSONALES --- */}
             <SectionTitle title="Datos Personales" />
@@ -361,10 +411,26 @@ function StaffApplication() {
                 courses.map(course => (
                   <div key={course.id} className="space-y-2">
                     <h4 className="font-medium text-slate-700">{course.name}</h4>
+                    {course.openForDirectors && (
+                      <CheckboxField
+                        label={'Director(a)'}
+                        value={`${course.id}_DIRECTOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
                     {course.openForCoordinators && (
                       <CheckboxField
                         label={'Coordinador(a)'}
                         value={`${course.id}_COORDINATOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForManagers && (
+                      <CheckboxField
+                        label={'Encargado(a)'}
+                        value={`${course.id}_MANAGER`}
                         register={register}
                         prop="applications"
                       />
@@ -389,6 +455,30 @@ function StaffApplication() {
                       <CheckboxField
                         label={'Monitor(a)'}
                         value={`${course.id}_MONITOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForVolunteers && (
+                      <CheckboxField
+                        label={'Voluntario(a)'}
+                        value={`${course.id}_VOLUNTEER`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForDesigners && (
+                      <CheckboxField
+                        label={'Diseñador(a)'}
+                        value={`${course.id}_DESIGNER`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForDevelopers && (
+                      <CheckboxField
+                        label={'Desarrollador(a)'}
+                        value={`${course.id}_DEVELOPER`}
                         register={register}
                         prop="applications"
                       />
