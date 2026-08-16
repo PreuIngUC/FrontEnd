@@ -429,8 +429,24 @@ function StaffApplication() {
                     )}
                     {course.openForCoordinators && (
                       <CheckboxField
-                        label={'Coordinador(a)'}
-                        value={`${course.id}_COORDINATOR`}
+                        label={'Editor(a)'}
+                        value={`${course.id}_EDITOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForMonitors && (
+                      <CheckboxField
+                        label={'Monitor(a)'}
+                        value={`${course.id}_MONITOR`}
+                        register={register}
+                        prop="applications"
+                      />
+                    )}
+                    {course.openForManagers && (
+                      <CheckboxField
+                        label={'Encargado(a)'}
+                        value={`${course.id}_MANAGER`}
                         register={register}
                         prop="applications"
                       />
