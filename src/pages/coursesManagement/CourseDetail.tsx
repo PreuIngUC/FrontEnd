@@ -209,6 +209,13 @@ export default function CourseDetail() {
               readOnly={!editing}
             />
             <CheckboxField
+              label="Abierto para Encargados"
+              register={register}
+              errorMessage={errors?.openForManagers?.message}
+              prop="openForManagers"
+              readOnly={!editing}
+            />
+            <CheckboxField
               label="Abierto para Profesores"
               register={register}
               errorMessage={errors?.openForTeachers?.message}
@@ -248,13 +255,6 @@ export default function CourseDetail() {
               register={register}
               errorMessage={errors?.openForDevelopers?.message}
               prop="openForDevelopers"
-              readOnly={!editing}
-            />
-            <CheckboxField
-              label="Abierto para Encargados"
-              register={register}
-              errorMessage={errors?.openForManagers?.message}
-              prop="openForManagers"
               readOnly={!editing}
             />
             <CheckboxField

@@ -421,16 +421,8 @@ function StaffApplication() {
                     )}
                     {course.openForCoordinators && (
                       <CheckboxField
-                        label={'Editor(a)'}
-                        value={`${course.id}_EDITOR`}
-                        register={register}
-                        prop="applications"
-                      />
-                    )}
-                    {course.openForMonitors && (
-                      <CheckboxField
-                        label={'Monitor(a)'}
-                        value={`${course.id}_MONITOR`}
+                        label={'Coordinador(a)'}
+                        value={`${course.id}_COORDINATOR`}
                         register={register}
                         prop="applications"
                       />
