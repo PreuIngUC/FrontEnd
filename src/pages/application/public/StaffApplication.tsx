@@ -194,12 +194,8 @@ function StaffApplication() {
                   <li>
                     <strong>Inicio del proceso de postulaciones:</strong> domingo 16 de agosto.
                   </li>
-                  <li>
-                    <strong>Fin del proceso de postulaciones:</strong> domingo 30 de agosto.
-                  </li>
                 </ul>
               </div>
-
               {/* Info Preliminar */}
               <div className="bg-white p-4 rounded-lg border border-sky-100 shadow-sm">
                 <h4 className="font-bold text-blue-900 mb-2 flex items-center gap-2">💡 Cargos</h4>
