@@ -54,27 +54,35 @@ const roleDefinitions = [
     ),
   },
   {
-    id: 4,
-    title: 'Diseñador(a)',
+    id: 2,
+    title: 'Coordinador(a) de Equipo',
     content: (
       <ul className="list-disc pl-5 space-y-2 text-sm">
         <li>
           <strong>Funciones Principales:</strong>
           <ul className="list-disc pl-5 space-y-2 text-sm">
             <li>
-              <strong>Gobernanza Visual:</strong> velar por la integridad estética de la
-              organización. Asegurar que las paletas de colores, tipografías y el uso del logo se
-              mantengan coherentes en cualquier material impreso o digital.
+              <strong>Monitoreo de Retención y Prevención de Burnout:</strong> hacer seguimiento
+              activo del estado anímico de los voluntarios (profesores, logística, diseño, etc.).
+              Detectar a tiempo si alguien está a punto de renunciar por estrés de sus propios ramos
+              universitarios y buscar soluciones de flexibilidad antes de que sea crítico.
             </li>
             <li>
-              <strong>Producción Gráfica:</strong> tomar los textos pulidos entregados por la
-              Coordinación de Comunicaciones y convertirlos en piezas visuales profesionales
-              (publicaciones, afiches, dossiers para fondos concursables).
+              <strong>Producción de Eventos y Hospitalidad:</strong> presupuestar, planificar y
+              ejecutar la logística de las instancias de cohesión (como &quot;oncesitas&quot;,
+              jornadas de inicio y convivencias). Ser dueño(a) de la &quot;logística humana&quot;,
+              encargándose de compras estratégicas de colaciones y preparación del ambiente.
             </li>
             <li>
-              <strong>Diseño de Interfaz:</strong> asesorar y ayudar a la Directiva de Operaciones
-              con los recursos gráficos de la página web del preuniversitario para mejorar la
-              experiencia de usuario.
+              <strong>Ejecución Operativa de Capacitaciones:</strong> trabajar en dupla con la
+              Directiva. Mientras esta define qué se va a enseñar en una charla (ej. traer a un
+              profesor veterano), Coordinación de Equipo ejecuta el cómo: reserva las salas físicas,
+              envía las citaciones de calendario y prepara el entorno.
+            </li>
+            <li>
+              <strong>Recepción del Voluntariado:</strong> asegurar que cada voluntario nuevo no
+              solo reciba sus accesos digitales o herramientas, sino que se sienta bienvenido,
+              entienda la visión del proyecto y se integre a la comunidad.
             </li>
           </ul>
         </li>
@@ -82,19 +90,23 @@ const roleDefinitions = [
           <strong>Perfil Requerido:</strong>
           <ul className="list-disc pl-5 space-y-2 text-sm">
             <li>
-              <strong>Competencia Visual y Dominio Técnico:</strong> manejo ágil de software de
-              diseño (Illustrator, Photoshop, Figma, entre otros; deseables pero no excluyentes) y
-              herramientas de ensamble rápido (Canva).
+              <strong>Empatía Estratégica:</strong> alta inteligencia emocional para leer el clima
+              del grupo, escuchar activamente y acercarse de manera oportuna a quienes están
+              desmotivados.
             </li>
             <li>
-              <strong>Sensibilidad Digital para Web:</strong> conocimiento sobre cómo exportar y
-              entregar recursos digitales (archivos SVG, PNG, códigos HEX) de manera ordenada para
-              facilitar el desarrollo frontend.
+              <strong>Habilidad de Producción y Autogestión:</strong> capacidad para organizar
+              eventos tácticos (cotizar comida masiva, gestionar espacios) de forma ordenada y
+              rindiendo cuentas claras y con boletas a la Dirección de Finanzas.
             </li>
             <li>
-              <strong>Ejecución por Requerimientos:</strong> habilidad para tomar un texto y un
-              objetivo de comunicación ya definidos y traducirlos rápidamente a un formato gráfico
-              de alta calidad, operando como el brazo ejecutor visual.
+              <strong>Liderazgo Integrador:</strong> facilidad natural para romper el hielo, motivar
+              la participación y conectar a voluntarios de distintas áreas operativas que
+              normalmente no interactúan entre sí.
+            </li>
+            <li>
+              <strong>Resolución Preventiva de Conflictos:</strong> tacto y diplomacia para mediar
+              en posibles roces internos o desgastes entre equipos antes de que escalen.
             </li>
           </ul>
         </li>
@@ -102,7 +114,7 @@ const roleDefinitions = [
     ),
   },
   {
-    id: 2,
+    id: 3,
     title: 'Coordinador(a) de Logística',
     content: (
       <ul className="list-disc pl-5 space-y-2 text-sm">
@@ -165,7 +177,180 @@ const roleDefinitions = [
     ),
   },
   {
-    id: 3,
+    id: 4,
+    title: 'Coordinador(a) Estudiantil',
+    content: (
+      <ul className="list-disc pl-5 space-y-2 text-sm">
+        <li>
+          <strong>Funciones Principales:</strong>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>
+              <strong>Monitoreo de Retención y Alertas Tempranas:</strong> hacer seguimiento activo
+              de la asistencia y el compromiso de los alumnos. Es el encargado de contactar a
+              quienes empiezan a faltar a clases o ensayos para entender sus motivos (problemas
+              personales, desmotivación, carga escolar) y buscar estrategias para evitar su
+              deserción.
+            </li>
+            <li>
+              <strong>Producción de Eventos y Experiencia del Alumno:</strong> planificar y ejecutar
+              la logística de actividades extracurriculares enfocadas en los estudiantes. Esto
+              incluye jornadas de bienvenida, dinámicas de distensión previo a ensayos (oncesitas) y
+              ceremonias de cierre de año.
+            </li>
+            <li>
+              <strong>Gestión de Orientación Vocacional:</strong> Coordinar la ejecución operativa
+              de charlas de carreras, ferias vocacionales internas o talleres sobre cómo postular al
+              FUAS y a la universidad. Trabaja la &quot;forma&quot; de estos eventos, mientras que
+              los expositores invitados ponen el &quot;fondo&quot;.
+            </li>
+            <li>
+              <strong>Recepción y Enlace Comunitario:</strong> liderar la inducción de los
+              estudiantes al preuniversitario. Asegurarse de que entiendan las reglas de
+              convivencia, sepan cómo usar las plataformas (la web o la aplicación) y tengan un
+              canal de confianza para resolver dudas no académicas.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Perfil Requerido:</strong>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>
+              <strong>Empatía y Contención Emocional:</strong> alta inteligencia emocional para
+              tratar con adolescentes que están bajo un nivel extremo de estrés y presión por la
+              PAES. Perfil ideal para estudiantes de Psicología, Trabajo Social o Educación.
+            </li>
+            <li>
+              <strong>Capacidad de Gestión y Seguimiento:</strong> orden metódico para revisar
+              constantemente planillas o bases de datos de asistencia y rendimiento, cruzando esa
+              información dura con la realidad personal de cada alumno.
+            </li>
+            <li>
+              <strong>Conocimiento del Ecosistema de Admisión:</strong> manejo sólido (o disposición
+              rápida a aprender) sobre los procesos burocráticos que estresan a los alumnos: fechas
+              de inscripción a la PAES, llenado del FUAS, becas y gratuidad.
+            </li>
+            <li>
+              <strong>Resolución Preventiva y Mediación:</strong> tacto para manejar problemas de
+              disciplina o conflictos de convivencia entre alumnos dentro de las salas de clases,
+              aplicando el reglamento del preuniversitario de forma justa y pedagógica.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    ),
+  },
+  {
+    id: 5,
+    title: 'Diseñador(a)',
+    content: (
+      <ul className="list-disc pl-5 space-y-2 text-sm">
+        <li>
+          <strong>Funciones Principales:</strong>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>
+              <strong>Gobernanza Visual:</strong> velar por la integridad estética de la
+              organización. Asegurar que las paletas de colores, tipografías y el uso del logo se
+              mantengan coherentes en cualquier material impreso o digital.
+            </li>
+            <li>
+              <strong>Producción Gráfica:</strong> tomar los textos pulidos entregados por la
+              Coordinación de Comunicaciones y convertirlos en piezas visuales profesionales
+              (publicaciones, afiches, dossiers para fondos concursables).
+            </li>
+            <li>
+              <strong>Diseño de Interfaz:</strong> asesorar y ayudar a la Directiva de Operaciones
+              con los recursos gráficos de la página web del preuniversitario para mejorar la
+              experiencia de usuario.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Perfil Requerido:</strong>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>
+              <strong>Competencia Visual y Dominio Técnico:</strong> manejo ágil de software de
+              diseño (Illustrator, Photoshop, Figma, entre otros; deseables pero no excluyentes) y
+              herramientas de ensamble rápido (Canva).
+            </li>
+            <li>
+              <strong>Sensibilidad Digital para Web:</strong> conocimiento sobre cómo exportar y
+              entregar recursos digitales (archivos SVG, PNG, códigos HEX) de manera ordenada para
+              facilitar el desarrollo frontend.
+            </li>
+            <li>
+              <strong>Ejecución por Requerimientos:</strong> habilidad para tomar un texto y un
+              objetivo de comunicación ya definidos y traducirlos rápidamente a un formato gráfico
+              de alta calidad, operando como el brazo ejecutor visual.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    ),
+  },
+  {
+    id: 6,
+    title: 'Editor(a)',
+    content: (
+      <ul className="list-disc pl-5 space-y-2 text-sm">
+        <li>
+          <strong>Funciones Principales:</strong>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>
+              <strong>Curaduría y Ensamble de Contenido:</strong> revisar los bancos de guías y
+              ensayos acumulados de otras fuentes para seleccionar, extraer y combinar los mejores
+              ejercicios y explicaciones. El objetivo es crear un documento nuevo y superior,
+              adaptado al contexto del preuniversitario, en lugar de copiar material íntegro.
+            </li>
+            <li>
+              <strong>Maquetación de Documentos:</strong> diseñar la estructura visual de las guías
+              impresas. Esto implica asegurar que las ecuaciones se vean nítidas, que el texto sea
+              legible y que se optimice el espacio en la hoja (para ayudar al equipo de Logística a
+              no gastar papel de más).
+            </li>
+            <li>
+              <strong>Traducción de Guías a Presentaciones:</strong> tomar el material escrito y
+              transformarlo en presentaciones visuales (diapositivas) para que los profesores las
+              usen como apoyo durante sus clases, asegurando que sigan una línea gráfica estipulada
+              previamente.
+            </li>
+            <li>
+              <strong>Control de Calidad Académica:</strong> actuar como filtro final de redacción y
+              formato antes de que el material se envíe a imprimir, asegurando que la progresión de
+              dificultad de los ejercicios tenga sentido y no haya errores de tipeo en las fórmulas
+              o textos.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>Perfil Requerido:</strong>
+          <ul className="list-disc pl-5 space-y-2 text-sm">
+            <li>
+              <strong>Criterio Pedagógico y de Síntesis:</strong> capacidad para identificar qué
+              ejercicio es realmente útil para la PAES y cuál es relleno. Habilidad para resumir
+              materia densa en esquemas o tablas fáciles de digerir.
+            </li>
+            <li>
+              <strong>Dominio de Herramientas de Edición y Maquetación:</strong> manejo de
+              procesadores de texto y herramientas de diseño de documentos. Es un gran plus si
+              manejan software de tipografía y maquetación como Typst, o creación de gráficos
+              vectoriales.
+            </li>
+            <li>
+              <strong>Responsabilidad Intelectual:</strong> criterio para inspirarse en múltiples
+              fuentes, modificar enunciados y cambiar valores numéricos para crear material propio,
+              evitando el plagio directo.
+            </li>
+            <li>
+              <strong>Autonomía de Ejecución:</strong> concentración individual para armar
+              documentos precisos semana a semana.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    ),
+  },
+  {
+    id: 7,
     title: 'Voluntario(a) de Logística',
     content: (
       <ul className="list-disc pl-5 space-y-2 text-sm">
